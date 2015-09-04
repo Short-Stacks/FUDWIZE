@@ -1,0 +1,132 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Short Stacks</title>
+  <link rel="stylesheet" type="text/css" href="./../../../lib/bootstrap/css/bootstrap.css">
+  <style type="text/css">
+    body>*{
+      
+    }
+    /*protip: nocommas, no semicolons!*/
+
+    .profilepic{
+      overflow: hidden;
+      border-radius: 14%;
+      width: 189px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .name{
+      font-size: 40px;
+    }
+    
+
+    /***restaurant view 'pickups start'***/
+    .eventli{
+        box-shadow: rgb(255, 223, 212) 5px 0px 0px 0px inset; 
+        height: 125px;
+        border-bottom: 1px solid rgb(221, 221, 221);
+        font: normal normal normal normal 13px / 15.6px Whitney, helvetica, arial, sans-serif;
+        list-style: none outside none;
+        outline: rgb(136, 136, 136) none 0px;
+    }
+
+    .eventli:after {
+        clear: both;
+    }
+
+    .eventli .timebox{
+       box-sizing:border-box; 
+       float:left; 
+       height:53px; 
+       min-height:1px; 
+       text-align:left; 
+       width:96.9219px; 
+       font:normal normal normal normal 13px / 15.6px Whitney,helvetica,arial,sans-serif; 
+       padding:16px 0px 12px 16px
+    }
+
+    time {
+        text-align: left;
+        font: normal normal normal normal 16px / 19.2px Whitney, helvetica, arial, sans-serif;
+    }
+
+    /*am*/
+    .ampm {
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid rgb(170, 170, 170);
+        font: normal normal normal normal 10px / 16px Whitney, helvetica, arial, sans-serif;
+    }
+
+    .eventli .fbk{
+        color: rgb(136, 136, 136);
+        float: left;
+        height: 125px;
+        min-height: 1px;
+        text-align: left;
+        width: 387.734px;
+        list-style: none outside none;
+        padding: 16px 16px 12px;
+    }
+    .phonenum {
+        color: rgb(136, 136, 136);
+    }
+    /***restaurant view 'pickups end'***/
+
+
+
+  </style>
+
+</head>
+<body class="container">
+
+  <div class="row">
+    <div class="col-md-3"><img src="http://images.nymag.com/images/2/daily/2010/04/20100401_innout_190x190.jpg" alt="In n Out" class="profilepic"></div>
+    <div class="name col-md-9">In n Out</div>
+  </div>
+
+  <div class="row">
+    <div class="sidebar col-md-3">  
+      <div> 
+        <p> Address: </p>
+        <p> Can Donate: </p>
+      </div>
+
+      <stats>
+        <p>food contributions</p>
+        <p>Aug 20 : SF Marin received your package</p>
+      </stats>
+    </div>
+
+    <div class="pickupinfo col-md-9">
+      <p>PickUps</p>
+      
+      <ul class="pickupevent">
+        <li class="eventli">
+          <div class="timebox">
+            <time>10:00<span class="ampm">AM</span></time>
+            <time>FRI </time>
+            <time>Aug 29th</time>
+          </div>
+
+          <div class="fbk">
+           <span>SF-Marin Food Bank</span>
+            <div class="phonenum">
+              415-888-9191
+            </div>
+          </div>
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+
+
+
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src='./../../../lib/bootstrap/js/bootstrap.js'></script>
+</body>
+</html>
