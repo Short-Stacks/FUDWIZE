@@ -14,12 +14,12 @@ angular.module('myApp', [
   $routeProvider
     .when('/', {
       templateUrl: './index/main.html',
-      controller: 'mainController',
+      controller: 'MainController',
       controllerAs: 'vm'
     })
     .when('/signup', {
       templateUrl: './signup/signup.html',
-      controller: 'signupController',
+      controller: 'SignupController',
       controllerAs: 'vm'
     })
     .otherwise({
