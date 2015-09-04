@@ -1,6 +1,6 @@
 angular.module('myApp.index', [])
 
-.controller('MainController', ['', function() {
+.controller('MainCtrl', ['', function() {
   var vm = this;
 
 

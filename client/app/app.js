@@ -14,32 +14,32 @@ angular.module('myApp', [
   $routeProvider
     .when('/', {
       templateUrl: './index/main.html',
-      controller: 'MainController',
+      controller: 'MainCtrl',
       controllerAs: 'vm'
     })
     .when('/signup:type', {
       templateUrl: './signup/signup.html',
-      controller: 'SignupController',
+      controller: 'SignupCtrl',
       controllerAs: 'vm'
     })
     .when('/login:type', {
       templateUrl: './login/login.html',
-      controller: 'LoginController',
+      controller: 'LoginCtrl',
       controllerAs: 'vm'
     })
     .when('/rst:userId', {
       templateUrl: './restaurants/rst.html',
-      controller: 'RestaurantController',
+      controller: 'RestaurantCtrl',
       controllerAs: 'vm'
     })
     .when('/fbk:userId', {
       templateUrl: './foodbanks/fbk.html',
-      controller: 'FoodbankController',
+      controller: 'FoodbankCtrl',
       controllerAs: 'vm'
     })
     .when('/dash:userId', {
       templateUrl: './dashboard/dash.html',
-      controller: 'DashboardController',
+      controller: 'DashboardCtrl',
       controllerAs: 'vm'
     })
     .otherwise({
