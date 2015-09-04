@@ -1,5 +1,3 @@
-//greenfiled app
-
 angular.module('myApp', [
   'myApp.foodbanks',
   'myApp.index',
@@ -21,7 +19,7 @@ angular.module('myApp', [
       controller: 'MainCtrl',
       controllerAs: 'vm'
     })
-    .when('/signup:type', {
+    .when('/signup', {
       templateUrl: './signup/signup.html',
       controller: 'SignupCtrl',
       controllerAs: 'vm'
@@ -31,17 +29,17 @@ angular.module('myApp', [
       controller: 'LoginCtrl',
       controllerAs: 'vm'
     })
-    .when('/rst:userId', {
+    .when('/rst:username', {
       templateUrl: './restaurants/rst.html',
       controller: 'RestaurantCtrl',
       controllerAs: 'vm'
     })
-    .when('/fbk:userId', {
+    .when('/fbk:username', {
       templateUrl: './foodbanks/fbk.html',
       controller: 'FoodbankCtrl',
       controllerAs: 'vm'
     })
-    .when('/dash:userId', {
+    .when('/dash:username', {
       templateUrl: './dashboard/dash.html',
       controller: 'DashboardCtrl',
       controllerAs: 'vm'
