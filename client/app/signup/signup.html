@@ -4,6 +4,8 @@
 
 <form name='signupForm'>
 
+    <!-- the first portion of this form will be used by both restaurants and foodbanks -->
+    <!-- all data from the form will be saved in the postData object in the controller -->
    	<label>Username:
    		<input type='text' name='usernameInput' ng-model='ctrl.postData.username' required>
    	</label>
@@ -57,6 +59,47 @@
   	<label>Tell Us About Your Organization:
   		<input type='text' name='aboutUsInput' ng-model='ctrl.postData.additional.aboutUs'> 
   	</label>
+
+    <!-- this portion will only show if the organization is a restaurant -->
+    <!-- <div ng-show='ctrl.isRst'> -->
+      
+      <!-- first row -->
+<!--       <tr>
+        <td>Meals You Can Provide</td>
+        <td>Type of Food</td>    
+        <td>Days Available For Food Pickup</td>
+        <td>Time of Day</td>
+      </tr> -->
+
+      <!-- second row -->
+<!--       <tr>
+        <td>  
+          <label>Breakfast:
+            <input type="checkbox" ng-model="ctrl.postData.foodData.mealType.breakfast">
+          </label><br/>
+        </td>
+      </tr> -->
+
+      <!-- third row -->
+<!--       <tr>
+        <td>
+          <label>Lunch:
+            <input type="checkbox" ng-model="ctrl.postData.foodData.mealType.lunch">
+          </label>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>     
+      </tr> -->
+
+      <!-- fourth row -->
+<!--       <tr>
+        <td>
+          
+        </td>
+      </tr>
+
+    </div> -->
 
 </form>
 
