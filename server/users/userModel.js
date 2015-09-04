@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs')
 
-var UserSchema = new Schema ({
+var UserSchema = new mongoose.Schema ({
   username: {
     type: String,
     required: true,
@@ -16,20 +16,20 @@ var UserSchema = new Schema ({
     required: true
   },
   contactInfo: {
-    type: Object,
+    type: {},
     required: true
   },
   websiteUrl: {
     type: String
   },
   additional: {
-    type: Object
+    type: {}
   },
   connections: {
     type: Array
   },
   foodData: {
-    type: Object
+    type: {}
   }
   salt: String
   //add messages/notifications field to/from foodbanks
@@ -65,3 +65,5 @@ UserSchema.pre('save', function(next) {
     })
   }
 })
+
+module.exports = mongoose.model('User', UserSchema);
