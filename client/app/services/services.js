@@ -3,10 +3,11 @@ angular.module('myApp.services', [])
 .factory('AjaxService', ['', function(){
   var obj = {};
 
-  obj.postSignup = function(data, typeParam){
+  //invoking this method will perform a POST ajax and return a promise
+  obj.postSignupData = function(data, param){
     return $http({
       method: 'POST',
-      url: SERVER + '/signup/' + typeParam,
+      url: SERVER + '/signup/' + param,
       data: data
     });
 
