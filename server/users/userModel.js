@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs')
 
-var UserSchema = new Schema ({
+var UserSchema = new mongoose.Schema ({
   username: {
     type: String,
     required: true,
@@ -34,6 +34,8 @@ var UserSchema = new Schema ({
   salt: String
   //add messages/notifications field to/from foodbanks
 });
+
+var User = mongoose.model('User', UserSchema);
 
 //set up method to compare login password with stored encrypted password
 UserSchema.methods.verifyPassword = function(attemptedPassword) {
