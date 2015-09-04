@@ -1,8 +1,19 @@
+/* set html/body height as 100% in the main page */
+
 html, body {
   background-color: #ededed;
   font-family: 'helvetica neue', sans-serif;
+  color: white;
   width: 100%;
   height: 100%;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  font-family: 'helvetica neue', sans-serif;
+  color: white;
+  background-image: url(../../assets/background.jpg);
 }
 
 h1 {
@@ -13,12 +24,13 @@ h4 {
   padding: 0 15px;
 }
 
-/*.login {*/
-  /*border-radius: 5px;*/
-  /*padding: 5px;*/
-  /*border: 1px solid black;*/
-  /*background-color: #74C4D4;*/
-/*}*/
+span .navbar-text {
+  font-size: 2em;
+}
+
+.login {
+  font-weight: bold;
+}
 
 .container {
   height: 100%;
@@ -42,14 +54,16 @@ h4 {
   margin-top: 50px;
   display: block;
 }
+
 .restaurant-box,
 .foodbank-box {
+}
+
+.intro-boxes p {
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 img {
   display: inline-block;
 }
-
-/*div[class*="col-"] {*/
-  /*border: 2px dotted black;*/
-/*}*/
