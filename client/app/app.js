@@ -1,5 +1,3 @@
-//greenfiled app
-
 angular.module('myApp', [
   'myApp.foodbanks',
   'myApp.index',
@@ -21,7 +19,7 @@ angular.module('myApp', [
       controller: 'MainCtrl',
       controllerAs: 'vm'
     })
-    .when('/signup:type', {
+    .when('/signup', {
       templateUrl: './signup/signup.html',
       controller: 'SignupCtrl',
       controllerAs: 'vm'
