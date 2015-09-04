@@ -19,12 +19,12 @@ angular.module('myApp', [
       controller: 'MainCtrl',
       controllerAs: 'vm'
     })
-    .when('/signup', {
+    .when('/signup/type', {
       templateUrl: './signup/signup.html',
       controller: 'SignupCtrl',
       controllerAs: 'vm'
     })
-    .when('/login:type', {
+    .when('/login', {
       templateUrl: './login/login.html',
       controller: 'LoginCtrl',
       controllerAs: 'vm'
