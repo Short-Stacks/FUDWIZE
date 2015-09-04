@@ -10,6 +10,10 @@ angular.module('myApp', [
   'ngRoute'
 ])
 
+.constant('MY_CONSTANTS', {
+  "SERVER": "http://127.0.0.1:3000"
+})
+
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
@@ -76,7 +80,7 @@ angular.module('myApp', [
   return attach;
 }])
 
-.run(['$rootScope', '$location', 'Auth', function($rootScope, $location, Auth) {
+.run(['$rootScope', '$location', 'AuthService', function($rootScope, $location, AuthService) {
   // here inside the run phase of angular, our services and controllers
   // have just been registered and our app is ready
   // however, we want to make sure the user is authorized

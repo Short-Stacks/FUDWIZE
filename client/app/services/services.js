@@ -1,8 +1,16 @@
 angular.module('myApp.services', [])
 
-.factory('Ajax', ['', function(){
-  var vm = this;
+.factory('AjaxService', ['', function(){
   var obj = {};
+
+  obj.postSignup = function(data, typeParam){
+    return $http({
+      method: 'POST',
+      url: SERVER + '/signup/' + typeParam,
+      data: data
+    });
+
+  };
 
   return obj;
 
@@ -10,7 +18,7 @@ angular.module('myApp.services', [])
 
 //will need to update and understand this --> currently copied from shortly.js
 
-.factory('Auth',['$http', '$location', '$window', function ($http, $location, $window) {
+.factory('AuthService',['$http', '$location', '$window', function ($http, $location, $window) {
   // Don't touch this Auth service!!!
   // it is responsible for authenticating our user
   // by exchanging the user's username and password
