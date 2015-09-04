@@ -1,1 +1,67 @@
-<div id="signup">signup page test<div>
+<div id="signup" ng-controller='SignupCtrl as ctrl'>
+
+<h1>Join the FudWize Network</h1>
+
+<form name='signupForm'>
+
+   	<label>Username:
+   		<input type='text' name='usernameInput' ng-model='ctrl.postData.username' required>
+   	</label>
+   	<div role="alert">
+    	<span class="error" ng-show="signupForm.usernameInput.$error.required">
+      		(required)</span>
+    </div>
+
+   	<label>Password:
+   		<input type="password" name='passwordInput' ng-model='ctrl.postData.password' required>
+   	</label>
+   	<div role="alert">
+    	<span class="error" ng-show="signupForm.passwordInput.$error.required">
+      		(required)</span>
+    </div>
+
+   	<br/>
+
+   	<label>Name of Organization:
+   		<input type='text' ng-model='ctrl.postData.contactInfo.name'>
+   	</label>
+
+   	<label>Phone Number:
+    	<input type="number" name="phoneInput" ng-model="ctrl.postData.contactInfo.phoneNumber" required>
+ 	</label>
+  	<div role="alert">
+    	<span class="error" ng-show="signupForm.phoneInput.$error.required">
+      		(required)</span>
+    	<span class="error" ng-show="signupForm.phoneInput.$error.number">
+      		Not valid phone number!</span>
+  	</div>
+
+   	<label>Email:
+    	<input type="email" name="emailInput" ng-model="ctrl.postData.contactInfo.email" required>
+   	</label>
+   	<div role="alert">
+      <span class="error" ng-show="signupForm.emailInput.$error.required">
+        (required)</span>
+      <span class="error" ng-show="signupForm.emailInput.$error.email">
+        Not a valid email address!</span>
+    </div>
+
+  	<label>Your Website Address:
+    	<input type="url" name="urlInput" ng-model="ctrl.postData.websiteURL">
+  	<label>
+  	<div role="alert">
+    	<span class="error" ng-show="signupForm.urlInput.$error.url">
+      	Not a valid URL ... please include http:// + yourURL</span>
+  	</div>
+
+  	<label>Tell Us About Your Organization:
+  		<input type='text' name='aboutUsInput' ng-model='ctrl.postData.additional.aboutUs'> 
+  	</label>
+
+</form>
+
+   <button ng-click='ctrl.submitForm(); '>signup</button>
+
+<div>
+
+
