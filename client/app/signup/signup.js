@@ -1,6 +1,6 @@
 angular.module('myApp.signup', [])
 
-.controller('SignupCtrl', ['$routeParams', 'AjaxService' function($routeParams, AjaxService){
+.controller('SignupCtrl', ['$routeParams', 'AjaxService', function($routeParams, AjaxService){
   /*
   angular best practice is to save the controller "this" context as "vm" (short for viewmodel)
   doing this allows us to bind something to our view while nested inside a controller function like submitForm
