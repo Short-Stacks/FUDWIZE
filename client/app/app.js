@@ -2,6 +2,7 @@
 
 angular.module('myApp', [
   'myApp.foodbanks',
+  'myApp.index',
   'myApp.login',
   'myApp.restaurants',
   'myApp.services',
@@ -12,12 +13,14 @@ angular.module('myApp', [
 .config(function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'app/index.html',
-      controller: ''
+      templateUrl: './index/main.html',
+      controller: 'mainController',
+      controllerAs: 'vm'
     })
     .when('/signup', {
-      templateUrl: 'app/auth/signup.html',
-      controller: 'AuthController'
+      templateUrl: './signup/signup.html',
+      controller: 'signupController',
+      controllerAs: 'vm'
     })
     .otherwise({
       redirectTo: '/'
