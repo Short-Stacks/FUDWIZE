@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var User = require('./userModel.js')
 
 var chipotle = new User({
   username: chipotle,

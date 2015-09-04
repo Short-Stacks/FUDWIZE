@@ -16,26 +16,24 @@ var UserSchema = new mongoose.Schema ({
     required: true
   },
   contactInfo: {
-    type: Object,
+    type: {},
     required: true
   },
   websiteUrl: {
     type: String
   },
   additional: {
-    type: Object
+    type: {}
   },
   connections: {
     type: Array
   },
   foodData: {
-    type: Object
+    type: {}
   }
   salt: String
   //add messages/notifications field to/from foodbanks
 });
-
-var User = mongoose.model('User', UserSchema);
 
 //set up method to compare login password with stored encrypted password
 UserSchema.methods.verifyPassword = function(attemptedPassword) {
@@ -67,3 +65,5 @@ UserSchema.pre('save', function(next) {
     })
   }
 })
+
+module.exports = mongoose.model('User', UserSchema);
