@@ -1,6 +1,6 @@
 angular.module('myApp.signup', [])
 
-.controller('SignupCtrl', ['$routeParams', 'AjaxService' function($routeParams, AjaxService){
+.controller('SignupCtrl', ['$routeParams', 'AjaxService', function($routeParams, AjaxService){
   /*
   angular best practice is to save the controller "this" context as "vm" (short for viewmodel)
   doing this allows us to bind something to our view while nested inside a controller function like submitForm
@@ -13,16 +13,36 @@ angular.module('myApp.signup', [])
   */
   var typeParam = $routeParams.type;
 
+  var vm.isRst;
+  if (typeParam === 'rst') {
+    vm.isRst = true;
+  }
+
   //data submited from the html signup form will go in this object
-  var postData = {};
+  // postData object will contain these properties (only rst's will have foodData):
+
+  // username
+  // password
+  // contactInfo.name
+  // contactInfo.phoneNumber
+  // contactInfo.email
+  // websiteUrl
+  // additional.aboutUs
+  // foodData
+  //   mealType (breakfast, lunch, dinner)
+  //   foodType (italian, indian, etc.)
+  //   pickupDay
+  //   pickupTime
+  
+  vm.postData = {};
 
   /*
   calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
   */
 
 
-  function submitForm(data, param){
-    AjaxService.postSignupData(data, param)
+  vm.submitForm = function (){
+    AjaxService.postSignupData(vm.postData, typeParam)
       .success(function(data, status){
         console.log('signup success', status);
 
