@@ -3,10 +3,12 @@ var mongoose = require('mongoose');
 var app = express();
 var path = require('path');
 var User = require('./users/userModel.js');
+// var jwt = require('jwt-simple');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
-mongoose.connect('mongob://user:pass@localhost/api');
+// mongoose.connect('mongodb://user:pass@localhost/api');
+mongoose.connect('mongodb://localhost/fudwize');
 app.use(cors());
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '../client')));
@@ -21,7 +23,7 @@ app.post('/signup/:type', function(req, res) {
   var contactInfo = data.contactInfo;
   var websiteUrl = data.websiteUrl;
   var additional = data.additional;
-  // var foodData = data.foodData;
+  var foodData = data.foodData;
 
   User.findOne({
     username: username
@@ -37,21 +39,21 @@ app.post('/signup/:type', function(req, res) {
           type: type,
           contactInfo: contactInfo,
           websiteUrl: websiteUrl,
-          additional: additional
-          // foodData: foodData
+          additional: additional,
+          foodData: foodData
         });
-
         newUser.save(function(err) {
           if (err) {
             console.log('error')
           }
+          next();
         });
       }
     });
 });
 //post request to verify the user info
 app.post('/login', function(req, res) {
-  var pw = req.body.password;
+  var password = req.body.password;
   var username = req.body.username
   User.findOne({
     username: username
@@ -59,7 +61,7 @@ app.post('/login', function(req, res) {
     .then(function(user) {
       if (user) {
         if (User.verifyPassword(password)) {
-            // do sth
+          next();
         }
         else {
           console.log('not valid password')
