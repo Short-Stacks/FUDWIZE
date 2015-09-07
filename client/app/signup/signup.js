@@ -13,7 +13,7 @@ angular.module('myApp.signup', [])
   */
   var typeParam = $routeParams.type;
 
-  var vm.isRst;
+  vm.isRst = undefined;
   if (typeParam === 'rst') {
     vm.isRst = true;
   }

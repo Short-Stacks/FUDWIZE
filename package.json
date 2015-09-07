@@ -17,9 +17,10 @@
   },
   "homepage": "https://github.com/darrinmn9/MKS22-greenfield",
   "dependencies": {
-    "express": "^4.4.5",
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.13.3",
+    "cors": "^2.7.1",
+    "express": "^4.4.5",
     "mongoose": "^4.1.0"
-
   }
 }
