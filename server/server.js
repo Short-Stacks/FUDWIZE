@@ -8,7 +8,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 mongoose.connect('mongodb://user:pass@localhost/api');
 app.use(cors());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
 //a post request to post new use info to db
@@ -43,7 +43,7 @@ app.post('/signup/:type', function(req, res) {
 
         newUser.save(function(err) {
           if (err) {
-            console.log('error')
+            console.log('error');
           }
         });
       }
@@ -52,7 +52,7 @@ app.post('/signup/:type', function(req, res) {
 //post request to verify the user info
 app.post('/login', function(req, res) {
   var pw = req.body.password;
-  var username = req.body.username
+  var username = req.body.username;
   User.findOne({
     username: username
   })
@@ -62,7 +62,7 @@ app.post('/login', function(req, res) {
             // do sth
         }
         else {
-          console.log('not valid password')
+          console.log('not valid password');
         }
       }
     });
