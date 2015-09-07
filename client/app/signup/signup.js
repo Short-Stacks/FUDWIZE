@@ -53,10 +53,10 @@ angular.module('myApp', [])
   
   vm.postData = {
     foodData: {
-      mealType: {},
-      foodType: {},
-      pickupDay: {},
-      pickupTime: {},
+      mealType: vm.mealType,
+      foodType: vm.foodType,
+      pickupDay: vm.pickupDay,
+      pickupTime: vm.pickupTime,
     }
   };
 
