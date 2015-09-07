@@ -1,5 +1,5 @@
 node_modules/
-app/client/components/
+client/components/
 *.log
 
 build/
