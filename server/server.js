@@ -6,7 +6,7 @@ var User = require('./users/userModel.js');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
-mongoose.connect('mongob://user:pass@localhost/api');
+mongoose.connect('mongodb://user:pass@localhost/api');
 app.use(cors());
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '../client')));
@@ -82,7 +82,7 @@ app.get('/rst/:username', function(req, res) {
   }
 });
 
-app.get('/fbk/:username', function(req, res){
+app.get('/fbk/:username', function(req, res) {
   var username = req.params.username;
   var data = req.body;
   // res.render('fbk/:'+username);
@@ -109,7 +109,7 @@ app.get('/dash/:username', function(req, res) {
   }
 });
 
-var port =  process.env.PORT || 3000; 
+var port = process.env.PORT || 3000; 
 var server = app.listen(port, function() {
   var host = server.address().address;
   var p = server.address().port;
