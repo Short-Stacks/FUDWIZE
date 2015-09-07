@@ -1,0 +1,25 @@
+{
+  "name": "MKS22-greenfield",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darrinmn9/MKS22-greenfield.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darrinmn9/MKS22-greenfield/issues"
+  },
+  "homepage": "https://github.com/darrinmn9/MKS22-greenfield",
+  "dependencies": {
+    "express": "^4.4.5",
+    "bcrypt-nodejs": "0.0.3",
+    "mongoose": "^4.1.0"
+
+  }
+}

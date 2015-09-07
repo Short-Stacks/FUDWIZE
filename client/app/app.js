@@ -19,7 +19,7 @@ angular.module('myApp', [
       controller: 'MainCtrl',
       controllerAs: 'vm'
     })
-    .when('/signup/type', {
+    .when('/signup/:type', {
       templateUrl: './signup/signup.html',
       controller: 'SignupCtrl',
       controllerAs: 'vm'
@@ -29,17 +29,17 @@ angular.module('myApp', [
       controller: 'LoginCtrl',
       controllerAs: 'vm'
     })
-    .when('/rst:username', {
+    .when('/rst/:username', {
       templateUrl: './restaurants/rst.html',
       controller: 'RestaurantCtrl',
       controllerAs: 'vm'
     })
-    .when('/fbk:username', {
+    .when('/fbk/:username', {
       templateUrl: './foodbanks/fbk.html',
       controller: 'FoodbankCtrl',
       controllerAs: 'vm'
     })
-    .when('/dash:username', {
+    .when('/dash/:username', {
       templateUrl: './dashboard/dash.html',
       controller: 'DashboardCtrl',
       controllerAs: 'vm'

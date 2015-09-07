@@ -33,7 +33,7 @@ angular.module('myApp.signup', [])
   //   foodType (italian, indian, etc.)
   //   pickupDay
   //   pickupTime
-  
+
   vm.postData = {};
 
   /*
