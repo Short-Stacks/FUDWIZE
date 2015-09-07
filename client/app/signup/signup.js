@@ -42,11 +42,11 @@ angular.module('myApp.signup', [])
   };
 
   vm.pickupTime = {
-    'Early Morning (6-9 AM)': false, 
+    'Early Morning (6AM-9AM)': false, 
     'Late Morning (9AM-12PM)': false, 
-    'Early Afternoon (12-3 PM)': false, 
-    'Late Afternoon (3-6 PM)': false, 
-    'Evening (6-9 PM)': false,
+    'Early Afternoon (12PM-3PM)': false, 
+    'Late Afternoon (3PM-6PM)': false, 
+    'Evening (6PM-9PM)': false,
   }
   //data submited from the html signup form will go in this object
   // postData object will contain these properties (only rst's will have foodData):
