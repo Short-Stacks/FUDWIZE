@@ -1,12 +1,11 @@
-//greenfiled app
-
 angular.module('myApp', [
   'myApp.foodbanks',
   'myApp.index',
+  'myApp.dashboard',
   'myApp.login',
   'myApp.restaurants',
   'myApp.services',
-  'myApp.singup',
+  'myApp.signup',
   'ngRoute'
 ])
 
@@ -17,32 +16,32 @@ angular.module('myApp', [
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: './index/main.html',
+      templateUrl: 'app/index/main.html',
       controller: 'MainCtrl',
       controllerAs: 'vm'
     })
-    .when('/signup:type', {
-      templateUrl: './signup/signup.html',
+    .when('/signup/:type', {
+      templateUrl: 'app/signup/signup.html',
       controller: 'SignupCtrl',
       controllerAs: 'vm'
     })
-    .when('/login:type', {
-      templateUrl: './login/login.html',
+    .when('/login', {
+      templateUrl: 'app/login/login.html',
       controller: 'LoginCtrl',
       controllerAs: 'vm'
     })
-    .when('/rst:userId', {
-      templateUrl: './restaurants/rst.html',
-      controller: 'RestaurantCtrl',
+    .when('/rst/:username', {
+      templateUrl: 'app/restaurants/rst.html',
+      controller: 'RestaurantsCtrl',
       controllerAs: 'vm'
     })
-    .when('/fbk:userId', {
-      templateUrl: './foodbanks/fbk.html',
-      controller: 'FoodbankCtrl',
+    .when('/fbk/:username', {
+      templateUrl: 'app/foodbanks/fbk.html',
+      controller: 'FoodbanksCtrl',
       controllerAs: 'vm'
     })
-    .when('/dash:userId', {
-      templateUrl: './dashboard/dash.html',
+    .when('/dash/:username', {
+      templateUrl: 'app/dashboard/dash.html',
       controller: 'DashboardCtrl',
       controllerAs: 'vm'
     })
@@ -54,14 +53,14 @@ angular.module('myApp', [
 
   // We add our $httpInterceptor into the array
   // of interceptors. Think of it like middleware for your ajax calls
-  $httpProvider.interceptors.push('AttachTokens');
+  // $httpProvider.interceptors.push('AttachTokens');
 
 }])
 
 
 
 //will need to update and understand this --> currently copied from shortly.js
-
+/*
 .factory('AttachTokens', ['$window', function($window) {
   // this is an $httpInterceptor
   // its job is to stop all out going request
@@ -80,6 +79,8 @@ angular.module('myApp', [
   return attach;
 }])
 
+
+
 .run(['$rootScope', '$location', 'AuthService', function($rootScope, $location, AuthService) {
   // here inside the run phase of angular, our services and controllers
   // have just been registered and our app is ready
@@ -94,3 +95,4 @@ angular.module('myApp', [
     }
   });
 }]);
+*/

@@ -1,4 +1,4 @@
-angular.module('myApp', [])
+angular.module('myApp.signup', [])
 
 .controller('SignupCtrl', ['$scope', '$routeParams', 'AjaxService', function($scope, $routeParams, AjaxService){
   /*
@@ -50,6 +50,7 @@ angular.module('myApp', [])
   }
   //data submited from the html signup form will go in this object
   // postData object will contain these properties (only rst's will have foodData):
+
   
   vm.postData = {
     foodData: {
@@ -59,6 +60,7 @@ angular.module('myApp', [])
       pickupTime: vm.pickupTime,
     }
   };
+
 
   /*
   calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type

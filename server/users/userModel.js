@@ -30,17 +30,21 @@ var UserSchema = new mongoose.Schema ({
   },
   foodData: {
     type: {}
+  },
+  salt: {
+    type: String
   }
-  salt: String
   //add messages/notifications field to/from foodbanks
 });
 
 //set up method to compare login password with stored encrypted password
 UserSchema.methods.verifyPassword = function(attemptedPassword) {
   var savedPassword = this.password;
+  var result;
   bcrypt.compare(attemptedPassword, savedPassword, function(err, match) {
-    callback(match);
+    result = match;
   })
+  return result;
 }
 
 //before a new user is saved to database, create encrypted password using bcrypt
@@ -48,9 +52,9 @@ UserSchema.pre('save', function(next) {
   var user = this;
   if (!user.isModified('password')) {
     return next();
-  } 
+  }
 
-  //generate the saltiest of salts 
+  //generate the saltiest of salts
   bcrypt.genSalt(function(err, result) {
     if (err) {
       return next(err);
@@ -62,8 +66,8 @@ UserSchema.pre('save', function(next) {
   bcrypt.hash(user.password, user.salt, null, function(err, hash) {
     user.password = hash;
     next();
-    })
-  }
+  })
+
 })
 
 module.exports = mongoose.model('User', UserSchema);

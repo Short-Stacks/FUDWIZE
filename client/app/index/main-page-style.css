@@ -1,0 +1,60 @@
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  font-family: 'helvetica neue', sans-serif;
+  color: white;
+  background-image: url(../../assets/background.jpg);
+}
+
+h1 {
+  font-size: 4em;
+}
+
+h4 {
+  padding: 0 15px;
+}
+
+span .navbar-text {
+  font-size: 2em;
+}
+
+.login {
+  font-weight: bold;
+}
+
+.container {
+  height: 100%;
+  width: 1170px;
+}
+
+.landing {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+.landing-body {
+  width: 100%;
+  height:100%;
+  display: table-cell;
+  vertical-align: middle
+}
+
+.intro-boxes {
+  margin-top: 50px;
+  display: block;
+}
+
+.restaurant-box,
+.foodbank-box {
+}
+
+.intro-boxes p {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+img {
+  display: inline-block;
+}
