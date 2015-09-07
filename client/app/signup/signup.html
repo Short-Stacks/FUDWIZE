@@ -1,8 +1,10 @@
+<script src='./signup.js'></script>
+
 <div id="signup" ng-controller='SignupCtrl as ctrl'>
 
 <h1>Join the FudWize Network</h1>
 
-<form name='signupForm'>
+<form name='signupForm' ng-submit="ctrl.submit()">
 
     <!-- the first portion of this form will be used by both restaurants and foodbanks -->
     <!-- all data from the form will be saved in the postData object in the controller -->
@@ -49,62 +51,58 @@
     </div>
 
   	<label>Your Website Address:
-    	<input type="url" name="urlInput" ng-model="ctrl.postData.websiteURL">
+    	<input type='text' name="urlInput" ng-model="ctrl.postData.websiteURL">
   	<label>
-  	<div role="alert">
-    	<span class="error" ng-show="signupForm.urlInput.$error.url">
-      	Not a valid URL ... please include http:// + yourURL</span>
-  	</div>
 
   	<label>Tell Us About Your Organization:
   		<input type='text' name='aboutUsInput' ng-model='ctrl.postData.additional.aboutUs'> 
   	</label>
 
     <!-- this portion will only show if the organization is a restaurant -->
-    <!-- <div ng-show='ctrl.isRst'> -->
+    <div ng-show='ctrl.isRst'>
       
       <!-- first row -->
-<!--       <tr>
+    <table>  
+      <th>
         <td>Meals You Can Provide</td>
         <td>Type of Food</td>    
         <td>Days Available For Food Pickup</td>
         <td>Time of Day</td>
-      </tr> -->
+      </th>
 
-      <!-- second row -->
-<!--       <tr>
-        <td>  
-          <label>Breakfast:
-            <input type="checkbox" ng-model="ctrl.postData.foodData.mealType.breakfast">
-          </label><br/>
-        </td>
-      </tr> -->
-
-      <!-- third row -->
-<!--       <tr>
-        <td>
-          <label>Lunch:
-            <input type="checkbox" ng-model="ctrl.postData.foodData.mealType.lunch">
+      <tr>
+        <td>          
+          <label ng-repeat='(key, value) in ctrl.mealType'>
+            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.mealType[key]'> {{ key }} </input>
           </label>
         </td>
-        <td></td>
-        <td></td>
-        <td></td>     
-      </tr> -->
-
-      <!-- fourth row -->
-<!--       <tr>
         <td>
-          
+          <label ng-repeat='(key, value) in ctrl.foodType'>
+            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.foodType[key]'> {{ key }} </input>
+          </label>
+        </td>
+        <td>
+          <label ng-repeat='(key, value) in ctrl.pickupDay'>
+            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.pickupDay[key]'> {{ key }} </input>
+          </label>
+        </td>
+        <td>
+          <label ng-repeat='(key, value) in ctrl.pickupTime'>
+            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.pickupTime[key]'> {{ key }} </input>
+          </label>
         </td>
       </tr>
 
-    </div> -->
+    </table>
 
+    </div>
+    <input type="submit" id="submit" value="Submit" />
 </form>
 
-   <button ng-click='ctrl.submitForm(); '>signup</button>
 
-<div>
+
+</div>
+
+
 
 

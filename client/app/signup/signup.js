@@ -1,47 +1,72 @@
-angular.module('myApp.signup', [])
+angular.module('myApp', [])
 
-.controller('SignupCtrl', ['$routeParams', 'AjaxService', function($routeParams, AjaxService){
+.controller('SignupCtrl', ['$scope', '$routeParams', 'AjaxService', function($scope, $routeParams, AjaxService){
   /*
   angular best practice is to save the controller "this" context as "vm" (short for viewmodel)
   doing this allows us to bind something to our view while nested inside a controller function like submitForm
   */
   var vm = this;
-
   /*
   typeParam will be either "rst" or "fbk" based on our .config setup in app.js
   we must make sure <a> "href=" in signup.html directs us to either #/signup/rst or #/signup/fbk
   */
   var typeParam = $routeParams.type;
 
-  var vm.isRst;
   if (typeParam === 'rst') {
     vm.isRst = true;
   }
 
+  vm.mealType = {
+    'Breakfast': false,
+    'Lunch': false, 
+    'Dinner': false,
+    'Dessert': false,
+  };
+
+  vm.foodType = {
+    'Baked Goods': false,
+    'Produce': false, 
+    'Canned Goods': false, 
+    'Meats': false, 
+    'Dairy': false,
+  };
+
+  vm.pickupDay = {
+    'Monday': false, 
+    'Tuesday': false, 
+    'Wednesday': false, 
+    'Thursday': false, 
+    'Friday': false, 
+    'Saturday': false, 
+    'Sunday': false,
+  };
+
+  vm.pickupTime = {
+    'Early Morning (6-9 AM)': false, 
+    'Late Morning (9AM-12PM)': false, 
+    'Early Afternoon (12-3 PM)': false, 
+    'Late Afternoon (3-6 PM)': false, 
+    'Evening (6-9 PM)': false,
+  }
   //data submited from the html signup form will go in this object
   // postData object will contain these properties (only rst's will have foodData):
-
-  // username
-  // password
-  // contactInfo.name
-  // contactInfo.phoneNumber
-  // contactInfo.email
-  // websiteUrl
-  // additional.aboutUs
-  // foodData
-  //   mealType (breakfast, lunch, dinner)
-  //   foodType (italian, indian, etc.)
-  //   pickupDay
-  //   pickupTime
   
-  vm.postData = {};
+  vm.postData = {
+    foodData: {
+      mealType: {},
+      foodType: {},
+      pickupDay: {},
+      pickupTime: {},
+    }
+  };
 
   /*
   calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
   */
 
 
-  vm.submitForm = function (){
+  vm.submit = function (){
+    console.log(vm.postData);
     AjaxService.postSignupData(vm.postData, typeParam)
       .success(function(data, status){
         console.log('signup success', status);
