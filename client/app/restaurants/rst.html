@@ -1,14 +1,18 @@
-<!-- pure html without angular -->
+<!-- angular version of restaurant view -->
 <html>
 <head>
   <meta charset="UTF-8">
   <title>Short Stacks</title>
+  <link rel="stylesheet" type="text/css" href="./../../../lib/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="rst.css">
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script src='./../../../lib/bootstrap/js/bootstrap.js'></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+  <script src="rst.js"></script>
 </head>
-<body class="container">
 
+<!-- should associate with rstmodule -->
+<body class="container" ng-app="myRst" ng-controller="rstCtrl">
+
+<!-- populate with users information -->
   <div class="row">
     <div class="col-md-3"><img src="http://images.nymag.com/images/2/daily/2010/04/20100401_innout_190x190.jpg" alt="In n Out" class="profilepic"></div>
     <div class="name col-md-9"><p>In n Out</p></div>
@@ -28,6 +32,8 @@
       </stats>
     </div>
 
+<!-- MVP: be able to click on the add button and render another view -->
+<!-- AFTER MVP: use ng-repeat on pick up data. Currently, we don't have scheduling data-->
     <div class="pickupinfo col-md-9">
       <p>PickUps<i class="glyphicon glyphicon-plus"></i></p> 
       
@@ -46,10 +52,13 @@
             </div>
           </div>
         </li>
+
+
       </ul>
-   
     </div>
   </div>
-    
+
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+  <script src='./../../../lib/bootstrap/js/bootstrap.js'></script>
 </body>
 </html>
