@@ -30,8 +30,10 @@ var UserSchema = new mongoose.Schema ({
   },
   foodData: {
     type: {}
+  },
+  salt: {
+    type: String
   }
-  salt: String
   //add messages/notifications field to/from foodbanks
 });
 
@@ -64,8 +66,8 @@ UserSchema.pre('save', function(next) {
   bcrypt.hash(user.password, user.salt, null, function(err, hash) {
     user.password = hash;
     next();
-    })
-  }
+  })
+
 })
 
 module.exports = mongoose.model('User', UserSchema);
