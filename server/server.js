@@ -9,7 +9,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 
 // mongoose.connect('mongodb://user:pass@localhost/api');
-mongoose.connect('mongodb://localhost/fudwiz');
+mongoose.connect('mongodb://localhost/fudwize');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -54,11 +54,13 @@ app.post('/signup/:type', function(req, res, next) {
         .then(function (user) {
         // create token to send back for auth
           var token = jwt.encode(user, 'secret');
-          res.json({ token: token });
+          console.log('res',res);
+          console.log('token', token);
+          res.json({token: token});
         })
-        .fail(function (error) {
-          next(error);
-        });
+        // .fail(function (error) {
+        //   next(error);
+        // });
       }
     });
 });
