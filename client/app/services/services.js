@@ -9,6 +9,11 @@ angular.module('myApp.services', [])
       method: 'POST',
       url: '/signup/' + param,
       data: JSON.stringify(data)
+    })
+    .then(function (resp) {
+        $window.localStorage.setItem('com.fudWize', token);
+        $location.path('/links');
+      // return resp.data.token;
     });
   };
   obj.postLoginData = function(data) {
@@ -16,6 +21,11 @@ angular.module('myApp.services', [])
       method: 'POST',
       url: '/login',
       data: JSON.stringify(data)
+    })
+    .then(function (resp) {
+      $window.localStorage.setItem('com.fudWize', token);
+      $location.path('/');
+      // return resp.data.token;
     });
   };
 
