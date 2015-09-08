@@ -8,7 +8,7 @@ var User = require('./users/userModel.js');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://user:pass@localhost/api');
+mongoose.connect('mongodb://localhost/fudwize');
 
 app.use(cors());
 app.use(bodyParser.json());
