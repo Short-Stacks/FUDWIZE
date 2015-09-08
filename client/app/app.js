@@ -6,7 +6,8 @@ angular.module('myApp', [
   'myApp.restaurants',
   'myApp.services',
   'myApp.signup',
-  'myApp.css',
+  //'myApp.css',
+  'door3.css',
   'ngRoute'
 ])
 
@@ -19,7 +20,8 @@ angular.module('myApp', [
     .when('/', {
       templateUrl: 'app/index/main.html',
       controller: 'MainCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/main-page.css'
     })
     .when('/signup/:type', {
       templateUrl: 'app/signup/signup.html',
@@ -56,7 +58,7 @@ angular.module('myApp', [
   // of interceptors. Think of it like middleware for your ajax calls
   // $httpProvider.interceptors.push('AttachTokens');
 
-}])
+}]);
 
 
 
