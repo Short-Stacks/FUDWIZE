@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt-nodejs');
 var app = express();
 var path = require('path');
 var User = require('./users/userModel.js');
@@ -10,10 +11,13 @@ var bodyParser = require('body-parser');
 
 // mongoose.connect('mongodb://user:pass@localhost/api');
 mongoose.connect('mongodb://localhost/fudwize');
+var SALT_WORK_FACTOR = 10;
 
 app.use(cors());
 app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, '../client')));
+
 
 //a post request to post new use info to db
 app.post('/signup/:type', function(req, res, next) {
@@ -33,63 +37,85 @@ app.post('/signup/:type', function(req, res, next) {
   })
     .then(function(user) {
       if (user) {
-        next(new Error('User Already Exists'));
-      } 
+        console.log('user already exists');
+      }
       else {
-        var newUser = new User({
-          username: username,
-          password: password,
-          type: type,
-          contactInfo: contactInfo,
-          websiteUrl: websiteUrl,
-          additional: additional,
-          foodData: foodData
+        hashPassword(password, function(hashPassword){
+
+          var newUser = new User({
+            username: username,
+            password: hashPassword,
+            type: type,
+            contactInfo: contactInfo,
+            websiteUrl: websiteUrl,
+            additional: additional,
+            foodData: foodData
+          });
+          // newUser.password = newUser.hashPassword(password);
+          console.log('newUser', newUser);
+          newUser.save(function(err) {
+            if (err) {
+              console.log('error');
+            }
+          })
+          .then(function (user) {
+          // create token to send back for auth
+            var token = jwt.encode(user, 'secret');
+            console.log('res',res);
+            console.log('token', token);
+            res.status(201);
+            res.json({type: type,
+              username: username,
+              token: token});
+          });
+          // .fail(function (error) {
+          //   next(error);
+          // });
         });
-        console.log('newUser', newUser);
-        newUser.save(function(err) {
-          if (err) {
-            console.log('error');
-          }
-        })      
-        .then(function (user) {
-        // create token to send back for auth
-          var token = jwt.encode(user, 'secret');
-          console.log('res',res);
-          console.log('token', token);
-          res.json({token: token});
-        })
-        // .fail(function (error) {
-        //   next(error);
-        // });
+
       }
     });
 });
+
+
 //post request to verify the user info
 app.post('/login', function(req, res, next) {
 
   var password = req.body.password;
-  var username = req.body.username
+  var username = req.body.username;
 
   User.findOne({
     username: username
   })
     .then(function(user) {
       if (user) {
-        if (user.verifyPassword(password)) {
+        verifyPassword(password, user.password, function(bool){
+          if(bool){
+            console.log('password matches');
             var token = jwt.encode(user, 'secret');
-            res.json({token: token});
-        }
-        else {
-          console.log('not valid password');
-        }
+            console.log('res',res);
+            console.log('token', token);
+            res.status(201);
+            res.json({type: user.type,
+              username: user.username,
+              token: token});
+            // res.status(201).send();
+
+          }else{
+            console.log('password doesnt match');
+            res.status(404).send();
+          }
+
+
+        });
       }
     });
 });
 //---------------------------------------------
 
-app.get('/rst/:username', function(req, res, next) {
+app.get('/profile/:type/:username', function(req, res, next) {
   var username = req.params.username;
-  var data = req.body;
+  var type = req.params.type;
   if (username) {
     User.findOne({ username: username }, function(err, docs) {
       if (err) {
@@ -100,22 +126,10 @@ app.get('/rst/:username', function(req, res, next) {
   }
 });
 
-app.get('/fbk/:username', function(req, res, next) {
-  var username = req.params.username;
-  var data = req.body;
-  if (username) {
-    User.findOne({ username: username }, function(err, docs) {
-      if (err) {
-        return next(err);
-      }
-      res.json(docs);
-    });
-  }
-});
 
 app.get('/dash/:username', function(req, res, next) {
   var username = req.params.username;
-  var data = req.body;
+  var type = req.params.type;
   if (username) {
     User.findOne({ username: username }, function(err, docs) {
       if (err) {
@@ -126,11 +140,31 @@ app.get('/dash/:username', function(req, res, next) {
   }
 });
 
-var port = process.env.PORT || 3000; 
+var port = process.env.PORT || 3000;
 var server = app.listen(port, function() {
-  var host = server.address().address;
-  var p = server.address().port;
-  console.log('listening at http://%s:%s', host, p);
+  console.log('listening at http://localhost:' + port);
 });
 
 module.exports = app;
+
+function verifyPassword(attemptedPassword, savedPassword, cb) {
+  var result;
+  bcrypt.compare(attemptedPassword, savedPassword, function(err, res) {
+    cb(res);
+  });
+}
+
+function hashPassword(userPassword, cb){
+  var salt;
+  var hash;
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+    if (err) {
+      return next(err);
+    }
+    console.log('hi');
+    //encrypt the user's inputted password with the generated salt mixed in to make it nice and savory
+    bcrypt.hash(userPassword, salt, null, function(err, hash) {
+      return cb(hash);
+    });
+  });
+}

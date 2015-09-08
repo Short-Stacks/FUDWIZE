@@ -11,11 +11,10 @@ angular.module('myApp.services', [])
       data: JSON.stringify(data)
     })
     .then(function (resp) {
-        $window.localStorage.setItem('com.fudWize', token);
-        $location.path('/links');
-      // return resp.data.token;
+      return resp.data;
     });
   };
+
   obj.postLoginData = function(data) {
     return $http({
       method: 'POST',
@@ -23,9 +22,7 @@ angular.module('myApp.services', [])
       data: JSON.stringify(data)
     })
     .then(function (resp) {
-      $window.localStorage.setItem('com.fudWize', token);
-      $location.path('/');
-      // return resp.data.token;
+      return resp.data;
     });
   };
 
