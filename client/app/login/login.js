@@ -18,6 +18,6 @@ angular.module('myApp.login', [])
         console.log('signup error', status);
         //if the post request fails, evaluate this code
       });
-  }
+  };
 
-}])
+}]);

@@ -10,15 +10,14 @@ angular.module('myApp.services', [])
       url: 'http://127.0.0.1:3000' + '/signup/' + param,
       data: JSON.stringify(data)
     });
+  };
 
   obj.postLoginData = function(data) {
     return $http({
       method: 'POST',
-      url: 'http://127.0.0.1:3000' + '/login',
+      url: 'http://127.0.0.1:3000' + '/login/',
       data: JSON.stringify(data)
-    })
-  }
-
+    });
   };
 
   return obj;
