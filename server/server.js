@@ -3,10 +3,13 @@ var mongoose = require('mongoose');
 var app = express();
 var path = require('path');
 var User = require('./users/userModel.js');
+// var jwt = require('jwt-simple');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
+
 mongoose.connect('mongodb://user:pass@localhost/api');
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client')));
@@ -21,14 +24,16 @@ app.post('/signup/:type', function(req, res) {
   var contactInfo = data.contactInfo;
   var websiteUrl = data.websiteUrl;
   var additional = data.additional;
-  // var foodData = data.foodData;
+  var foodData = data.foodData;
 
+  console.log("username is ", username);
   User.findOne({
     username: username
   })
     .then(function(user) {
       if (user) {
-        next(new Error('User Already Exists'));
+        // next(new Error('User Already Exists'));
+        console.log('user', 'hello');
       } 
       else {
         var newUser = new User({
@@ -37,29 +42,34 @@ app.post('/signup/:type', function(req, res) {
           type: type,
           contactInfo: contactInfo,
           websiteUrl: websiteUrl,
-          additional: additional
-          // foodData: foodData
+          additional: additional,
+          foodData: foodData
         });
-
+        console.log('newUser', newUser);
         newUser.save(function(err) {
+          console.log('hi');
           if (err) {
             console.log('error');
           }
+          // console.log(user);
+          // next();
         });
       }
     });
 });
 //post request to verify the user info
 app.post('/login', function(req, res) {
-  var pw = req.body.password;
-  var username = req.body.username;
+
+  var password = req.body.password;
+  var username = req.body.username
+
   User.findOne({
     username: username
   })
     .then(function(user) {
       if (user) {
         if (User.verifyPassword(password)) {
-            // do sth
+          next();
         }
         else {
           console.log('not valid password');
