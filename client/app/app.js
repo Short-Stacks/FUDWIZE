@@ -6,6 +6,7 @@ angular.module('myApp', [
   'myApp.restaurants',
   'myApp.services',
   'myApp.signup',
+  'myApp.css',
   'ngRoute'
 ])
 

@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang='en'>
-  <head>
+<html ng-app="myApp" lang='en'>
+  <head ng-controller="cssController as css">
     <meta charset="UTF-8" />
     <title>Short Stacks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" href="styles/style.css" />
     <link rel="stylesheet" type="text/css" href="/components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/app/index/main-page-style.css" />
+    <link rel="stylesheet" type="text/css" ng-href="/styles/{{ css.layout }}.css" />
   </head>
 
-
-  <body ng-app="myApp">
+  <body>
 
     <div ng-view></div>
 
@@ -26,6 +24,7 @@
   <script src="/app/foodbanks/fbk.js"></script>
   <script src="/app/restaurants/rst.js"></script>
   <script src="/app/login/login.js"></script>
+  <script src="/styles/css.js"></script>
   <script src="/app/app.js"></script>
 
   </body>
