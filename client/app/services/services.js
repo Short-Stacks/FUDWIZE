@@ -11,6 +11,14 @@ angular.module('myApp.services', [])
       data: JSON.stringify(data)
     });
 
+  obj.postLoginData = function(data) {
+    return $http({
+      method: 'POST',
+      url: 'http://127.0.0.1:3000' + '/login',
+      data: JSON.stringify(data)
+    })
+  }
+
   };
 
   return obj;
