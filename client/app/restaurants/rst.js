@@ -10,7 +10,7 @@ angular.module('myApp.restaurants', [])
     return AjaxService.getRstData(userId).success(function(data){
       $scope.rstInfo = data; //expect data to be {username: 1, restaurantname: 'in n out'}
     })
-  }
+  };  
 
   getRstData(userId);
 

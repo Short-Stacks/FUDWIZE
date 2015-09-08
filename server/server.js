@@ -3,11 +3,12 @@ var mongoose = require('mongoose');
 var app = express();
 var path = require('path');
 var User = require('./users/userModel.js');
-// var jwt = require('jwt-simple');
+var jwt = require('jwt-simple');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
 
+// mongoose.connect('mongodb://user:pass@localhost/api');
 mongoose.connect('mongodb://localhost/fudwize');
 
 app.use(cors());
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
 //a post request to post new use info to db
-app.post('/signup/:type', function(req, res) {
+app.post('/signup/:type', function(req, res, next) {
   //getting the type of the user, either rest or foodbank
   var type = req.params.type;
   var data = req.body;
@@ -32,8 +33,7 @@ app.post('/signup/:type', function(req, res) {
   })
     .then(function(user) {
       if (user) {
-        // next(new Error('User Already Exists'));
-        console.log('user', 'hello');
+        next(new Error('User Already Exists'));
       } 
       else {
         var newUser = new User({
@@ -47,18 +47,25 @@ app.post('/signup/:type', function(req, res) {
         });
         console.log('newUser', newUser);
         newUser.save(function(err) {
-          console.log('hi');
           if (err) {
             console.log('error');
           }
-          // console.log(user);
-          // next();
-        });
+        })      
+        .then(function (user) {
+        // create token to send back for auth
+          var token = jwt.encode(user, 'secret');
+          console.log('res',res);
+          console.log('token', token);
+          res.json({token: token});
+        })
+        // .fail(function (error) {
+        //   next(error);
+        // });
       }
     });
 });
 //post request to verify the user info
-app.post('/login', function(req, res) {
+app.post('/login', function(req, res, next) {
 
   var password = req.body.password;
   var username = req.body.username
@@ -79,7 +86,7 @@ app.post('/login', function(req, res) {
 });
 //---------------------------------------------
 
-app.get('/rst/:username', function(req, res) {
+app.get('/rst/:username', function(req, res, next) {
   var username = req.params.username;
   var data = req.body;
   if (username) {
@@ -92,10 +99,9 @@ app.get('/rst/:username', function(req, res) {
   }
 });
 
-app.get('/fbk/:username', function(req, res) {
+app.get('/fbk/:username', function(req, res, next) {
   var username = req.params.username;
   var data = req.body;
-  // res.render('fbk/:'+username);
   if (username) {
     User.findOne({ username: username }, function(err, docs) {
       if (err) {
@@ -106,7 +112,7 @@ app.get('/fbk/:username', function(req, res) {
   }
 });
 
-app.get('/dash/:username', function(req, res) {
+app.get('/dash/:username', function(req, res, next) {
   var username = req.params.username;
   var data = req.body;
   if (username) {

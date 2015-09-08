@@ -23,6 +23,12 @@ angular.module('myApp.services', [])
     return $http({
       method: 'GET',
       url: 'http://127.0.0.1:3000' + '/fbk/' + param
+  };
+  obj.postLoginData = function(data) {
+    return $http({
+      method: 'POST',
+      url: 'http://127.0.0.1:3000' + '/login',
+      data: JSON.stringify(data)
     });
   };
 
