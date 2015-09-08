@@ -1,13 +1,3 @@
-/* set html/body height as 100% in the main page */
-
-
-html, body {
-  background-color: #ededed;
-  font-family: 'helvetica neue', sans-serif;
-  color: white;
-  width: 100%;
-  height: 100%;
-}
 
 .main-container {
   width: 100%;

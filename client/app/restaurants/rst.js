@@ -1,34 +1,17 @@
-angular.module('myRst', []) 
+angular.module('myApp.restaurants', [])
 
-.factory('RstService', ['$http', function($http){
-  var obj = {};
-
-  //getRstData passes in userId param and returns the userdata from database
-  obj.getRstData = function(param){
-    return $http({
-      method: 'GET',
-      url: SERVER + '/rst/',
-      params: {userId: param} //potential bug- is it userId or username??? 
-    });
-  }
-
-  return obj;
-
-}])
-
-.controller('rstCtrl',['$scope', 'RstService', function ($scope, RstService) {
-
+.controller('RestaurantsCtrl', ['$scope','AjaxService', '$routeParams', function($scope, AjaxService, $routeParams) {
+  var vm = this;
   var userId = $routeParams.type;
+  $scope.rstInfo = { };
+  $scope.counter = { count: 0 };
 
-  var $scope.rstInfo = {};
-
-  function getRstData(userId){
-    RstService.getRstData(userId).success(function(data){
+  function getRstData(userId) {
+    return AjaxService.getRstData(userId).success(function(data){
       $scope.rstInfo = data; //expect data to be {username: 1, restaurantname: 'in n out'}
     })
   }
 
-  getRstData();
+  getRstData(userId);
 
-}]);
-
+}])

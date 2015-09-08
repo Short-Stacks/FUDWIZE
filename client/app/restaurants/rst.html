@@ -1,33 +1,26 @@
-<!-- angular version of restaurant view -->
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Short Stacks</title>
-  <link rel="stylesheet" type="text/css" href="./../../../lib/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="rst.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-  <script src="rst.js"></script>
-</head>
-
 <!-- should associate with rstmodule -->
-<body class="container" ng-app="myRst" ng-controller="rstCtrl">
+<!-- add css to index.html -->
+<div class="container" ng-app="myApp.restaurants" ng-controller="RestaurantsCtrl as ctrl">
 
 <!-- populate with users information -->
   <div class="row">
-    <div class="col-md-3"><img src="http://images.nymag.com/images/2/daily/2010/04/20100401_innout_190x190.jpg" alt="In n Out" class="profilepic"></div>
-    <div class="name col-md-9"><p>In n Out</p></div>
+    <div class="col-md-3"><img src="http://images.nymag.com/images/2/daily/2010/04/20100401_innout_190x190.jpg" alt="In n Out" class="profilepic"></div><!--  generic image here -->
+    <div class="name col-md-9"><p>{{ctrl.contactInfo.name}}</p></div>
   </div>
 
   <div class="row">
     <div class="sidebar col-md-3">   
       <div> 
-        <p> Address: 260 Washington St, Daly City, CA 94015</p>
-        <p> Can Donate: fries, animal sauce</p>
+        <p> Address: {{ctrl.contactInfo}}</p>
+        <p> Can Donate: {{ctrl.foodData}}</p>
+        <p> Website: {{ctrl.websiteUrl}} </p>
+        <p> Additional Info: {{ctrl.additional}} </p>
+
       </div>
 
       <stats>
         <p>FOOD CONTRIBUTIONS</p>
-        <p class="contribcount"> 7 <p>
+        <p class="contribcount"> {{ctrl.counter.count}} <p>
         <p>Aug 20 : SF Marin received your package</p>
       </stats>
     </div>
@@ -53,12 +46,9 @@
           </div>
         </li>
 
-
       </ul>
     </div>
   </div>
 
-  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-  <script src='./../../../lib/bootstrap/js/bootstrap.js'></script>
-</body>
-</html>
+</div>
+

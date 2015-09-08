@@ -1,6 +1,6 @@
 <!-- /*protip: nocommas, no semicolons!*/ -->
 
-.profilepic{
+#fbk .profilepic{
   overflow: hidden;
   border-radius: 14%;
   width: 189px;
@@ -9,14 +9,14 @@
 }
 
 <!-- /***sidebars start***/ -->
-.name{
+#fbk .name{
   font-size: 40px;
   vertical-align: center;
   height: 209px;
   padding-top: 55px;
 }
 
-.contribcount{
+#fbk .contribcount{
   font-size: 40px;
   margin-left: 80px;
 }
@@ -25,11 +25,11 @@
 
 
 <!-- /***restaurant view 'pickups start'***/ -->
-.pickupevent{
+#fbk .pickupevent{
   padding-left: 0;
 }
 
-.eventli{
+#fbk .eventli{
     box-shadow: rgb(255, 223, 212) 5px 0px 0px 0px inset; 
     height: 125px;
     border-bottom: 1px solid rgb(221, 221, 221);
@@ -38,11 +38,11 @@
     outline: rgb(136, 136, 136) none 0px;
 }
 
-.eventli:after {
+#fbk .eventli:after {
     clear: both;
 }
 
-.eventli .timebox{
+#fbk .eventli .timebox{
    box-sizing:border-box; 
    float:left; 
    height:53px; 
@@ -53,20 +53,20 @@
    padding:16px 0px 12px 16px
 }
 
-time {
+#fbk time {
     text-align: left;
     font: normal normal normal normal 16px / 19.2px Whitney, helvetica, arial, sans-serif;
 }
 
 /*am*/
-.ampm {
+#fbk .ampm {
     text-align: left;
     vertical-align: top;
     border-bottom: 1px solid rgb(170, 170, 170);
     font: normal normal normal normal 10px / 16px Whitney, helvetica, arial, sans-serif;
 }
 
-.eventli .fbk{
+#fbk .eventli .fbk{
     color: rgb(136, 136, 136);
     float: left;
     height: 125px;
@@ -76,12 +76,12 @@ time {
     list-style: none outside none;
     padding: 16px 16px 12px;
 }
-.phonenum {
+#fbk .phonenum {
     color: rgb(136, 136, 136);
 }
 <!-- /***restaurant view 'pickups end'***/ -->
 
-.glyphicon-plus{
+#fbk .glyphicon-plus{
   float: right;
   cursor: pointer;
 

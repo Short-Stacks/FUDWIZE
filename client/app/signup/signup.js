@@ -13,7 +13,7 @@ angular.module('myApp.signup', [])
   */
   var typeParam = $routeParams.type;
 
-  var vm.isRst;
+  vm.isRst = undefined;
   if (typeParam === 'rst') {
     vm.isRst = true;
   }
@@ -33,7 +33,7 @@ angular.module('myApp.signup', [])
   //   foodType (italian, indian, etc.)
   //   pickupDay
   //   pickupTime
-  
+
   vm.postData = {};
 
   /*
