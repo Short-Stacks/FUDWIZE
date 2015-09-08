@@ -7,8 +7,10 @@ var User = require('./users/userModel.js');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
+
 // mongoose.connect('mongodb://user:pass@localhost/api');
-mongoose.connect('mongodb://localhost/fudwize');
+mongoose.connect('mongodb://localhost/fudwizetestas');
+
 app.use(cors());
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, '../client')));
@@ -25,12 +27,14 @@ app.post('/signup/:type', function(req, res) {
   var additional = data.additional;
   var foodData = data.foodData;
 
+  console.log("username is ", username);
   User.findOne({
     username: username
   })
     .then(function(user) {
       if (user) {
-        next(new Error('User Already Exists'));
+        // next(new Error('User Already Exists'));
+        console.log('user', 'hello');
       } 
       else {
         var newUser = new User({
@@ -42,11 +46,14 @@ app.post('/signup/:type', function(req, res) {
           additional: additional,
           foodData: foodData
         });
+        console.log('newUser', newUser);
         newUser.save(function(err) {
+          console.log('hi');
           if (err) {
             console.log('error')
           }
-          next();
+          // console.log(user);
+          // next();
         });
       }
     });
@@ -84,7 +91,7 @@ app.get('/rst/:username', function(req, res) {
   }
 });
 
-app.get('/fbk/:username', function(req, res){
+app.get('/fbk/:username', function(req, res) {
   var username = req.params.username;
   var data = req.body;
   // res.render('fbk/:'+username);
@@ -111,7 +118,7 @@ app.get('/dash/:username', function(req, res) {
   }
 });
 
-var port =  process.env.PORT || 3000; 
+var port = process.env.PORT || 3000; 
 var server = app.listen(port, function() {
   var host = server.address().address;
   var p = server.address().port;
