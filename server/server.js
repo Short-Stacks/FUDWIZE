@@ -75,8 +75,9 @@ app.post('/login', function(req, res, next) {
   })
     .then(function(user) {
       if (user) {
-        if (User.verifyPassword(password)) {
-          next();
+        if (user.verifyPassword(password)) {
+            var token = jwt.encode(user, 'secret');
+            res.json({token: token});
         }
         else {
           console.log('not valid password');

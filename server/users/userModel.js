@@ -42,9 +42,12 @@ UserSchema.methods.verifyPassword = function(attemptedPassword) {
   var savedPassword = this.password;
   console.log('password', this.password);
   var result;
-  bcrypt.compare(attemptedPassword, savedPassword, function(err, match) {
-    result = match;
-  })
+  // bcrypt.compare(attemptedPassword, savedPassword, function(err, match) {
+  //   result = match;
+  // })
+  if (attemptedPassword === this.password) {
+    result = true;
+  }
   return result;
 }
 
