@@ -8,9 +8,9 @@ angular.module('myApp.foodbanks', [])
   function getFbkData(userId) {
     return AjaxService.getFbkData(userId).success(function(data){
       $scope.fbkInfo = data; //expect data to be {username: 1, restaurantname: 'in n out'}
-    })
-  };
+    });
+  }
 
   getFbkData(userId);
   
-}])
+}]);

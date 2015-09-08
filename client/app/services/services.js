@@ -10,7 +10,7 @@ angular.module('myApp.services', [])
       url: 'http://127.0.0.1:3000' + '/signup/' + param,
       data: JSON.stringify(data)
     });
-  }
+  };
     //getRstData passes in userId param and returns the userdata from database
   obj.getRstData = function(param){
     return $http({
@@ -23,6 +23,7 @@ angular.module('myApp.services', [])
     return $http({
       method: 'GET',
       url: 'http://127.0.0.1:3000' + '/fbk/' + param
+    });
   };
 
   obj.postLoginData = function(data) {
