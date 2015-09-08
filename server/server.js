@@ -125,7 +125,7 @@ app.get('/dash/:username', function(req, res, next) {
   }
 });
 
-var port = process.env.PORT || 3000; 
+var port = process.env.PORT || 3000;
 var server = app.listen(port, function() {
   var host = server.address().address;
   var p = server.address().port;
