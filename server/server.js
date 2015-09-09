@@ -42,16 +42,14 @@ app.post('/signup/:type', function(req, res, next) {
   var additional = data.additional;
   var foodData = data.foodData;
 
-  console.log("username is ", username);
   User.findOne({
     username: username
   })
     .then(function(user) {
       if (user) {
         console.log('user already exists');
-      }
-      else {
-        hashPassword(password, function(hashPassword){
+      } else {
+        hashPassword(password, function(hashPassword) {
 
           var newUser = new User({
             username: username,
@@ -64,25 +62,21 @@ app.post('/signup/:type', function(req, res, next) {
             connections: []
           });
           // newUser.password = newUser.hashPassword(password);
-          console.log('newUser', newUser);
           newUser.save(function(err) {
             if (err) {
               console.log('error');
             }
           })
-          .then(function (user) {
-          // create token to send back for auth
-            var token = jwt.encode(user, 'secret');
-            console.log('res',res);
-            console.log('token', token);
-            res.status(201);
-            res.json({type: type,
-              username: username,
-              token: token});
-          });
-          // .fail(function (error) {
-          //   next(error);
-          // });
+            .then(function(user) {
+              // create token to send back for auth
+              var token = jwt.encode(user, 'secret');
+              res.status(201);
+              res.json({
+                type: type,
+                username: username,
+                token: token
+              });
+            });
         });
 
       }
@@ -101,19 +95,17 @@ app.post('/login', function(req, res, next) {
   })
     .then(function(user) {
       if (user) {
-        verifyPassword(password, user.password, function(bool){
-          if(bool){
+        verifyPassword(password, user.password, function(bool) {
+          if (bool) {
             console.log('password matches');
             var token = jwt.encode(user, 'secret');
-            console.log('res',res);
-            console.log('token', token);
             res.status(201);
-            res.json({type: user.type,
+            res.json({
+              type: user.type,
               username: user.username,
-              token: token});
-            // res.status(201).send();
-
-          }else{
+              token: token
+            });
+          } else {
             console.log('password doesnt match');
             res.status(404).send();
           }
@@ -124,29 +116,30 @@ app.post('/login', function(req, res, next) {
     });
 });
 
-app.get('/profile/:type/:username', function(req, res, next) {
+app.get('/profile/:type/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
-  console.log('username', username);
   if (username) {
-    User.findOne({ username: username }, getFields, function(err, user) {
+    User.findOne({
+      username: username
+    }, getFields, function(err, user) {
       if (err) {
         return next(err);
       }
-      console.log(user);
       res.status(200).send(user);
     });
   }
 });
 
 
-app.get('/dash/:username', function(req, res, next) {
+app.get('/dash/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
   if (username) {
-    User.find({ type: 'rst' }, getFields, function(err, users) {
+    User.find({
+      type: 'rst'
+    }, getFields, function(err, users) {
       if (err) {
         return next(err);
       }
-      console.log(users);
       res.status(200).send(users);
 
     });
@@ -167,14 +160,13 @@ function verifyPassword(attemptedPassword, savedPassword, cb) {
   });
 }
 
-function hashPassword(userPassword, cb){
+function hashPassword(userPassword, cb) {
   var salt;
   var hash;
   bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
     if (err) {
       return next(err);
     }
-    console.log('hi');
     //encrypt the user's inputted password with the generated salt mixed in to make it nice and savory
     bcrypt.hash(userPassword, salt, null, function(err, hash) {
       return cb(hash);
@@ -182,7 +174,7 @@ function hashPassword(userPassword, cb){
   });
 }
 
-function checkToken(req, res, next){
+function checkToken(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
   var user;
 
@@ -196,10 +188,13 @@ function checkToken(req, res, next){
   try {
     // decode token and attach user to the request
     // for use inside our controllers
-    user = jwt.decode(token, tokenCode);
+    user = jwt.decode(token, 'secret');
     req.user = user;
     next();
-  } catch(error) {
-    return next(error);
+  } catch (error) {
+    res.status(403).send({
+      success: 'false',
+      message: 'invalid token'
+    });
   }
 }
