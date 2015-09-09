@@ -64,7 +64,9 @@ app.post('/signup/:type', function(req, res, next) {
             console.log('res',res);
             console.log('token', token);
             res.status(201);
-            res.json({token: token});
+            res.json({type: type,
+              username: username,
+              token: token});
           });
           // .fail(function (error) {
           //   next(error);
@@ -90,7 +92,14 @@ app.post('/login', function(req, res, next) {
         verifyPassword(password, user.password, function(bool){
           if(bool){
             console.log('password matches');
-            res.status(201).send();
+            var token = jwt.encode(user, 'secret');
+            console.log('res',res);
+            console.log('token', token);
+            res.status(201);
+            res.json({type: user.type,
+              username: user.username,
+              token: token});
+            // res.status(201).send();
 
           }else{
             console.log('password doesnt match');
@@ -99,7 +108,6 @@ app.post('/login', function(req, res, next) {
 
 
         });
-
       }
     });
 });
