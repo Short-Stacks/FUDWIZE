@@ -30,10 +30,10 @@ var UserSchema = new mongoose.Schema ({
   },
   foodData: {
     type: {}
-  },
-  salt: {
-    type: String
   }
+  // salt: {
+  //   type: String
+  // }
   //add messages/notifications field to/from foodbanks
 });
 
