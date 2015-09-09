@@ -7,18 +7,43 @@ angular.module('myApp.services', [])
   obj.postSignupData = function(data, param){
     return $http({
       method: 'POST',
-      url: 'http://127.0.0.1:3000' + '/signup/' + param,
+      url: '/signup/' + param,
       data: JSON.stringify(data)
+    })
+    .then(function (resp) {
+      return resp.data;
     });
+  };
 
   obj.postLoginData = function(data) {
     return $http({
       method: 'POST',
-      url: 'http://127.0.0.1:3000' + '/login',
+      url: '/login',
       data: JSON.stringify(data)
     })
-  }
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+  obj.getProfileData = function(type, username) {
+    return $http({
+      method: 'GET',
+      url: '/profile/'+ type + '/' + username
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
 
+  obj.getDashboardData = function(username) {
+    return $http({
+      method: 'GET',
+      url: '/dash/'+ username
+    })
+    .then(function (resp) {
+      console.log('resp', resp);
+      return resp.data;
+    });
   };
 
   return obj;

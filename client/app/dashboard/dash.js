@@ -1,16 +1,11 @@
 angular.module('myApp.dashboard', [])
 
-.controller('DashboardCtrl', ['$scope', 'AjaxService', '$routeParams', function($scope, AjaxService, $routeParams) {
+.controller('DashboardCtrl', ['$routeParams', 'AjaxService', function($routeParams, AjaxService) {
   var vm = this;
-  var userId = $routeParams.type;
-  $scope.dashInfo = {};
-
-  function getDashData(userId){
-    return AjaxService.getDashData(userId).success(function(data){
-      $scope.dashInfo = data.rst; 
-      //data.rst is an array-object
-      // data.rst[0].contactInfo ... blah blah
+  vm.username = $routeParams.username;
+  AjaxService.getDashboardData(vm.username)
+    .then(function(data){
+      vm.data = data[0];
+      console.log('dashboard data', vm.data);
     });
-  }
-  getDashData(userId);
-}])
+}]);

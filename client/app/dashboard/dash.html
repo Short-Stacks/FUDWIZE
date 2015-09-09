@@ -2,13 +2,14 @@
 <div id="dashboard" ng-controller='DashboardCtrl as ctrl'>
 
 <h1>Dashboard</h1>
+  <p>Hello, {{ctrl.username}}</p>
   <div id="map"></div> <!--map-->
   <div id="restaurantInfo">
-    <ul ng-repeat="info in dashInfo track by $index">
-        <li>contactInfo: {{info.contactInfo}}</li>
-        <li ng-model="url">websiteUrl: {{info.url}}</li>
-        <li >additional: {{info.url}}</li>
-        <li></li>
+  <!-- <p>{{ctrl.data}}</p> -->
+    <ul>
+        <li>email: {{ctrl.data.contactInfo.email}}</li>
+        <li>Website: {{ctrl.data}}</li>
     </ul>
   </div> <!--restaurant info-->
 </div>
+
