@@ -2,7 +2,6 @@
 
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script> -->
-<script src='./signup.js'></script>
 <!-- </head> -->
 <div id="signup" ng-controller='SignupCtrl as ctrl'>
 
@@ -55,27 +54,27 @@
     </div>
 
   	<label>Your Website Address:
-    	<input type='text' name="urlInput" ng-model="ctrl.postData.websiteURL">
+    	<input type='text' name="urlInput" ng-model="ctrl.postData.websiteUrl">
   	<label>
 
   	<label>Tell Us About Your Organization:
-  		<input type='text' name='aboutUsInput' ng-model='ctrl.postData.additional.aboutUs'> 
+  		<input type='text' name='aboutUsInput' ng-model='ctrl.postData.additional.aboutUs'>
   	</label>
 
     <!-- this portion will only show if the organization is a restaurant -->
     <div ng-show='ctrl.isRst'>
-      
+
       <!-- first row -->
-    <table>  
+    <table>
       <th>
         <td>Meals You Can Provide</td>
-        <td>Type of Food</td>    
+        <td>Type of Food</td>
         <td>Days Available For Food Pickup</td>
         <td>Time of Day</td>
       </th>
 
       <tr>
-        <td>          
+        <td>
           <label ng-repeat='(key, value) in ctrl.mealType'>
             <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.mealType[key]'> {{ key }} </input>
           </label>

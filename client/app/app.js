@@ -1,13 +1,11 @@
 angular.module('myApp', [
-  'myApp.foodbanks',
   'myApp.index',
   'myApp.dashboard',
   'myApp.login',
-  'myApp.restaurants',
   'myApp.services',
   'myApp.signup',
   'myApp.profile',
-  // door3.css loads angular-css
+  // door3.css is angular-css
   'door3.css',
   'ngRoute'
 ])
@@ -21,8 +19,7 @@ angular.module('myApp', [
     .when('/', {
       templateUrl: 'app/index/main.html',
       controller: 'MainCtrl',
-      controllerAs: 'vm',
-      css: '../styles/main-page.css'
+      controllerAs: 'vm'
     })
     .when('/signup/:type', {
       templateUrl: 'app/signup/signup.html',
@@ -39,11 +36,6 @@ angular.module('myApp', [
       controller: 'ProfileCtrl',
       controllerAs: 'vm'
     })
-    //.when('/fbk/:username', {
-      //templateUrl: 'app/foodbanks/fbk.html',
-      //controller: 'FoodbanksCtrl',
-      //controllerAs: 'vm'
-    //})
     .when('/dash/:username', {
       templateUrl: 'app/dashboard/dash.html',
       controller: 'DashboardCtrl',
@@ -102,7 +94,7 @@ angular.module('myApp', [
 //     if (next.$$route && !isAuth() ) {
 //       if (next.$$route.originalPath !== '/signup' || next.$$route.originalPath !== '/') {
 //         $location.path('/login');
-//       } 
+//       }
 //     }
 //   });
 // }]);

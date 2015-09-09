@@ -1,7 +1,11 @@
 angular.module('myApp.dashboard', [])
 
-.controller('DashboardCtrl', [function() {
+.controller('DashboardCtrl', ['$routeParams', 'AjaxService', function($routeParams, AjaxService) {
   var vm = this;
+  vm.username = $routeParams.username;
 
-
-}])
+  AjaxService.getDashboardData()
+    .then(function(data){
+      console.log('dashboard data', data);
+    });
+}]);

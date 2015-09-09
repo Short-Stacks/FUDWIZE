@@ -29,11 +29,23 @@ angular.module('myApp.services', [])
   };
 
 //getProfileData passes in user type (fbk or rst) and username and returns user data from database.
- 
-  obj.getProfileData = function(type, username){
+  obj.getProfileData = function(type, username) {
     return $http({
       method: 'GET',
-      url: serverUrl + '/profile/' + type + "/" + username
+      url: '/profile/'+ type + '/' + username
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
+  obj.getDashboardData = function(username) {
+    return $http({
+      method: 'GET',
+      url: '/dash/'+ username
+    })
+    .then(function (resp) {
+      return resp.data;
     });
   };
 
