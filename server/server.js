@@ -64,7 +64,7 @@ app.post('/signup/:type', function(req, res, next) {
           // newUser.password = newUser.hashPassword(password);
           newUser.save(function(err) {
             if (err) {
-              console.log('error');
+              console.log(err);
             }
           })
             .then(function(user) {
@@ -120,12 +120,10 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
   var type = req.params.type;
 
-  if(req.user.type !== type || req.user.username !== username){
+  if (req.user.type !== type || req.user.username !== username) {
     res.status(403).send();
-  }else{
-    User.findOne({
-      username: username
-    }, getFields, function(err, user) {
+  } else {
+    User.findOne({username: username}, getFields, function(err, user) {
       if (err) {
         return next(err);
       }
@@ -138,17 +136,24 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
 
 app.get('/dash/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
-  console.log(req.user.type, 'fbk', req.user.username, username);
-  if(req.user.type !== 'fbk' || req.user.username !== username){
+  var response_obj = {};
+  if (req.user.type !== 'fbk' || req.user.username !== username) {
     res.status(403).send();
-  }else{
-    User.find({
-      type: 'rst'
-    }, getFields, function(err, users) {
+  } else {
+    User.find({type: 'rst'}, getFields, function(err, users) {
       if (err) {
-        return next(err);
+       console.log(err);
       }
-      res.status(200).send(users);
+      response_obj.rst = users;
+
+      User.findOne({username: username}, getFields, function(err, user) {
+        if (err) {
+          console.log(err);
+        }
+        response_obj.fbk = user;
+        console.log('dash obj', response_obj);
+        res.status(200).send(response_obj);
+      });
     });
   }
 });
