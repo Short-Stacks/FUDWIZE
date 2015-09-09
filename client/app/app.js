@@ -1,9 +1,7 @@
 angular.module('myApp', [
-  'myApp.foodbanks',
   'myApp.index',
   'myApp.dashboard',
   'myApp.login',
-  'myApp.restaurants',
   'myApp.services',
   'myApp.signup',
   'myApp.profile',
@@ -36,11 +34,6 @@ angular.module('myApp', [
       controller: 'ProfileCtrl',
       controllerAs: 'vm'
     })
-    //.when('/fbk/:username', {
-      //templateUrl: 'app/foodbanks/fbk.html',
-      //controller: 'FoodbanksCtrl',
-      //controllerAs: 'vm'
-    //})
     .when('/dash/:username', {
       templateUrl: 'app/dashboard/dash.html',
       controller: 'DashboardCtrl',
@@ -99,7 +92,7 @@ angular.module('myApp', [
 //     if (next.$$route && !isAuth() ) {
 //       if (next.$$route.originalPath !== '/signup' || next.$$route.originalPath !== '/') {
 //         $location.path('/login');
-//       } 
+//       }
 //     }
 //   });
 // }]);
