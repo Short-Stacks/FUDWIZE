@@ -118,7 +118,11 @@ app.post('/login', function(req, res, next) {
 
 app.get('/profile/:type/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
-  if (username) {
+  var type = req.params.type;
+
+  if(req.user.type !== type || req.user.username !== username){
+    res.status(403).send();
+  }else{
     User.findOne({
       username: username
     }, getFields, function(err, user) {
@@ -128,12 +132,16 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
       res.status(200).send(user);
     });
   }
+
 });
 
 
 app.get('/dash/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
-  if (username) {
+  console.log(req.user.type, 'fbk', req.user.username, username);
+  if(req.user.type !== 'fbk' || req.user.username !== username){
+    res.status(403).send();
+  }else{
     User.find({
       type: 'rst'
     }, getFields, function(err, users) {
@@ -141,7 +149,6 @@ app.get('/dash/:username', checkToken, function(req, res, next) {
         return next(err);
       }
       res.status(200).send(users);
-
     });
   }
 });
@@ -190,6 +197,7 @@ function checkToken(req, res, next) {
     // for use inside our controllers
     user = jwt.decode(token, 'secret');
     req.user = user;
+    console.log(user.username);
     next();
   } catch (error) {
     res.status(403).send({
