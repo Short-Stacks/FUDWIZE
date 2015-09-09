@@ -8,6 +8,8 @@ var jwt = require('jwt-simple');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var getFields = ['username', 'type', 'contactInfo', 'websiteUrl', 'additional', 'connections', 'foodData'];
+
 
 // mongoose.connect('mongodb://user:pass@localhost/api');
 mongoose.connect('mongodb://localhost/fudwize');
@@ -113,29 +115,27 @@ app.post('/login', function(req, res, next) {
 });
 //---------------------------------------------
 
-app.get('/profile/:type/:username', function(req, res, next) {
+app.get('/profile/:type/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
-  var type = req.params.type;
   if (username) {
-    User.findOne({ username: username }, function(err, docs) {
+    User.findOne({ username: username }, getFields, function(err, user) {
       if (err) {
         return next(err);
       }
-      res.json(docs);
+      console.log(user);
     });
   }
 });
 
 
-app.get('/dash/:username', function(req, res, next) {
+app.get('/dash/:username', checkToken, function(req, res, next) {
   var username = req.params.username;
-  var type = req.params.type;
   if (username) {
-    User.findOne({ username: username }, function(err, docs) {
+    User.find({ type: 'rst' }, getFields, function(err, data) {
       if (err) {
         return next(err);
       }
-      res.json(docs);
+      console.log(data);
     });
   }
 });
@@ -167,4 +167,26 @@ function hashPassword(userPassword, cb){
       return cb(hash);
     });
   });
+}
+
+function checkToken(req, res, next){
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var user;
+
+  if (!token) {
+    return res.status(403).send({
+      success: 'false',
+      message: 'no token provided'
+    }); // send forbidden if a token is not provided
+  }
+
+  try {
+    // decode token and attach user to the request
+    // for use inside our controllers
+    user = jwt.decode(token, tokenCode);
+    req.user = user;
+    next();
+  } catch(error) {
+    return next(error);
+  }
 }
