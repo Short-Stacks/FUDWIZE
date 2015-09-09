@@ -6,6 +6,7 @@ angular.module('myApp', [
   'myApp.restaurants',
   'myApp.services',
   'myApp.signup',
+  'myApp.profile',
   'ngRoute'
 ])
 
@@ -30,16 +31,16 @@ angular.module('myApp', [
       controller: 'LoginCtrl',
       controllerAs: 'vm'
     })
-    .when('/rst/:username', {
-      templateUrl: 'app/restaurants/rst.html',
-      controller: 'RestaurantsCtrl',
+    .when('/profile/:type/:username', {
+      templateUrl: 'app/profile/profile.html',
+      controller: 'ProfileCtrl',
       controllerAs: 'vm'
     })
-    .when('/fbk/:username', {
-      templateUrl: 'app/foodbanks/fbk.html',
-      controller: 'FoodbanksCtrl',
-      controllerAs: 'vm'
-    })
+    //.when('/fbk/:username', {
+      //templateUrl: 'app/foodbanks/fbk.html',
+      //controller: 'FoodbanksCtrl',
+      //controllerAs: 'vm'
+    //})
     .when('/dash/:username', {
       templateUrl: 'app/dashboard/dash.html',
       controller: 'DashboardCtrl',
@@ -55,7 +56,7 @@ angular.module('myApp', [
   // of interceptors. Think of it like middleware for your ajax calls
   // $httpProvider.interceptors.push('AttachTokens');
 
-}])
+}]);
 
 
 
