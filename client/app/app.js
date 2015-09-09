@@ -86,6 +86,14 @@ angular.module('myApp', [
         $location.path('/login');
       }
     }
+
+    // console.log('route', next.$$route, 'auth', isAuth());
+    // if (next.$$route && isAuth()) {
+    //   if (next.$$route.originalPath === '/signup/:type' || next.$$route.originalPath === '/login' || next.$$route.originalPath === '' || next.$$route.originalPath === '/') {
+    //    **how can you redirect someone to a path that depends on type params?
+    //     $location.path('/profile');
+    //   }
+    // }
   });
 }]);
 
