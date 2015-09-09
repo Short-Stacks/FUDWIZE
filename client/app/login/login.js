@@ -10,11 +10,11 @@ angular.module('myApp.login', [])
     AjaxService.postLoginData(vm.postData)
       .then(function(data){
         console.log('login success', data);
-        $window.localStorage.setItem('com.fudWize', data.token);
+        $window.localStorage.setItem('com.fudWize', JSON.stringify(data));
         $location.path('/profile/' + data.type + '/' + data.username);
         //if the post request is successful, evaluate this code
         //usually we bind something to our view (via vm) in this situation
-
+ 
       })
       // .error(function(data, status, headers, config){
       //   console.log('signup error', status);
