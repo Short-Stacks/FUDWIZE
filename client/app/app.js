@@ -10,7 +10,7 @@ angular.module('myApp', [
 
 .constant('MY_CONSTANTS', {
   "SERVER": "http://127.0.0.1:3000"
-})
+}) 
 
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
   $routeProvider
@@ -76,24 +76,28 @@ angular.module('myApp', [
   // when it does change routes, we then look for the token in localstorage
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to login
-  var isAuth = function () {
-    return !!$window.localStorage.getItem('com.fudWize');
-  };
+  // var isAuth = function () {
+  //   return !!$window.localStorage.getItem('com.fudWize');
+  // };
 
   $rootScope.$on('$routeChangeStart', function(evt, next, current) {
-    if (next.$$route && !isAuth()) {
-      if (!(next.$$route.originalPath === '/signup/:type' || next.$$route.originalPath === '/login' || next.$$route.originalPath === '' || next.$$route.originalPath === '/')) {
-        $location.path('/login');
-      }
-    }
+    //retrieve token/cookie from user's localStorage if they have already signed up or logged in
+    var authObject = JSON.parse($window.localStorage.getItem('com.fudWize'));
 
-    // console.log('route', next.$$route, 'auth', isAuth());
-    // if (next.$$route && isAuth()) {
-    //   if (next.$$route.originalPath === '/signup/:type' || next.$$route.originalPath === '/login' || next.$$route.originalPath === '' || next.$$route.originalPath === '/') {
-    //    **how can you redirect someone to a path that depends on type params?
-    //     $location.path('/profile');
-    //   }
-    // }
+    //if this object exists, check that the token still persists, and route them to their profile
+    //a user will only be able to view his or her profile, and nobody else's
+    if (authObject) {
+      if (next.$$route && authObject.token) {
+        $location.path('/profile/' + authObject.type + '/' + authObject.username);
+      };
+    }
+    //if the object doesn't exist, and they are not veiwing the homepage or signup page, route them to login
+    else if (next.$$route && !authObject) {
+      var path = next.$$route.originalPath;
+      if (path !== '/signup/:type' && path !== '/login' && path !== '' && path !== '/') {
+        $location.path('/login');
+      };
+    };
   });
 }]);
 
