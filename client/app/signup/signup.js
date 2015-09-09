@@ -73,7 +73,7 @@ angular.module('myApp.signup', [])
       .then(function(data){
         console.log('signup success', data);
         $window.localStorage.setItem('com.fudWize', data.token);
-        $location.path('/profile/:' + data.type + '/:' + data.username);
+        $location.path('/profile/' + data.type + '/' + data.username);
 
         //if the post request is successful, evaluate this code
         //usually we bind something to our view (via vm) in this situation
