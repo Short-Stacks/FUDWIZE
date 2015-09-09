@@ -5,6 +5,7 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.signup',
   'myApp.profile',
+  'door3.css',
   'ngRoute'
 ])
 
@@ -17,7 +18,8 @@ angular.module('myApp', [
     .when('/', {
       templateUrl: 'app/index/main.html',
       controller: 'MainCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/main-page.css'
     })
     .when('/signup/:type', {
       templateUrl: 'app/signup/signup.html',
