@@ -8,7 +8,16 @@ var jwt = require('jwt-simple');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
-var getFields = ['username', 'type', 'contactInfo', 'websiteUrl', 'additional', 'connections', 'foodData'];
+var getFields = {
+  '_id': 0,
+  'username': 1,
+  'type': 1,
+  'contactInfo': 1,
+  'websiteUrl': 1,
+  'additional': 1,
+  'connections': 1,
+  'foodData': 1
+};
 
 
 // mongoose.connect('mongodb://user:pass@localhost/api');
@@ -51,7 +60,8 @@ app.post('/signup/:type', function(req, res, next) {
             contactInfo: contactInfo,
             websiteUrl: websiteUrl,
             additional: additional,
-            foodData: foodData
+            foodData: foodData,
+            connections: []
           });
           // newUser.password = newUser.hashPassword(password);
           console.log('newUser', newUser);
@@ -113,29 +123,32 @@ app.post('/login', function(req, res, next) {
       }
     });
 });
-//---------------------------------------------
 
-app.get('/profile/:type/:username', checkToken, function(req, res, next) {
+app.get('/profile/:type/:username', function(req, res, next) {
   var username = req.params.username;
+  console.log('username', username);
   if (username) {
     User.findOne({ username: username }, getFields, function(err, user) {
       if (err) {
         return next(err);
       }
       console.log(user);
+      res.status(200).send(user);
     });
   }
 });
 
 
-app.get('/dash/:username', checkToken, function(req, res, next) {
+app.get('/dash/:username', function(req, res, next) {
   var username = req.params.username;
   if (username) {
-    User.find({ type: 'rst' }, getFields, function(err, data) {
+    User.find({ type: 'rst' }, getFields, function(err, users) {
       if (err) {
         return next(err);
       }
-      console.log(data);
+      console.log(users);
+      res.status(200).send(users);
+
     });
   }
 });
