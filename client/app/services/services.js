@@ -3,6 +3,8 @@ angular.module('myApp.services', [])
 .factory('AjaxService', ['$http', function($http){
   var obj = {};
 
+  var serverUrl = 'http://127.0.0.1:3000';
+
   //invoking this method will perform a POST ajax and return a promise
   obj.postSignupData = function(data, param){
     return $http({
@@ -23,6 +25,15 @@ angular.module('myApp.services', [])
     })
     .then(function (resp) {
       return resp.data;
+    });
+  };
+
+//getProfileData passes in user type (fbk or rst) and username and returns user data from database.
+ 
+  obj.getProfileData = function(type, username){
+    return $http({
+      method: 'GET',
+      url: serverUrl + '/profile/' + type + "/" + username
     });
   };
 
