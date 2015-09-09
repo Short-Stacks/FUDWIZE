@@ -1,6 +1,6 @@
 angular.module('myApp.signup', [])
 
-.controller('SignupCtrl', ['$scope', '$routeParams', 'AjaxService', function($scope, $routeParams, AjaxService){
+.controller('SignupCtrl', ['$scope', '$routeParams', '$window', '$location', 'AjaxService', function($scope, $routeParams, $window, $location, AjaxService){
   /*
   angular best practice is to save the controller "this" context as "vm" (short for viewmodel)
   doing this allows us to bind something to our view while nested inside a controller function like submitForm
@@ -70,18 +70,21 @@ angular.module('myApp.signup', [])
   vm.submit = function (){
     console.log(vm.postData);
     AjaxService.postSignupData(vm.postData, typeParam)
-      .success(function(data, status){
-        console.log('signup success', status);
+      .then(function(data){
+        console.log('signup success', data);
+        $window.localStorage.setItem('com.fudWize', data.token);
+        $location.path('/profile/' + data.type + '/' + data.username);
 
         //if the post request is successful, evaluate this code
         //usually we bind something to our view (via vm) in this situation
 
 
-      }).error(function(data, status, headers, config){
-        console.log('signup error', status);
+      })
+      // .error(function(data, status, headers, config){
+      //   console.log('signup error', status);
 
-        //if the post request fails, evaluate this code
-      });
+      //   //if the post request fails, evaluate this code
+      // });
   }
 
   /*

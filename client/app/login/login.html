@@ -1,0 +1,27 @@
+<!-- </head> -->
+<div id="login" ng-controller='LoginCtrl as ctrl'>
+
+<h1>Sign In to the FudWize Network</h1>
+
+  <form name='loginForm' ng-submit="ctrl.submitLoginForm()">
+
+    <label>Username:
+      <input type='text' name='usernameInput' ng-model='ctrl.postData.username' required>
+    </label>
+    <div role="alert">
+      <span class="error" ng-show="signupForm.usernameInput.$error.required">
+          (required)</span>
+    </div>
+
+    <label>Password:
+      <input type="password" name='passwordInput' ng-model='ctrl.postData.password' required>
+    </label>
+    <div role="alert">
+      <span class="error" ng-show="signupForm.passwordInput.$error.required">
+          (required)</span>
+    </div>
+
+    <input type="submit" id="submit" value="Submit" />
+  </form>
+
+</div>
