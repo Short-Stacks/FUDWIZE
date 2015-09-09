@@ -8,6 +8,7 @@ angular.module('myApp.profile', [])
     AjaxService.getProfileData(vm.type, vm.username)
       .then(function(data){
         console.log(data);
+        vm.data = data;
       });
 
 

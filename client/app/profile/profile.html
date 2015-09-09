@@ -1,4 +1,27 @@
 <div class="profile-container" ng-controller="ProfileCtrl as ctrl">
+
+  <div class="row profile-header">
+
+    <div class="col-md-3">
+      <img src="http://placehold.it/200x200" alt="Placeholder" class="profilepic">
+    </div> <!-- generic image -->
+
+    <div class="col-md-9">
+      {{ ctrl.data.contactInfo.name }}
+    </div>
+
+  </div> <!-- /end row profile-header -->
+
+  <div class="row contact-info">
+    <div class="sidebar col-md-3">
+
+
+      <p>Address: {{ ctrl.data.contactInfo }}</p>
+      <p>Can Donate: {{ ctrl.data.foodData }}</p>
+      <p>Website: {{ ctrl.data.websiteUrl }}</p>
+      <p>Additional Info: {{ ctrl.data.additional }}</p>
+    </div>
+  </div>
   <p>Username: {{ ctrl.username }}</p>
   <p>Usertype: {{ ctrl.type }}</p>
 </div>
