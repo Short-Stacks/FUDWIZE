@@ -9,7 +9,7 @@ angular.module('myApp.signup', [])
   /*
   typeParam will be either "rst" or "fbk" based on our .config setup in app.js
   we must make sure <a> "href=" in signup.html directs us to either #/signup/rst or #/signup/fbk
-  */
+  */ 
   var typeParam = $routeParams.type;
 
   if (typeParam === 'rst') {
@@ -72,7 +72,7 @@ angular.module('myApp.signup', [])
     AjaxService.postSignupData(vm.postData, typeParam)
       .then(function(data){
         console.log('signup success', data);
-        $window.localStorage.setItem('com.fudWize', data.token);
+        $window.localStorage.setItem('com.fudWize', JSON.stringify(data));
         $location.path('/profile/' + data.type + '/' + data.username);
 
         //if the post request is successful, evaluate this code

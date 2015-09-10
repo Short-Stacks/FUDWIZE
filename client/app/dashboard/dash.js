@@ -5,7 +5,6 @@ angular.module('myApp.dashboard', [])
   vm.username = $routeParams.username;
   AjaxService.getDashboardData(vm.username)
     .then(function(data){
-      vm.data = data[0];
-      console.log('dashboard data', vm.data);
+      console.log(data);
     });
 }]);
