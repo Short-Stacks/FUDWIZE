@@ -24,12 +24,14 @@ angular.module('myApp', [
     .when('/signup/:type', {
       templateUrl: 'app/signup/signup.html',
       controller: 'SignupCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/signup.css'
     })
     .when('/login', {
       templateUrl: 'app/login/login.html',
       controller: 'LoginCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/login.css'
     })
     .when('/profile/:type/:username', {
       templateUrl: 'app/profile/profile.html',
@@ -40,7 +42,8 @@ angular.module('myApp', [
     .when('/dash/:username', {
       templateUrl: 'app/dashboard/dash.html',
       controller: 'DashboardCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/dashboard.css'
     })
     .otherwise({
       redirectTo: '/'
