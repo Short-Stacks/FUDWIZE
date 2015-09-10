@@ -1,0 +1,13 @@
+h1 {
+  font-size: 4em;
+}
+
+.profilepic {
+  overflow: hidden;
+  border-radius: 14%;
+  width: 189px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+

@@ -34,7 +34,8 @@ angular.module('myApp', [
     .when('/profile/:type/:username', {
       templateUrl: 'app/profile/profile.html',
       controller: 'ProfileCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/profile.css'
     })
     .when('/dash/:username', {
       templateUrl: 'app/dashboard/dash.html',
