@@ -82,23 +82,37 @@ angular.module('myApp', [
   // when it does change routes, we then look for the token in localstorage
   // and send that token to the server to see if it is a real user or hasn't expired
   // if it's not valid, we then redirect back to login
-  var isAuth = function () {
-    return !!$window.localStorage.getItem('com.fudWize');
-  };
+  // var isAuth = function () {
+  //   return !!$window.localStorage.getItem('com.fudWize');
+  // };
 
   $rootScope.$on('$routeChangeStart', function(evt, next, current) {
-    if (next.$$route && !isAuth()) {
-      if (!(next.$$route.originalPath === '/signup/:type' || next.$$route.originalPath === '/login' || next.$$route.originalPath === '' || next.$$route.originalPath === '/')) {
-        $location.path('/login');
+    //retrieve token/cookie from user's localStorage if they have already signed up or logged in
+    var authObject = JSON.parse($window.localStorage.getItem('com.fudWize'));
+
+    //this is the next route (e.g. '/signup')
+    var path = next.$$route.originalPath;
+    
+    //if this object exists, check that the token still persists, and route them to their profile
+    //a user will only be able to view his or her profile, and nobody else's
+    if (authObject) {
+      if (next.$$route && authObject.token) {
+
+        if (path === '/profile/:type/:username') {
+          $location.path('/profile/' + authObject.type + '/' + authObject.username);
+        }
+        else if (path === '/dash/:username') {
+          $location.path('/dash/' + authObject.username);
+        }
       }
     }
+    //if the object doesn't exist, and they are not veiwing the homepage or signup page, route them to login
+    else {
 
-    // console.log('route', next.$$route, 'auth', isAuth());
-    // if (next.$$route && isAuth()) {
-    //   if (next.$$route.originalPath === '/signup/:type' || next.$$route.originalPath === '/login' || next.$$route.originalPath === '' || next.$$route.originalPath === '/') {
-    //    **how can you redirect someone to a path that depends on type params?
-    //     $location.path('/profile');
-    //   }
-    // }
+      if (path !== '/signup/:type' && path !== '/login' && path !== '' && path !== '/') {
+        $location.path('/login');
+      };
+    };
   });
 }]);
+
