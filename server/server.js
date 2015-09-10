@@ -151,7 +151,6 @@ app.get('/dash/:username', checkToken, function(req, res, next) {
           console.log(err);
         }
         response_obj.fbk = user;
-        console.log('dash obj', response_obj);
         res.status(200).send(response_obj);
       });
     });
@@ -189,8 +188,9 @@ function hashPassword(userPassword, cb) {
 function checkToken(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
   var user;
+  var tokenObj = JSON.parse(token);
 
-  if (!token) {
+  if (!tokenObj.token) {
     return res.status(403).send({
       success: 'false',
       message: 'no token provided'
@@ -200,9 +200,8 @@ function checkToken(req, res, next) {
   try {
     // decode token and attach user to the request
     // for use inside our controllers
-    user = jwt.decode(token, 'secret');
+    user = jwt.decode(tokenObj.token, 'secret');
     req.user = user;
-    console.log(user.username);
     next();
   } catch (error) {
     res.status(403).send({
