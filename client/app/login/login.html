@@ -22,7 +22,7 @@
 
             <!--============== Username ==============-->
 
-            <div class="form-group">
+            <div class="form-group" ng-hide="create">
               <label for="username-input">Username</label>
               <input type='text' name='usernameInput' id="username-input" class="form-control" placeholder="Enter your username" ng-model='ctrl.postData.username' required>
               <div role="alert">
@@ -33,7 +33,7 @@
 
             <!--============== Password ==============-->
 
-            <div class="form-group">
+            <div class="form-group" ng-hide="create">
               <label for="password-input">Password</label>
               <input type="password" name='passwordInput' id="password-input" class="form-control" placeholder="Enter your password" ng-model='ctrl.postData.password' required>
               <div role="alert">
@@ -44,7 +44,17 @@
 
             <!--============== Submit Button ==============-->
 
-            <button class="btn btn-primary btn-block submit" type="submit" id="submit" value="Submit">Log In</button>
+            <button class="btn btn-primary btn-block submit" type="submit" id="submit" value="Submit" ng-hide="create">Log In</button>
+
+            <!--============== Create Account ==============-->
+            <div class="create-account" ng-hide="create">
+              Don't have an account? <span class="create-link" ng-click="create=true">Create one now</span>
+            </div>
+            <div class="select-type" ng-show="create">
+              <label for="type-selection text-left">Please select type of account to open</label>
+              <a href="#/signup/rst" class="btn btn-primary btn-block form-control rst-btn">Restaurant</a>
+              <a href="#/signup/fbk" class="btn btn-primary btn-block form-control fbk-btn">Food Bank</a>
+            </div>
           </form>
         </div>  <!-- /col input forms -->
       </div> <!-- /row input forms -->

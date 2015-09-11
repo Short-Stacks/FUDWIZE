@@ -30,3 +30,19 @@ body>div:first-of-type {
   margin-top: 30px;
   margin-bottom: 15px;
 }
+
+.create-link {
+  font-weight: bold;
+  color: green;
+  cursor: pointer;
+}
+
+.select-type {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.rst-btn {
+  margin-bottom: 15px;
+}
+
