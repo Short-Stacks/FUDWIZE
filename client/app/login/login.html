@@ -47,17 +47,23 @@
             <button class="btn btn-primary btn-block submit" type="submit" id="submit" value="Submit" ng-hide="create">Log In</button>
 
             <!--============== Create Account ==============-->
-            <div class="create-account" ng-hide="create">
-              Don't have an account? <span class="create-link" ng-click="create=true">Create one now</span>
-            </div>
+
             <div class="select-type" ng-show="create">
-              <label for="type-selection text-left">Please select type of account to open</label>
+              <p class="type-prompt text-center">Please select type of account to open</p>
               <a href="#/signup/rst" class="btn btn-primary btn-block form-control rst-btn">Restaurant</a>
               <a href="#/signup/fbk" class="btn btn-primary btn-block form-control fbk-btn">Food Bank</a>
-            </div>
+            </div> <!-- /select-type -->
           </form>
         </div>  <!-- /col input forms -->
       </div> <!-- /row input forms -->
     </div> <!-- /wrapper -->
   </div> <!-- /row entire form -->
+
+  <!--============== Create Account Prompt ==============-->
+  <!-- The prompt is outside the login box, but the type selection prompt will appear inside the box when clicked-->
+
+  <div class="create-account text-center" ng-hide="create">
+    Don't have an account? <span class="create-link" ng-click="create=true">Create one now</span>
+  </div> <!-- /create-account -->
+
 </div> <!-- /login container -->
