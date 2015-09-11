@@ -5,6 +5,7 @@ var app = express();
 var path = require('path');
 var User = require('./users/userModel.js');
 var jwt = require('jwt-simple');
+var createTestUsers = require('./users/testUsers.js');
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
@@ -23,6 +24,9 @@ var getFields = {
 // mongoose.connect('mongodb://user:pass@localhost/api');
 mongoose.connect('mongodb://localhost/fudwize');
 var SALT_WORK_FACTOR = 10;
+
+// Remember to delete prior to deployment
+createTestUsers(hashPassword);
 
 app.use(cors());
 app.use(bodyParser.json());
