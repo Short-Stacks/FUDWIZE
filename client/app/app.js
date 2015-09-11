@@ -84,16 +84,25 @@ angular.module('myApp', [
     //retrieve token/cookie from user's localStorage if they have already signed up or logged in
     var authObject = JSON.parse($window.localStorage.getItem('com.fudWize'));
 
+    //this is the next route (e.g. '/signup')
+    var path = next.$$route.originalPath;
+    
     //if this object exists, check that the token still persists, and route them to their profile
     //a user will only be able to view his or her profile, and nobody else's
     if (authObject) {
       if (next.$$route && authObject.token) {
-        $location.path('/profile/' + authObject.type + '/' + authObject.username);
-      };
+
+        if (path === '/profile/:type/:username') {
+          $location.path('/profile/' + authObject.type + '/' + authObject.username);
+        }
+        else if (path === '/dash/:username') {
+          $location.path('/dash/' + authObject.username);
+        }
+      }
     }
     //if the object doesn't exist, and they are not veiwing the homepage or signup page, route them to login
-    else if (next.$$route && !authObject) {
-      var path = next.$$route.originalPath;
+    else {
+
       if (path !== '/signup/:type' && path !== '/login' && path !== '' && path !== '/') {
         $location.path('/dash/'+ authObject.username);
       };
