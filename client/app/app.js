@@ -95,7 +95,7 @@ angular.module('myApp', [
     else if (next.$$route && !authObject) {
       var path = next.$$route.originalPath;
       if (path !== '/signup/:type' && path !== '/login' && path !== '' && path !== '/') {
-        $location.path('/login');
+        $location.path('/dash/'+ authObject.username);
       };
     };
   });
