@@ -3,7 +3,6 @@ angular.module('myApp.dashboard', [])
 .controller('DashboardCtrl', ['$routeParams', 'AjaxService', function($routeParams, AjaxService) {
   var vm = this;
   vm.username = $routeParams.username;
-
   AjaxService.getDashboardData(vm.username)
     .then(function(data) {
       vm.rst = data.rst;
@@ -75,7 +74,7 @@ angular.module('myApp.dashboard', [])
 
 // var restaurantsLatLongs = generateLatLongs(restaurantsAddresses);      
   function initMap() {
-    var marker =[];
+
     var infowindow = null; 
   
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -90,19 +89,25 @@ angular.module('myApp.dashboard', [])
       '</div>'+
       '</div>';
 
+      console.log('vm.address[i] is ', vm.address[i]);
+
 
       infowindow = new google.maps.InfoWindow({
         content: contentString,
         maxWidth: 200
       });
-      marker[i] = new google.maps.Marker({
+
+      var marker = new google.maps.Marker({
         position: vm.restaurantsLatLongs[i],
-        map: map,
-        title: 'restaurantsLatLongs (Ayers Rock)'
+        map: map
       });
-      marker[i].addListener('click', function() {
-          infowindow.open(map, this);
-      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
+        return function() {
+          infowindow.setContent(contentString);
+          infowindow.open(map, marker);
+        }
+      })(marker, contentString, infowindow));
     }
   }
 }]);
