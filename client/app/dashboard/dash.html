@@ -1,24 +1,44 @@
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
   <style>
-    .my-list {
-      max-height: 300px;
-      overflow-y: auto;
+    #restaurantInfo{
+      background-color: #fff;
+      padding: 1em;
+      width: 350px;
+      position: relative;
+      box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
+      border-radius: 3px;
+    }
+    #nav{
+      border:1px solid black;
+      width: 300px;
+      height: 200px;
+      overflow: scroll;
     }
   </style>
 </head>
-<div id="dashboard" ng-controller='DashboardCtrl as ctrl'>
 <nav-bar></nav-bar>
-<h1>Dashboard</h1>
-  <p>Hello, Cindy</p>
+<div id="dashboard" ng-controller='DashboardCtrl as ctrl'>
+<h3>Dashboard</h3>
+  <p>Hello, {{ctrl.username}}</p>
   <div id="map"></div> <!--map-->
-  <div id="restaurantInfo">
-  <ul class="list-group my-list">
-    <li class="list-group-item">Hi</li>
-    <li class="list-group-item">hey</li>
-  </ul>
-  <button class="btn btn-default" ng-click="testVM.previous()">Scroll Previous</button>
-  <button class="btn btn-default" ng-click="testVM.next()">Scroll Next</button>
-  </div> <!--restaurant info-->
+  <form id="restaurantInfo">
+    <p><strong>List of Restaurant Vendor:</strong></p>
+    <input type="text" placeholder="Filter" ng-model="ctrl.searchInput">
+    <p></p>
+    <ul id="nav" class="list-group" ng-repeat="restaurant in ctrl.rst | filter: ctrl.searchInput">
+      <li id="nav" class="list-group-item" > 
+      Restaurant Name: {{restaurant.contactInfo.name}}
+      <p>About Us: {{restaurant.additional.aboutUs}}</p>
+      <p>Address: {{restaurant.contactInfo.streetName}}&nbsp;{{restaurant.contactInfo.cityStateZip}}</p>
+      <p>Url: {{restaurant.websiteUrl}}</p>
+      <p>Contact person: {{restaurant.contactInfo.name}}</p>
+      <p>Email: {{restaurant.contactInfo.email}}</p>
+      <p>Phone: {{restaurant.contactInfo.phoneNumber}}</p>
+      <p ng-show="restaurant.foodType.length !== 0">Food Type: {{restaurant.foodType}}</p>
+      <p ng-show="restaurant.mealType.length !== 0">Meal Type: {{restaurant.mealType}} </p>
+      <p ng-show="restaurant.pickupDay.length !== 0">Pickup Day: {{restaurant.pickupDay}}} </p>
+      <p ng-show="restaurant.pickupTime.length !== 0">Pickup Time: {{restaurant.pickupTime}} </p>
+     </li>
+    </ul>
+  </form>
 </div>
