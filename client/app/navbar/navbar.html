@@ -1,19 +1,6 @@
 <nav class="navbar navbar-custom navbar-fixed-top">
   <div class="container">
-    <h2 class="navbar-text navbar-left">
-      FUDWISE
-    </h2>
-    <span ng-if="!loggedIn()" class="navbar-text navbar-right login">
-      <a href="#/login">Log In</a>
-    </span>
-    <span ng-if="loggedIn()" class="navbar-text navbar-right logout">
-      <button ng-click="logout()">Log Out</button>
-    </span>
-    <span class="navbar-text navbar-right">
-      Stories
-    </span>
-    <span class="navbar-text navbar-right">
-      About Us
-    </span>
+      <button ng-if="!loggedIn()" ng-click="login()" class="btn btn-primary navbar-btn navbar-right">Log In</button>
+      <button ng-if="loggedIn()" ng-click="logout()" class="btn btn-primary navbar-btn navbar-right">Log Out</button>
   </div> <!-- /container for nav-->
 </nav>
