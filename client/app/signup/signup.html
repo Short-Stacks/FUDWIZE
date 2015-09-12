@@ -22,147 +22,187 @@
 
             <!-- all data from the form will be saved in the postData object in the controller -->
 
-            <!--============== Username ==============-->
-            <div class="form-group">
-              <label for="username">Username</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.username.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.username.$error.required"></span> 
-              <input type='text' name="username" id="username" class="form-control" placeholder="Enter Username" ng-model="ctrl.postData.username" required />
-            </div> <!-- /form-group username -->
+            <!--========================= Section One =========================-->
+            <!-- Section one asks general information. Clicking Next Button will ask for more details -->
 
-            <!--============== Password ==============-->
+            <div class="signup-section-one" ng-hide="next">
 
-            <div class="form-group">
-              <label for="password">Password</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.password.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.password.$error.required"></span> 
-              <input type="password" name="password" id="password" class="form-control" placeholder="Enter Rassword" ng-model="ctrl.postData.password" required />
-            </div> <!-- /form-group password -->
+              <!--============== Username ==============-->
+              <div class="form-group">
+                <label for="username">Username</label><span class="required-field">*</span>
+                <input type='text' name="username" id="username" class="form-control" placeholder="Enter Username" ng-model="ctrl.postData.username" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.username.$touched">
+                  <span ng-show="signupForm.username.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group username -->
 
-            <!--============== Organization Name ==============-->
+              <!--============== Password ==============-->
 
-            <div class="form-group" ng-hide="ctrl.isRst">
-              <label for="organization">Organization Name</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.organization.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.organization.$error.required"></span> 
-              <input type="text" name="organization" id="organization" class="form-control" placeholder="Enter Organization Name" ng-model="ctrl.postData.contactInfo.name" required />
-            </div> <!-- /form-group organization -->
+              <div class="form-group">
+                <label for="password">Password</label><span class="required-field">*</span>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Rassword" ng-model="ctrl.postData.password" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.password.$touched">
+                  <span ng-show="signupForm.password.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group password -->
 
+              <!--============== Organization Name ==============-->
 
-            <!--============== Restaurant Name ==============-->
-
-            <div class="form-group" ng-hide="!ctrl.isRst">
-              <label for="restaurant">Restaurant Name</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.restaurant.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.restaurant.$error.required"></span> 
-              <input type="text" name="restaurant" id="restaurant" class="form-control" placeholder="Enter Restaurant Name" ng-model="ctrl.postData.contactInfo.name" required />
-            </div> <!-- /form-group restaurant -->
-
-            <!--============== Street Name ==============-->
-
-            <div class="form-group">
-              <label for="streetName">Street Name</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.streetName.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.streetName.$error.required"></span> 
-              <input type="text" name="streetName" id="streetName" class="form-control" placeholder="Enter Street Name" ng-model="ctrl.postData.contactInfo.streetName" required />
-            </div> <!-- /form-group streetName -->
-
-            <!--============== City State Zipcode ==============-->
-
-            <div class="form-group">
-              <label for="cityStateZip">City, State and Zipcode</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.streetName.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.streetName.$error.required"></span> 
-              <input type="text" name="cityStateZip" id="cityStateZip" class="form-control" placeholder="Enter City State and Zipcode" ng-model="ctrl.postData.contactInfo.cityStateZip" required />
-            </div> <!-- /form-group city state zip -->
+              <div class="form-group" ng-hide="ctrl.isRst">
+                <label for="organization">Organization Name</label><span class="required-field">*</span>
+                <input type="text" name="organization" id="organization" class="form-control" placeholder="Enter Organization Name" ng-model="ctrl.postData.contactInfo.name" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.organization.$touched">
+                  <span ng-show="signupForm.organization.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group organization -->
 
 
-            <!--============== Phone Number ==============-->
+              <!--============== Restaurant Name ==============-->
 
-            <div class="form-group">
-              <label for="phoneNumber">Phone Number</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.phoneNumber.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.phoneNumber.$error.required"></span> 
-              <input type="number" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" ng-model="ctrl.postData.contactInfo.phoneNumber" required />
-              <div role="alert">
-                <span class="error" ng-show="signupForm.phoneNumber.$error.number">
-                  Not valid phone number!</span>
-              </div> <!-- /alert created by angular -->
-            </div> <!-- /form-group phoneNumber -->
+              <div class="form-group" ng-hide="!ctrl.isRst">
+                <label for="restaurant">Restaurant Name</label><span class="required-field">*</span>
+                <input type="text" name="restaurant" id="restaurant" class="form-control" placeholder="Enter Restaurant Name" ng-model="ctrl.postData.contactInfo.name" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.restaurant.$touched">
+                  <span ng-show="signupForm.restaurant.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group restaurant -->
 
-            <!--============== E-mail ==============-->
+              <!--============== Street Name ==============-->
 
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.email.$error.required"></span> 
-              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.email.$error.required" ng-hide="signupForm.email.$error.email"></span> 
-              <input type="email" name="email" id="email" class="form-control" placeholder="Enter E-mail Address" ng-model="ctrl.postData.contactInfo.email" required />
-              <div role="alert">
-                <span class="error" ng-show="signupForm.email.$error.email">
-                  Not a valid email address!</span>
-              </div> <!-- /alert created by angular -->
-            </div> <!-- /form-group email -->
+              <div class="form-group">
+                <label for="streetName">Street</label><span class="required-field">*</span>
+                <input type="text" name="streetName" id="streetName" class="form-control" placeholder="Enter Street Number and Name" ng-model="ctrl.postData.contactInfo.streetName" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.streetName.$touched">
+                  <span ng-show="signupForm.streetName.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group streetName -->
 
-            <!--============== Website ==============-->
+              <!--============== City State Zipcode ==============-->
 
-            <div class="form-group">
-              <label for="websiteurl">Website</label>
-              <input type="url" name="websiteurl" id="websiteurl" class="form-control" placeholder="Enter Website Url" ng-model="ctrl.postData.contactInfo.websiteurl" required />
-            </div> <!-- /form-group websiteurl -->
-
-            <!--============== Next Button ==============-->
-
-            <input class="btn btn-primary btn-md next" value="Next">
+              <div class="form-group">
+                <label for="cityStateZip">City, State and Zipcode</label><span class="required-field">*</span>
+                <input type="text" name="cityStateZip" id="cityStateZip" class="form-control" placeholder="Enter City State and Zipcode" ng-model="ctrl.postData.contactInfo.cityStateZip" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.cityStateZip.$touched">
+                  <span ng-show="signupForm.cityStateZip.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group city state zip -->
 
 
+              <!--============== Phone Number ==============-->
+
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number</label><span class="required-field">*</span>
+                <input type="number" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" ng-minlength="10" ng-maxlength="10" ng-model="ctrl.postData.contactInfo.phoneNumber" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.phoneNumber.$touched">
+
+                  <span ng-show="signupForm.phoneNumber.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                  <span ng-show="signupForm.phoneNumber.$error.minlength || signupForm.phoneNumber.$error.maxlength"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Invalid Format. Please Enter 10 Digits</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group phoneNumber -->
+
+              <!--============== E-mail ==============-->
+
+              <div class="form-group">
+                <label for="email">E-mail</label><span class="required-field">*</span>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter E-mail Address" ng-model="ctrl.postData.contactInfo.email" required />
+                <div class="error" ng-show="signupForm.$submitted || signupForm.email.$touched">
+                  <span ng-show="signupForm.email.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                  <span ng-show="signupForm.email.$error.email"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Invalid E-mail</span>
+                </div> <!-- /show error -->
+              </div> <!-- /form-group email -->
+
+              <!--============== Website ==============-->
+
+              <div class="form-group">
+                <label for="websiteurl">Website</label>
+                <input type="url" name="websiteurl" id="websiteurl" class="form-control" placeholder="Enter Website Url" ng-model="ctrl.postData.contactInfo.websiteurl" required />
+              </div> <!-- /form-group websiteurl -->
+
+              <!--============== Next Button ==============-->
+
+              <input class="btn btn-primary btn-block next" value="Next" ng-click="next=true" />
+
+            </div> <!-- /section one -->
 
 
-            <!--============== Page 2 ==============-->
 
-            <label>Tell Us About Your Organization:
-              <input type="text" name="aboutUsInput" ng-model="ctrl.postData.additional.aboutUs" />
-            </label>
+            <!--========================= Section Two =========================-->
 
-            <!-- this portion will only show if the organization is a restaurant -->
-            <div ng-show='ctrl.isRst'>
+            <div class="signup-section-two" ng-show="next">
 
-              <!-- first row -->
-              <table>
-                <tr>
-                  <td>Meals You Can Provide</td>
-                  <td>Type of Food</td>
-                  <td>Days Available For Food Pickup</td>
-                  <td>Time of Day</td>
-                </tr>
+              <!--============== Mission Statement (FBK Only) ==============-->
 
-                <tr>
-                  <td>
-                    <label ng-repeat="(key, value) in ctrl.mealType">
-                      <input type="checkbox" checklist-value="meal" ng-model="ctrl.postData.foodData.mealType[key]" /> {{ key }}
-                    </label>
-                  </td>
-                  <td>
-                    <label ng-repeat="(key, value) in ctrl.foodType">
-                      <input type="checkbox" checklist-value='meal' ng-model="ctrl.postData.foodData.foodType[key]" /> {{ key }}
-                    </label>
-                  </td>
-                  <td>
-                    <label ng-repeat="(key, value) in ctrl.pickupDay">
-                      <input type="checkbox" checklist-value='meal' ng-model="ctrl.postData.foodData.pickupDay[key]" /> {{ key }}
-                    </label>
-                  </td>
-                  <td>
-                    <label ng-repeat="(key, value) in ctrl.pickupTime">
-                      <input type="checkbox" checklist-value='meal' ng-model="ctrl.postData.foodData.pickupTime[key]" /> {{ key }}
-                    </label>
-                  </td>
-                </tr>
+              <div class="form-group" ng-hide="ctrl.isRst">
+                <label for="mission">Tell Us About Your Organization</label>
+                <textarea class="form-control" name="mission" rows="4" ng-model="ctrl.postData.additional.mission"></textarea>
+              </div> <!-- /form-group mission statement -->
 
-              </table>
+              <!--============== About Us ==============-->
 
-            </div>
-            <!--<button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-hide="next">Next</button>-->
-            <!--<input type="submit" id="submit" value="Submit" />-->
+              <div class="form-group" ng-hide="ctrl.isRst">
+                <label for="aboutUs">Tell Us About Your Organization</label>
+                <textarea class="form-control" name="aboutUs" rows="4" ng-model="ctrl.postData.additional.aboutUs"></textarea>
+              </div> <!-- /form-group about us -->
+
+              <!--============== Service Area (FBK Only) ==============-->
+
+              <div class="form-group" ng-hide="ctrl.isRst">
+                <label for="serviceArea">Service Area</label>
+                <input type="url" name="serviceArea" id="serviceArea" class="form-control" placeholder="Enter Service Area" ng-model="ctrl.postData.contactInfo.serviceArea" />
+              </div> <!-- /form-group service area -->
+
+               
+              <!--============== Restaurant Only Section ==============-->
+
+              <div ng-show="ctrl.isRst">
+
+                <!--============== About Us ==============-->
+
+                <div class="form-group">
+                  <label for="aboutUs">Tell Us About Your Restaurant</label>
+                  <textarea class="form-control" name="aboutUs" rows="4" ng-model="ctrl.postData.additional.aboutUs"></textarea>
+                </div> <!-- /form-group about us -->
+
+                <!--============== Type of Meal ==============-->
+
+                <div class="form-group">
+                  <label for="mealsProvided">Meals You Can Provide</label>
+                  <div ng-repeat="(key, value) in ctrl.mealType">
+                    <input type="checkbox" checklist-value="meal" ng-model="ctrl.postData.foodData.mealType[key]" /> {{ key }}
+                  </div> <!-- /list mealType -->
+                </div> <!-- /form-group mealType -->
+
+                <!--============== Type of Food ==============-->
+                <div class="form-group">
+                  <label for="typeOfFood">Type of Food</label>
+                  <div ng-repeat="(key, value) in ctrl.foodType">
+                    <input type="checkbox" checklist-value="meal" ng-model="ctrl.postData.foodData.foodType[key]" /> {{ key }}
+                  </div> <!-- /list foodType -->
+                </div> <!-- /form-group foodType -->
+
+                <!--============== Pickup Days ==============-->
+                <div class="form-group">
+                  <label for="daysAvailable">Days Available for Food Pickup</label>
+                  <div ng-repeat="(key, value) in ctrl.pickupDay">
+                    <input type="checkbox" checklist-value="meal" ng-model="ctrl.postData.foodData.pickupDay[key]" /> {{ key }}
+                  </div> <!-- /list pickupDay -->
+                </div> <!-- /form-group pickupDay -->
+
+                <!--============== Pickup Times ==============-->
+                <div class="form-group">
+                  <label for="timeOfDay">Times Available for Food Pickup</label>
+                  <div ng-repeat="(key, value) in ctrl.pickupTime">
+                    <input type="checkbox" checklist-value="meal" ng-model="ctrl.postData.foodData.pickupTime[key]" /> {{ key }}
+                  </div> <!-- /list pickupTime -->
+
+                </div> <!-- /form-group pickupTime -->
+
+              </div> <!-- /availability -->
+
+            </div> <!-- /Section Two -->
+
+            <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-show="next">Submit</button>
+
           </form>
 
         </div>  <!-- /col input forms -->

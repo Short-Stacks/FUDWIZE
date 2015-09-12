@@ -22,19 +22,20 @@ body>div:first-of-type {
 }
 
 .logo {
-  margin: 15px;
+  margin: 25px;
   height: 30px;
 }
 
 .next {
-  margin-top: 15px;
+  margin-top: 30px;
   margin-bottom: 15px;
 }
 
 .error {
+  margin-top: 5px;
   color: red;
 }
 
-.ok {
-  color: green;
+.required-field {
+  color: red;
 }
