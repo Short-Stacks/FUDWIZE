@@ -1,5 +1,5 @@
 body {
-  /** override body background image shown on front page **/
+  /* override body background image shown on front page */
   background-image: url();
 }
 
@@ -26,30 +26,15 @@ body>div:first-of-type {
   height: 30px;
 }
 
-.submit {
-  margin-top: 30px;
-  margin-bottom: 15px;
-}
-
-.create-link {
-  font-weight: bold;
-  color: green;
-  cursor: pointer;
-}
-
-.select-type {
+.next {
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-.type-prompt {
-  font-weight: bold;
+.error {
+  color: red;
 }
 
-.rst-btn {
-  margin-bottom: 15px;
-}
-
-.create-account {
-  margin-top: 30px;
+.ok {
+  color: green;
 }

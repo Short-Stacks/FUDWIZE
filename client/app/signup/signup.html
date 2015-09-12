@@ -1,6 +1,5 @@
 <div class="signup container" ng-controller="SignupCtrl as ctrl">
 
-
   <!-- Wrap the entire form in a box with rounded borders -->
   <div class="row">
     <div class="col-md-4 col-md-offset-4 wrapper">
@@ -9,7 +8,7 @@
 
       <div class="fudwize-logo row">
         <div class="col-md-10 col-md-offset-1 text-center">
-          <img class="logo" src="../../assets/fudwize-black.png">
+          <img class="logo" src="../../assets/fudwize-black.png" alt="FUDWIZE">
         </div> <!-- /fudwize logo -->
 
       </div> <!-- /fudwize-image row -->
@@ -19,59 +18,106 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
-          <form action="#" name="signupForm" ng-submit="ctrl.submit()">
+          <form action="#" name="signupForm" ng-submit="ctrl.submit()" novalidate>
 
-            <!-- the first portion of this form will be used by both restaurants and foodbanks -->
             <!-- all data from the form will be saved in the postData object in the controller -->
-            <label>Username:
-              <input type='text' name='usernameInput' ng-model='ctrl.postData.username' required />
-            </label>
-            <div role="alert">
-              <span class="error" ng-show="signupForm.usernameInput.$error.required">
-                (required)</span>
-            </div>
 
-            <label>Password:
-              <input type="password" name="passwordInput" ng-model="ctrl.postData.password" required />
-            </label>
-            <div role="alert">
-              <span class="error" ng-show="signupForm.passwordInput.$error.required">
-                (required)</span>
-            </div>
+            <!--============== Username ==============-->
+            <div class="form-group">
+              <label for="username">Username</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.username.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.username.$error.required"></span> 
+              <input type='text' name="username" id="username" class="form-control" placeholder="Enter Username" ng-model="ctrl.postData.username" required />
+            </div> <!-- /form-group username -->
 
-            <br/>
+            <!--============== Password ==============-->
 
-            <label>Name of Organization:
-              <input type="text" ng-model="ctrl.postData.contactInfo.name">
-            </label>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.password.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.password.$error.required"></span> 
+              <input type="password" name="password" id="password" class="form-control" placeholder="Enter Rassword" ng-model="ctrl.postData.password" required />
+            </div> <!-- /form-group password -->
 
-            <label>Address:
-              <input type="text" ng-model="ctrl.postData.contactInfo.address">
-            </label>
+            <!--============== Organization Name ==============-->
 
-            <label>Phone Number:
-              <input type="number" name="phoneInput" ng-model="ctrl.postData.contactInfo.phoneNumber" required />
-            </label>
-            <div role="alert">
-              <span class="error" ng-show="signupForm.phoneInput.$error.required">
-                (required)</span>
-              <span class="error" ng-show="signupForm.phoneInput.$error.number">
-                Not valid phone number!</span>
-            </div>
+            <div class="form-group" ng-hide="ctrl.isRst">
+              <label for="organization">Organization Name</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.organization.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.organization.$error.required"></span> 
+              <input type="text" name="organization" id="organization" class="form-control" placeholder="Enter Organization Name" ng-model="ctrl.postData.contactInfo.name" required />
+            </div> <!-- /form-group organization -->
 
-            <label>Email:
-              <input type="email" name="emailInput" ng-model="ctrl.postData.contactInfo.email" required />
-            </label>
-            <div role="alert">
-              <span class="error" ng-show="signupForm.emailInput.$error.required">
-                (required)</span>
-              <span class="error" ng-show="signupForm.emailInput.$error.email">
-                Not a valid email address!</span>
-            </div>
 
-            <label>Your Website Address:
-              <input type='text' name="urlInput" ng-model="ctrl.postData.websiteUrl" />
-            </label>
+            <!--============== Restaurant Name ==============-->
+
+            <div class="form-group" ng-hide="!ctrl.isRst">
+              <label for="restaurant">Restaurant Name</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.restaurant.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.restaurant.$error.required"></span> 
+              <input type="text" name="restaurant" id="restaurant" class="form-control" placeholder="Enter Restaurant Name" ng-model="ctrl.postData.contactInfo.name" required />
+            </div> <!-- /form-group restaurant -->
+
+            <!--============== Street Name ==============-->
+
+            <div class="form-group">
+              <label for="streetName">Street Name</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.streetName.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.streetName.$error.required"></span> 
+              <input type="text" name="streetName" id="streetName" class="form-control" placeholder="Enter Street Name" ng-model="ctrl.postData.contactInfo.streetName" required />
+            </div> <!-- /form-group streetName -->
+
+            <!--============== City State Zipcode ==============-->
+
+            <div class="form-group">
+              <label for="cityStateZip">City, State and Zipcode</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.streetName.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.streetName.$error.required"></span> 
+              <input type="text" name="cityStateZip" id="cityStateZip" class="form-control" placeholder="Enter City State and Zipcode" ng-model="ctrl.postData.contactInfo.cityStateZip" required />
+            </div> <!-- /form-group city state zip -->
+
+
+            <!--============== Phone Number ==============-->
+
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.phoneNumber.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.phoneNumber.$error.required"></span> 
+              <input type="number" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" ng-model="ctrl.postData.contactInfo.phoneNumber" required />
+              <div role="alert">
+                <span class="error" ng-show="signupForm.phoneNumber.$error.number">
+                  Not valid phone number!</span>
+              </div> <!-- /alert created by angular -->
+            </div> <!-- /form-group phoneNumber -->
+
+            <!--============== E-mail ==============-->
+
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <span class="error glyphicon glyphicon-exclamation-sign" aria-hidden="true" ng-show="signupForm.email.$error.required"></span> 
+              <span class="ok glyphicon glyphicon-ok" aria-hidden="true" ng-hide="signupForm.email.$error.required" ng-hide="signupForm.email.$error.email"></span> 
+              <input type="email" name="email" id="email" class="form-control" placeholder="Enter E-mail Address" ng-model="ctrl.postData.contactInfo.email" required />
+              <div role="alert">
+                <span class="error" ng-show="signupForm.email.$error.email">
+                  Not a valid email address!</span>
+              </div> <!-- /alert created by angular -->
+            </div> <!-- /form-group email -->
+
+            <!--============== Website ==============-->
+
+            <div class="form-group">
+              <label for="websiteurl">Website</label>
+              <input type="url" name="websiteurl" id="websiteurl" class="form-control" placeholder="Enter Website Url" ng-model="ctrl.postData.contactInfo.websiteurl" required />
+            </div> <!-- /form-group websiteurl -->
+
+            <!--============== Next Button ==============-->
+
+            <input class="btn btn-primary btn-md next" value="Next">
+
+
+
+
+            <!--============== Page 2 ==============-->
 
             <label>Tell Us About Your Organization:
               <input type="text" name="aboutUsInput" ng-model="ctrl.postData.additional.aboutUs" />
@@ -115,7 +161,8 @@
               </table>
 
             </div>
-            <input type="submit" id="submit" value="Submit" />
+            <!--<button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-hide="next">Next</button>-->
+            <!--<input type="submit" id="submit" value="Submit" />-->
           </form>
 
         </div>  <!-- /col input forms -->
