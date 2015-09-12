@@ -11,6 +11,14 @@ angular.module('myApp.profile', [])
         vm.data = data;
       });
 
+    vm.updateProfile = function() {
+      console.log(vm.data);
+      AjaxService.updateProfileData(vm.data, vm.type, vm.username)
+        .then(function() {
+          $route.reload();
+        });
+    };
+
 
 
 }]);
