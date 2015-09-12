@@ -1,0 +1,41 @@
+body {
+  /* override body background image shown on front page */
+  background-image: url();
+}
+
+body>div:first-of-type {
+  display: table;
+  padding-top: 0px;
+}
+
+.signup {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.wrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px solid #DDDDDD;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+}
+
+.logo {
+  margin: 25px;
+  height: 30px;
+}
+
+.next {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.error {
+  margin-top: 5px;
+  color: red;
+}
+
+.required-field {
+  color: red;
+}

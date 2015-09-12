@@ -8,12 +8,12 @@ When writing any block of code that is logically subordinate to the line immedia
 
         ```javascript
         // good:
-        if(condition){
+        if (condition) {
           action();
         }
 
         // bad:
-        if(condition){
+        if (condition) {
         action();
         }
         ```
@@ -21,12 +21,12 @@ When writing any block of code that is logically subordinate to the line immedia
     * When a line closes a block, that line starts at the same level as the line that opened the block
         ```javascript
         // good:
-        if(condition){
+        if (condition) {
           action();
         }
 
         // bad:
-        if(condition){
+        if (condition) {
           action();
           }
         ```
@@ -37,7 +37,7 @@ When writing any block of code that is logically subordinate to the line immedia
         // bad:
         transmogrify({
           a: {
-            b: function(){
+            b: function() {
             }
         }});
         ```
@@ -88,13 +88,13 @@ When writing any block of code that is logically subordinate to the line immedia
   ```javascript
   // good:
   var list = ['a', 'b', 'c']
-  for(var i = 0; i < list.length; i++){
+  for (var i = 0; i < list.length; i++) {
     alert(list[i]);
   }
 
   // bad:
   var list = ['a', 'b', 'c']
-  for(var i in list){
+  for (var i in list) {
     alert(list[i]);
   }
   ```
@@ -102,12 +102,12 @@ When writing any block of code that is logically subordinate to the line immedia
 * Never omit braces for statement blocks (although they are technically optional).
     ```javascript
     // good:
-    for(key in object){
+    for (key in object) {
       alert(key);
     }
 
     // bad:
-    for(key in object)
+    for (key in object)
       alert(key);
     ```
 
@@ -117,14 +117,14 @@ When writing any block of code that is logically subordinate to the line immedia
     // good:
 
     // this comparison evaluates to false, because the number zero is not the same as the empty string.
-    if(0 === ''){
+    if (0 === '') {
       alert('looks like they\'re equal');
     }
 
     // bad:
 
     // This comparison evaluates to true, because after type coercion, zero and the empty string are equal.
-    if(0 == ''){
+    if (0 == '') {
       alert('looks like they\'re equal');
     }
     ```
@@ -133,10 +133,10 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // good:
-    var go = function(){...};
+    var go = function() {...};
 
     // bad:
-    function stop(){...};
+    function stop() {...};
     ```
 
 
@@ -157,12 +157,12 @@ When writing any block of code that is logically subordinate to the line immedia
 
   ```javascript
   // good:
-  if(condition){
+  if (condition) {
     response();
   }
 
   // bad:
-  if(condition){
+  if (condition) {
     response();
   };
   ```
@@ -171,12 +171,12 @@ When writing any block of code that is logically subordinate to the line immedia
 
   ```javascript
   // good:
-  var greet = function(){
+  var greet = function() {
     alert('hi');
   };
 
   // bad:
-  var greet = function(){
+  var greet = function() {
     alert('hi');
   }
   ```
@@ -198,15 +198,23 @@ When writing any block of code that is logically subordinate to the line immedia
 
 ### Padding & additional whitespace
 
-* Generally, we don't care where you put extra spaces, provided they are not distracting.
+* No whitespaces next to parentheses
+* Add whitespace next to curly braces
 * You may use it as padding for visual clarity. If you do though, make sure it's balanced on both sides.
 
     ```javascript
-    // optional:
-    alert( "I chose to put visual padding around this string" );
+    // good:
+    alert("I chose to put visual padding around this string");
 
     // bad:
-    alert( "I only put visual padding on one side of this string");
+    alert( "I only put visual padding on one side of this string" );
+    
+
+    // good:
+    {{ number.count }}
+
+    // bad:
+    {{number.count}}
     ```
 
 * You may use it to align two similar lines, but it is not recommended. This pattern usually leads to unnecessary edits of many lines in your code every time you change a variable name.
@@ -217,24 +225,24 @@ When writing any block of code that is logically subordinate to the line immedia
     var secondItem = getSecond();
     ```
 
-* Put `else` and `else if` statements on the same line as the ending curly brace for the preceding `if` block
+* Put `else` and `else if` statements on seperate line as the ending curly brace for the preceding `if` block
+
     ```javascript
     // good:
-    if(condition){
+    if (condition) {
       response();
-    }else{
+    } 
+    else {
       otherResponse();
     }
 
     // bad:
-    if(condition){
+    if (condition) {
       response();
-    }
-    else{
+    } else {
       otherResponse();
     }
     ```
-
 
 
 ### Working with files
@@ -264,13 +272,13 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // avoid:
-    _.ajax(url, {success: function(){
+    _.ajax(url, {success: function() {
       // ...
     }});
 
     // prefer:
     _.ajax(url, {
-      success: function(){
+      success: function() {
         // ...
       }
     });
@@ -311,12 +319,12 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // good:
-    var overwriteNumber = function(){
+    var overwriteNumber = function() {
       window.exported = Math.random();
     };
 
     // bad:
-    var overwriteNumber = function(){
+    var overwriteNumber = function() {
       exported = Math.random();
     };
     ```
@@ -357,25 +365,3 @@ When writing any block of code that is logically subordinate to the line immedia
     var cat = "cat";
     ```
 
-
-### HTML
-
-* Do not use ids for html elements. Use a class instead.
-
-    ```html
-    <!-- good -->
-    <img class="lucy" />
-
-    <!-- bad -->
-    <img id="lucy" />
-    ```
-
-* Do not include a `type=text/javascript"` attribute on script tags
-
-    ```html
-    <!-- good -->
-    <script src="a.js"></script>
-
-    <!-- bad -->
-    <script src="a.js" type="text/javascript"></script>
-    ```

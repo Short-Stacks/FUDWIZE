@@ -1,0 +1,61 @@
+body {
+  /** override body background image shown on front page **/
+  background-image: url();
+}
+
+body>div:first-of-type {
+  display: table;
+  padding-top: 0px;
+}
+
+.login {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.wrapper {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px solid #DDDDDD;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+}
+
+.logo {
+  margin: 25px;
+  height: 30px;
+}
+
+.submit {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.create-link {
+  font-weight: bold;
+  color: green;
+  cursor: pointer;
+}
+
+.select-type {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.type-prompt {
+  font-weight: bold;
+}
+
+.rst-btn {
+  margin-bottom: 15px;
+}
+
+.create-account {
+  margin-top: 30px;
+}
+
+.error {
+  margin-top: 5px;
+  color: red;
+}
+
