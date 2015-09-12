@@ -10,7 +10,8 @@
 
     <div class="col-md-9 main-contact">
       <h1>{{ ctrl.data.contactInfo.name }}</h1>
-      <p>{{ ctrl.data.contactInfo.address }}</p>
+      <p>{{ ctrl.data.contactInfo.streetName }}</p>
+      <p>{{ ctrl.data.contactInfo.cityStateZip }}</p>
     </div> <!-- /main-contact -->
 
   </div> <!-- /row profile-header -->
@@ -18,8 +19,9 @@
   <div class="row profile-body">
 
     <div ng-show="ctrl.type == 'rst'" class="col-md-3 sidebar">
+      <p><strong>Phone</strong> {{ ctrl.data.contactInfo.phoneNumber }}</p>
       <p><strong>Website</strong> {{ ctrl.data.websiteUrl }}</p>
-      <p><strong>Additional Info</strong> {{ ctrl.data.additional }}</p>
+      <p><strong>Additional Info</strong> {{ ctrl.data.additional.aboutUs }}</p>
     </div> <!-- /rst sidebar -->
 
     <div ng-show="ctrl.type == 'fbk'" class="col-md-3 sidebar">
@@ -34,27 +36,41 @@
       clicks on the Submit Changes button -->
 
     <div ng-show="ctrl.type == 'rst'" class="col-md-9 main-content"> 
-        <p><strong>Type of Meals You Can Donate</strong></p>
+      <div class="col-md-6">
+        <legend>Type of Meals You Can Donate</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.mealType" >
               <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.mealType[key]"/> {{ key }}
             </label>
-        <p><strong>Type of Food</strong></p>
+        </div>
+        
+      <div class="col-md-6">     
+        <legend>Type of Food</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.foodType" >
               <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.foodType[key]"/> {{ key }}
             </label>
-        <p><strong>Day(s) Available For Food Pickup</strong></p>
+      </div>
+
+      <br>
+
+      <div class="col-md-6">
+        <legend>Day(s) Available For Food Pickup</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.pickupDay" >
-              <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.pickupDay[key]"/> {{ key }}
+              <input class="checkbox-info" type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.pickupDay[key]"/> {{ key }}
             </label>
-        <p><strong>Pickup Time</strong></p>
+      </div>
+
+      <div class="col-md-6">
+        <legend>Pickup Time</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.pickupTime" >
               <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.pickupTime[key]" ng-change="ctrl.test();"> {{ key }}
             </label>
-    </div> <!-- /main-content -->
+      </div>
 
     <!-- Submit button to Update Profile -->
 
-    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile();">Update Profile</button>
+    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile();">Update Profile</button><span ng-show="ctrl.updated">Profile Updated!</span>
+            
+    </div> <!-- /main-content -->
 
   </div> <!-- /row profile-body -->
 
