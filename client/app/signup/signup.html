@@ -8,16 +8,19 @@
   <div class="row">
     <div class="col-md-4 col-md-offset-4 wrapper">
 
+
       <!--============== Logo ==============-->
+
 
       <div class="fudwize-logo row">
         <div class="col-md-10 col-md-offset-1 text-center">
           <img class="logo" src="../../assets/fudwize-black.png" alt="FUDWIZE">
         </div> <!-- /fudwize logo -->
-
       </div> <!-- /fudwize-image row -->
 
-      <!--============== Input Forms ==============-->
+
+      <!--============== Begin Input Forms ==============-->
+
 
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -36,7 +39,9 @@
 
             <div class="signup-section-one" ng-hide="next">
 
+
               <!--============== Username ==============-->
+
 
               <div class="form-group">
                 <label for="username">Username</label><span class="required-field">*</span>
@@ -46,7 +51,9 @@
                 </div> <!-- /show error -->
               </div> <!-- /form-group username -->
 
+
               <!--============== Password ==============-->
+
 
               <div class="form-group">
                 <label for="password">Password</label><span class="required-field">*</span>
@@ -56,7 +63,9 @@
                 </div> <!-- /show error -->
               </div> <!-- /form-group password -->
 
+
               <!--============== Organization Name (FBK Only) ==============-->
+
 
               <div class="form-group" ng-hide="ctrl.isRst">
                 <label for="organization">Organization Name</label><span class="required-field">*</span>
@@ -69,6 +78,7 @@
 
               <!--============== Restaurant Name (RST Only) ==============-->
 
+
               <div class="form-group" ng-hide="!ctrl.isRst">
                 <label for="restaurant">Restaurant Name</label><span class="required-field">*</span>
                 <input type="text" name="restaurant" id="restaurant" class="form-control" placeholder="Enter Restaurant Name" ng-model="ctrl.postData.contactInfo.name" required />
@@ -77,7 +87,9 @@
                 </div> <!-- /show error -->
               </div> <!-- /form-group restaurant -->
 
+
               <!--============== Street Name ==============-->
+
 
               <div class="form-group">
                 <label for="streetName">Street</label><span class="required-field">*</span>
@@ -87,7 +99,9 @@
                 </div> <!-- /show error -->
               </div> <!-- /form-group streetName -->
 
+
               <!--============== City State Zipcode ==============-->
+
 
               <div class="form-group">
                 <label for="cityStateZip">City, State and Zipcode</label><span class="required-field">*</span>
@@ -100,6 +114,7 @@
 
               <!--============== Phone Number ==============-->
 
+
               <div class="form-group">
                 <label for="phoneNumber">Phone Number</label><span class="required-field">*</span>
                 <input type="number" name="phoneNumber" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" ng-minlength="10" ng-maxlength="10" ng-model="ctrl.postData.contactInfo.phoneNumber" required />
@@ -110,7 +125,9 @@
                 </div> <!-- /show error -->
               </div> <!-- /form-group phoneNumber -->
 
+
               <!--============== E-mail ==============-->
+
 
               <div class="form-group">
                 <label for="email">E-mail</label><span class="required-field">*</span>
@@ -121,16 +138,30 @@
                 </div> <!-- /show error -->
               </div> <!-- /form-group email -->
 
+
               <!--============== Website ==============-->
+
 
               <div class="form-group">
                 <label for="websiteurl">Website</label>
                 <input type="url" name="websiteurl" id="websiteurl" class="form-control" placeholder="Enter Website Url" ng-model="ctrl.postData.contactInfo.websiteurl" required />
               </div> <!-- /form-group websiteurl -->
 
-              <!--============== Next Button ==============-->
+
+              <!--==================================================-->
+              <!--=================== Next Button ==================-->
+              <!--==================================================-->
+              <!--==============    The Next Button   ==============-->
+              <!--==============       DOES NOT       ==============-->
+              <!--==============  Submit & Save Form  ==============-->
+              <!--==================================================-->
+              <!--==============   This button hides  ==============-->
+              <!--==============   section one and    ==============-->
+              <!--==============   show section two   ==============-->
+              <!--==================================================-->
 
               <input class="btn btn-primary btn-block next" value="Next" ng-click="next=true" />
+
 
             </div> <!-- /section one -->
 
@@ -146,27 +177,35 @@
             <!--===============================================================-->
             <!--===============================================================-->
 
+
             <div class="signup-section-two" ng-show="next">
+
 
               <!--===================================================-->
               <!--============== Foodbank Only Section ==============-->
               <!--===================================================-->
 
+
               <!--============== Mission Statement ==============-->
+
 
               <div class="form-group" ng-hide="ctrl.isRst">
                 <label for="mission">Mission Statement</label>
                 <textarea class="form-control" name="mission" rows="4" ng-model="ctrl.postData.additional.mission"></textarea>
               </div> <!-- /form-group mission statement -->
 
+
               <!--============== About Us ==============-->
+
 
               <div class="form-group" ng-hide="ctrl.isRst">
                 <label for="aboutUs">Tell Us About Your Organization</label>
                 <textarea class="form-control" name="aboutUs" rows="4" ng-model="ctrl.postData.additional.aboutUs"></textarea>
               </div> <!-- /form-group about us -->
 
+
               <!--============== Service Area ==============-->
+
 
               <div class="form-group" ng-hide="ctrl.isRst">
                 <label for="serviceArea">Service Area</label>
@@ -178,16 +217,21 @@
               <!--============== Restaurant Only Section ==============-->
               <!--=====================================================-->
 
+
               <div ng-show="ctrl.isRst">
 
+
                 <!--============== About Us ==============-->
+
 
                 <div class="form-group">
                   <label for="aboutUs">Tell Us About Your Restaurant</label>
                   <textarea class="form-control" name="aboutUs" rows="4" ng-model="ctrl.postData.additional.aboutUs"></textarea>
                 </div> <!-- /form-group about us -->
 
+
                 <!--============== Type of Meal ==============-->
+
 
                 <div class="form-group">
                   <label for="mealsProvided">Meals You Can Provide</label>
@@ -196,7 +240,10 @@
                   </div> <!-- /list mealType -->
                 </div> <!-- /form-group mealType -->
 
+
                 <!--============== Type of Food ==============-->
+
+
                 <div class="form-group">
                   <label for="typeOfFood">Type of Food</label>
                   <div ng-repeat="(key, value) in ctrl.foodType">
@@ -204,7 +251,10 @@
                   </div> <!-- /list foodType -->
                 </div> <!-- /form-group foodType -->
 
+
                 <!--============== Pickup Days ==============-->
+
+
                 <div class="form-group">
                   <label for="daysAvailable">Days Available for Food Pickup</label>
                   <div ng-repeat="(key, value) in ctrl.pickupDay">
@@ -212,7 +262,10 @@
                   </div> <!-- /list pickupDay -->
                 </div> <!-- /form-group pickupDay -->
 
+
                 <!--============== Pickup Times ==============-->
+
+
                 <div class="form-group">
                   <label for="timeOfDay">Times Available for Food Pickup</label>
                   <div ng-repeat="(key, value) in ctrl.pickupTime">
@@ -221,8 +274,15 @@
                 </div> <!-- /form-group pickupTime -->
 
               </div> <!-- /availability -->
-
             </div> <!-- /Section Two -->
+
+
+            <!--=============================================-->
+            <!--=============== Submit Button ===============-->
+            <!--=============================================-->
+            <!--=============  This button will  ============-->
+            <!--============= Submit & Save form ============-->
+            <!--=============================================-->
 
             <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-show="next">Submit</button>
 
