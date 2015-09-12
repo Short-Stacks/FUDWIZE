@@ -133,6 +133,22 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
 
 });
 
+app.post('/profile/:type/:username', function(req, res, next) {
+  var username = req.params.username;
+  var updateData = req.body;
+
+  //find the user and update the appropriate fields
+  User.findOne({ username: username }, function(err, user) {
+    user.foodData = updateData.foodData;
+    user.connections = updateData.connections;
+
+    //Mongoose requires that any "schema-less" storage items, such as objects, be marked
+    //as modified so that Mongoose knows to save the contents of these items
+    user.markModified(updateData);
+    user.save();
+  })
+});
+
 
 app.get('/dash/:username', checkToken, function(req, res, next) {
   var username = req.params.username;

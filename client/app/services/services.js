@@ -49,6 +49,14 @@ angular.module('myApp.services', [])
     });
   };
 
+  obj.updateProfileData = function(data, type, username) {
+    return $http({
+      method: 'POST',
+      url: 'profile/' + type + '/' + username,
+      data: JSON.stringify(data)
+    })
+  };
+
   return obj;
 
 }])
