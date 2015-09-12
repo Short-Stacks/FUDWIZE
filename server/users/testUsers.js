@@ -69,7 +69,9 @@ var createTestUsers = function(hashPassword) {
       contactInfo: {
         name: 'Chipotle',
         phoneNumber: "415-555-TACO",
-        email: 'chipotle@chipotle.com'
+        email: 'chipotle@chipotle.com',
+        streetName: '49 Crystal Springs Road',
+        cityStreetZip: 'San Mateo, CA 94023'
       },
       websiteUrl: 'www.chipotle.com',
       additional: {
@@ -89,7 +91,9 @@ var createTestUsers = function(hashPassword) {
       contactInfo: {
         name: 'Mehfils',
         phoneNumber: "415-555-LAMB",
-        email: 'mehfils@mehfils.com'
+        email: 'mehfils@mehfils.com',
+        streetName: '284 Corny Court',
+        cityStreetZip: 'Livermore, CA 94023'
       },
       websiteUrl: 'www.mehfils.com',
       additional: {
@@ -109,7 +113,9 @@ var createTestUsers = function(hashPassword) {
       contactInfo: {
         name: 'Steffs Bar',
         phoneNumber: "415-555-BEER",
-        email: 'steffs@steffs.com'
+        email: 'steffs@steffs.com',
+        streetName: '431 Armor Hot Dog Lane',
+        cityStreetZip: 'San Ramon, CA 94023'
       },
       websiteUrl: 'www.steffs.com',
       additional: {
@@ -129,11 +135,14 @@ var createTestUsers = function(hashPassword) {
       contactInfo: {
         name: 'SF Food Bank',
         phoneNumber: "415-555-BANK",
-        email: 'sfFoodBank@sfFoodBank.org'
+        email: 'sfFoodBank@sfFoodBank.org',
+        streetName: '943 Major Uphill Street',
+        cityStreetZip: 'San Francisco, CA 94023'
       },
       websiteUrl: 'www.sfFoodBank.org',
       additional: {
-        aboutUs: 'We need some food yo.'
+        aboutUs: 'We need some food yo.',
+        mission: 'Secretly let dogs take over the world.'
       },
       connections: [],
       foodData: {},
@@ -149,11 +158,14 @@ var createTestUsers = function(hashPassword) {
       contactInfo: {
         name: 'Oakland Food Bank',
         phoneNumber: "415-555-FOOD",
-        email: 'oaklandFoodBank@sfFoodBank.org'
+        email: 'oaklandFoodBank@sfFoodBank.org',
+        streetName: '34 Royale Cheese Lane',
+        cityStreetZip: 'Oakland, CA 93012'
       },
       websiteUrl: 'www.oaklandFoodBank.org',
       additional: {
-        aboutUs: 'Screw SF Food Bank. Hook us up.'
+        aboutUs: 'Screw SF Food Bank. Hook us up.',
+        mission: 'Creating our own Batman'
       },
       connections: [],
       foodData: {},
@@ -169,11 +181,14 @@ var createTestUsers = function(hashPassword) {
       contactInfo: {
         name: 'Sausalito Food Bank',
         phoneNumber: "415-555-FOOD",
-        email: 'sausalitoFoodBank@sfFoodBank.org'
+        email: 'sausalitoFoodBank@sfFoodBank.org',
+        streetName: '321 Beach Boulevard',
+        cityStreetZip: 'Sausalito, CA 94023'
       },
       websiteUrl: 'www.sausalitoFoodBank.org',
       additional: {
-        aboutUs: 'Fine foods only.'
+        aboutUs: 'Fine foods only.',
+        mission: 'Seals also welcome'
       },
       connections: [],
       foodData: {},
