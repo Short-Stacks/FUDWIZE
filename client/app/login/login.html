@@ -1,52 +1,61 @@
 <div class="login container" ng-controller='LoginCtrl as ctrl'>
 
   <!-- Wrap the entire form in a box with rounded borders -->
+
   <div class="row">
     <div class="col-md-4 col-md-offset-4 wrapper">
 
+
       <!--============== Logo ==============-->
+
 
       <div class="fudwize-logo row">
         <div class="col-md-10 col-md-offset-1 text-center">
           <img class="logo" src="../../assets/fudwize-black.png" alt="FUDWIZE">
         </div> <!-- /fudwize logo -->
-
       </div> <!-- /fudwize-image row -->
 
+
       <!--============== Input Forms ==============-->
+
 
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
           <form action="#" name='loginForm' ng-submit="ctrl.submitLoginForm()">
 
+
             <!--============== Username ==============-->
 
+
             <div class="form-group" ng-hide="create">
-              <label for="username-input">Username</label>
-              <input type='text' name='usernameInput' id="username-input" class="form-control" placeholder="Enter your username" ng-model='ctrl.postData.username' required />
-              <div role="alert">
-                <span class="error" ng-show="signupForm.usernameInput.$error.required">
-                  (required)</span>
-              </div> <!-- /alert created by angular -->
+              <label for="username">Username</label>
+              <input type='text' name='username' id="username" class="form-control" placeholder="Enter your username" ng-model='ctrl.postData.username' required />
+              <div class="error" ng-show="loginForm.$submitted || loginForm.username.$touched">
+                <span ng-show="loginForm.username.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+              </div> <!-- /show error -->
             </div> <!-- /form-group username -->
+
 
             <!--============== Password ==============-->
 
+
             <div class="form-group" ng-hide="create">
-              <label for="password-input">Password</label>
-              <input type="password" name='passwordInput' id="password-input" class="form-control" placeholder="Enter your password" ng-model='ctrl.postData.password' required />
-              <div role="alert">
-                <span class="error" ng-show="signupForm.passwordInput.$error.required">
-                  (required)</span>
-              </div> <!-- /alert created by angular -->
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" ng-model='ctrl.postData.password' required />
+              <div class="error" ng-show="loginForm.$submitted || loginForm.password.$touched">
+                <span ng-show="loginForm.password.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+              </div> <!-- /show error -->
             </div> <!-- /form-group password -->
 
+
             <!--============== Submit Button ==============-->
+
 
             <button class="btn btn-primary btn-block submit" type="submit" id="submit" value="Submit" ng-hide="create">Log In</button>
 
             <!--============== Create Account ==============-->
+
 
             <div class="select-type" ng-show="create">
               <p class="type-prompt text-center">Please select type of account to open</p>
@@ -59,11 +68,18 @@
     </div> <!-- /wrapper -->
   </div> <!-- /row entire form -->
 
-  <!--============== Create Account Prompt ==============-->
-  <!-- The prompt is outside the login box, but the type selection prompt will appear inside the box when clicked-->
+
+  <!--======================= Create Account Prompt ======================-->
+
+  <!--====================================================================-->
+  <!--===    The create account prompt is outside the login box but    ===-->
+  <!--=== the selection prompt will appear inside the box when clicked ===-->
+  <!--====================================================================-->
+
 
   <div class="create-account text-center" ng-hide="create">
     Don't have an account? <span class="create-link" ng-click="create=true">Create one now</span>
   </div> <!-- /create-account -->
 
 </div> <!-- /login container -->
+
