@@ -1,5 +1,38 @@
-<div class="profile-container" ng-controller="ProfileCtrl as ctrl">
+<div class="profile container" ng-controller="ProfileCtrl as ctrl">
+
   <nav-bar></nav-bar>
-  <p>Username: {{ ctrl.username }}</p>
-  <p>Usertype: {{ ctrl.type }}</p>
-</div>
+
+  <div class="row profile-header">
+
+    <div class="col-md-3 text-center icon">
+      <img src="http://placehold.it/200x200" alt="Placeholder" class="profilepic">
+    </div> <!-- /icon -->
+
+    <div class="col-md-9 main-contact">
+      <h1>{{ ctrl.data.contactInfo.name }}</h1>
+      <p>{{ ctrl.data.contactInfo.address }}</p>
+    </div> <!-- /main-contact -->
+
+  </div> <!-- /row profile-header -->
+
+  <div class="row profile-body">
+
+    <div ng-show="ctrl.type == 'rst'" class="col-md-3 sidebar">
+      <p><strong>Website</strong> {{ ctrl.data.websiteUrl }}</p>
+      <p><strong>Additional Info</strong> {{ ctrl.data.additional }}</p>
+    </div> <!-- /rst sidebar -->
+
+    <div ng-show="ctrl.type == 'fbk'" class="col-md-3 sidebar">
+      <p><strong>Mission Statement</strong> {{ ctrl.data.additional.aboutUs }}</p>
+      <p><strong>Website</strong> {{ ctrl.data.websiteUrl }} </p>
+      <p><strong>Additional Info</strong> {{ ctrl.data.additional }} </p>
+    </div> <!-- /fbk sidebar -->
+
+    <div class="col-md-9 main-content">
+      <p><strong>Can Donate</strong> {{ ctrl.data.foodData }}</p>
+    </div> <!-- /main-content -->
+
+  </div> <!-- /row profile-body -->
+
+</div> <!-- /profile-container -->
+

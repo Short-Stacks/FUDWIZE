@@ -1,106 +1,110 @@
 <!-- <DOCTYPE html ng-app='myApp'>
 
 <head>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script> -->
-<!-- </head> -->
-<div id="signup" ng-controller='SignupCtrl as ctrl'>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script> -->
+  <!-- </head> -->
+<div id="signup" ng-controller="SignupCtrl as ctrl">
 
-<h1>Join the FudWize Network</h1>
+  <h1>Join the FudWize Network</h1>
 
-<form name='signupForm' ng-submit="ctrl.submit()">
+  <form action="#" name="signupForm" ng-submit="ctrl.submit()">
 
     <!-- the first portion of this form will be used by both restaurants and foodbanks -->
     <!-- all data from the form will be saved in the postData object in the controller -->
-   	<label>Username:
-   		<input type='text' name='usernameInput' ng-model='ctrl.postData.username' required>
-   	</label>
-   	<div role="alert">
-    	<span class="error" ng-show="signupForm.usernameInput.$error.required">
-      		(required)</span>
+    <label>Username:
+      <input type='text' name='usernameInput' ng-model='ctrl.postData.username' required />
+    </label>
+    <div role="alert">
+      <span class="error" ng-show="signupForm.usernameInput.$error.required">
+        (required)</span>
     </div>
 
-   	<label>Password:
-   		<input type="password" name='passwordInput' ng-model='ctrl.postData.password' required>
-   	</label>
-   	<div role="alert">
-    	<span class="error" ng-show="signupForm.passwordInput.$error.required">
-      		(required)</span>
+    <label>Password:
+      <input type="password" name="passwordInput" ng-model="ctrl.postData.password" required />
+    </label>
+    <div role="alert">
+      <span class="error" ng-show="signupForm.passwordInput.$error.required">
+        (required)</span>
     </div>
 
-   	<br/>
+    <br/>
 
-   	<label>Name of Organization:
-   		<input type='text' ng-model='ctrl.postData.contactInfo.name'>
-   	</label>
+    <label>Name of Organization:
+      <input type="text" ng-model="ctrl.postData.contactInfo.name">
+    </label>
 
-   	<label>Phone Number:
-    	<input type="number" name="phoneInput" ng-model="ctrl.postData.contactInfo.phoneNumber" required>
- 	</label>
-  	<div role="alert">
-    	<span class="error" ng-show="signupForm.phoneInput.$error.required">
-      		(required)</span>
-    	<span class="error" ng-show="signupForm.phoneInput.$error.number">
-      		Not valid phone number!</span>
-  	</div>
+    <label>Address:
+      <input type="text" ng-model="ctrl.postData.contactInfo.address">
+    </label>
 
-   	<label>Email:
-    	<input type="email" name="emailInput" ng-model="ctrl.postData.contactInfo.email" required>
-   	</label>
-   	<div role="alert">
+    <label>Phone Number:
+      <input type="number" name="phoneInput" ng-model="ctrl.postData.contactInfo.phoneNumber" required />
+    </label>
+    <div role="alert">
+      <span class="error" ng-show="signupForm.phoneInput.$error.required">
+        (required)</span>
+      <span class="error" ng-show="signupForm.phoneInput.$error.number">
+        Not valid phone number!</span>
+    </div>
+
+    <label>Email:
+      <input type="email" name="emailInput" ng-model="ctrl.postData.contactInfo.email" required />
+    </label>
+    <div role="alert">
       <span class="error" ng-show="signupForm.emailInput.$error.required">
         (required)</span>
       <span class="error" ng-show="signupForm.emailInput.$error.email">
         Not a valid email address!</span>
     </div>
 
-  	<label>Your Website Address:
-    	<input type='text' name="urlInput" ng-model="ctrl.postData.websiteUrl">
-  	<label>
+    <label>Your Website Address:
+      <input type='text' name="urlInput" ng-model="ctrl.postData.websiteUrl" />
+    </label>
 
-  	<label>Tell Us About Your Organization:
-  		<input type='text' name='aboutUsInput' ng-model='ctrl.postData.additional.aboutUs'>
-  	</label>
+    <label>Tell Us About Your Organization:
+      <input type="text" name="aboutUsInput" ng-model="ctrl.postData.additional.aboutUs" />
+    </label>
 
     <!-- this portion will only show if the organization is a restaurant -->
     <div ng-show='ctrl.isRst'>
 
       <!-- first row -->
-    <table>
-      <th>
-        <td>Meals You Can Provide</td>
-        <td>Type of Food</td>
-        <td>Days Available For Food Pickup</td>
-        <td>Time of Day</td>
-      </th>
+      <table>
+        <tr>
+          <td>Meals You Can Provide</td>
+          <td>Type of Food</td>
+          <td>Days Available For Food Pickup</td>
+          <td>Time of Day</td>
+        </tr>
 
-      <tr>
-        <td>
-          <label ng-repeat='(key, value) in ctrl.mealType'>
-            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.mealType[key]'> {{ key }} </input>
-          </label>
-        </td>
-        <td>
-          <label ng-repeat='(key, value) in ctrl.foodType'>
-            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.foodType[key]'> {{ key }} </input>
-          </label>
-        </td>
-        <td>
-          <label ng-repeat='(key, value) in ctrl.pickupDay'>
-            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.pickupDay[key]'> {{ key }} </input>
-          </label>
-        </td>
-        <td>
-          <label ng-repeat='(key, value) in ctrl.pickupTime'>
-            <input type="checkbox" checklist-value='meal' ng-model='ctrl.postData.foodData.pickupTime[key]'> {{ key }} </input>
-          </label>
-        </td>
-      </tr>
+        <tr>
+          <td>
+            <label ng-repeat="(key, value) in ctrl.mealType">
+              <input type="checkbox" checklist-value="meal" ng-model="ctrl.postData.foodData.mealType[key]" /> {{ key }}
+            </label>
+          </td>
+          <td>
+            <label ng-repeat="(key, value) in ctrl.foodType">
+              <input type="checkbox" checklist-value='meal' ng-model="ctrl.postData.foodData.foodType[key]" /> {{ key }}
+            </label>
+          </td>
+          <td>
+            <label ng-repeat="(key, value) in ctrl.pickupDay">
+              <input type="checkbox" checklist-value='meal' ng-model="ctrl.postData.foodData.pickupDay[key]" /> {{ key }}
+            </label>
+          </td>
+          <td>
+            <label ng-repeat="(key, value) in ctrl.pickupTime">
+              <input type="checkbox" checklist-value='meal' ng-model="ctrl.postData.foodData.pickupTime[key]" /> {{ key }}
+            </label>
+          </td>
+        </tr>
 
-    </table>
+      </table>
 
     </div>
     <input type="submit" id="submit" value="Submit" />
-</form>
+  </form>
 
 
 

@@ -5,39 +5,45 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.signup',
   'myApp.profile',
+  'door3.css',
   'ngRoute'
 ])
 
 .constant('MY_CONSTANTS', {
   "SERVER": "http://127.0.0.1:3000"
-}) 
+})
 
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'app/index/main.html',
       controller: 'MainCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/main-page.css'
     })
     .when('/signup/:type', {
       templateUrl: 'app/signup/signup.html',
       controller: 'SignupCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/signup.css'
     })
     .when('/login', {
       templateUrl: 'app/login/login.html',
       controller: 'LoginCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/login.css'
     })
     .when('/profile/:type/:username', {
       templateUrl: 'app/profile/profile.html',
       controller: 'ProfileCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/profile.css'
     })
     .when('/dash/:username', {
       templateUrl: 'app/dashboard/dash.html',
       controller: 'DashboardCtrl',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      css: '../styles/dashboard.css'
     })
     .otherwise({
       redirectTo: '/'
