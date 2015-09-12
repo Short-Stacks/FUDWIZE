@@ -7,6 +7,13 @@ angular.module("myApp").directive("navBar", ['$window', '$location', function($w
         $window.localStorage.removeItem('com.fudWize');
         $location.path('/');
       };
+      scope.loggedIn = function(){
+        var path = $location.$$path.slice(1);
+        if(path.match(/^profile/) !== null || path.match(/^dash/) !== null){
+          return true;
+        }
+        return false;
+      };
     }
   };
 
