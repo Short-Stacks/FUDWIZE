@@ -11,10 +11,21 @@ h1 {
 
 h4 {
   padding: 0 15px;
+  margin-top: 20px;
 }
+
+h2 {
+  margin-top: 5px;
+}
+
 
 span .navbar-text {
   font-size: 2em;
+}
+
+.logo {
+  margin: 25px;
+  height: 70px;
 }
 
 .login {
