@@ -29,12 +29,11 @@
 
 
             <div class="form-group" ng-hide="create">
-              <label for="username-input">Username</label>
-              <input type='text' name='usernameInput' id="username-input" class="form-control" placeholder="Enter your username" ng-model='ctrl.postData.username' required />
-              <div role="alert">
-                <span class="error" ng-show="signupForm.usernameInput.$error.required">
-                  (required)</span>
-              </div> <!-- /alert created by angular -->
+              <label for="username">Username</label>
+              <input type='text' name='username' id="username" class="form-control" placeholder="Enter your username" ng-model='ctrl.postData.username' required />
+              <div class="error" ng-show="loginForm.$submitted || loginForm.username.$touched">
+                <span ng-show="loginForm.username.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+              </div> <!-- /show error -->
             </div> <!-- /form-group username -->
 
 
@@ -42,12 +41,11 @@
 
 
             <div class="form-group" ng-hide="create">
-              <label for="password-input">Password</label>
-              <input type="password" name='passwordInput' id="password-input" class="form-control" placeholder="Enter your password" ng-model='ctrl.postData.password' required />
-              <div role="alert">
-                <span class="error" ng-show="signupForm.passwordInput.$error.required">
-                  (required)</span>
-              </div> <!-- /alert created by angular -->
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" ng-model='ctrl.postData.password' required />
+              <div class="error" ng-show="loginForm.$submitted || loginForm.password.$touched">
+                <span ng-show="loginForm.password.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+              </div> <!-- /show error -->
             </div> <!-- /form-group password -->
 
 
