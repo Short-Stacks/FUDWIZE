@@ -71,7 +71,7 @@
 
     <!-- Submit button to Update Profile -->
 
-    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile();">Update Profile</button><span ng-show="ctrl.updated == 'updated'">Profile Updated!</span>
+    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile(); updated = true">Update Profile</button><span ng-show="updated">Profile Updated!</span>
             
     </div> <!-- /main-content -->
 

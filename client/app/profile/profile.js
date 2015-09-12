@@ -17,7 +17,7 @@ angular.module('myApp.profile', [])
       console.log(vm.data);
       AjaxService.updateProfileData(vm.data, vm.type, vm.username)
         .then(function() {
-          vm.updated = 'updated';
+          vm.updated = true;
           // $route.reload();
         });
     };
