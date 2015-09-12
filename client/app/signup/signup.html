@@ -1,6 +1,10 @@
+
+<!-- all data from the form will be saved in the postData object in the controller -->
+
 <div class="signup container" ng-controller="SignupCtrl as ctrl">
 
   <!-- Wrap the entire form in a box with rounded borders -->
+
   <div class="row">
     <div class="col-md-4 col-md-offset-4 wrapper">
 
@@ -20,14 +24,20 @@
 
           <form action="#" name="signupForm" ng-submit="ctrl.submit()" novalidate>
 
-            <!-- all data from the form will be saved in the postData object in the controller -->
 
+            <!--===============================================================-->
             <!--========================= Section One =========================-->
-            <!-- Section one asks general information. Clicking Next Button will ask for more details -->
+            <!--===============================================================-->
+            <!--===                                                         ===-->
+            <!--===          Section one asks general information.          ===-->
+            <!--=== Clicking the Next button will show section two to users ===-->
+            <!--===                                                         ===-->
+            <!--===============================================================-->
 
             <div class="signup-section-one" ng-hide="next">
 
               <!--============== Username ==============-->
+
               <div class="form-group">
                 <label for="username">Username</label><span class="required-field">*</span>
                 <input type='text' name="username" id="username" class="form-control" placeholder="Enter Username" ng-model="ctrl.postData.username" required />
@@ -46,7 +56,7 @@
                 </div> <!-- /show error -->
               </div> <!-- /form-group password -->
 
-              <!--============== Organization Name ==============-->
+              <!--============== Organization Name (FBK Only) ==============-->
 
               <div class="form-group" ng-hide="ctrl.isRst">
                 <label for="organization">Organization Name</label><span class="required-field">*</span>
@@ -57,7 +67,7 @@
               </div> <!-- /form-group organization -->
 
 
-              <!--============== Restaurant Name ==============-->
+              <!--============== Restaurant Name (RST Only) ==============-->
 
               <div class="form-group" ng-hide="!ctrl.isRst">
                 <label for="restaurant">Restaurant Name</label><span class="required-field">*</span>
@@ -126,14 +136,26 @@
 
 
 
+            <!--===============================================================-->
             <!--========================= Section Two =========================-->
+            <!--===============================================================-->
+            <!--===                                                         ===-->
+            <!--===          Section two asks specific information          ===-->
+            <!--===          All fields in section two are optional         ===-->
+            <!--===                                                         ===-->
+            <!--===============================================================-->
+            <!--===============================================================-->
 
             <div class="signup-section-two" ng-show="next">
 
-              <!--============== Mission Statement (FBK Only) ==============-->
+              <!--===================================================-->
+              <!--============== Foodbank Only Section ==============-->
+              <!--===================================================-->
+
+              <!--============== Mission Statement ==============-->
 
               <div class="form-group" ng-hide="ctrl.isRst">
-                <label for="mission">Tell Us About Your Organization</label>
+                <label for="mission">Mission Statement</label>
                 <textarea class="form-control" name="mission" rows="4" ng-model="ctrl.postData.additional.mission"></textarea>
               </div> <!-- /form-group mission statement -->
 
@@ -144,15 +166,17 @@
                 <textarea class="form-control" name="aboutUs" rows="4" ng-model="ctrl.postData.additional.aboutUs"></textarea>
               </div> <!-- /form-group about us -->
 
-              <!--============== Service Area (FBK Only) ==============-->
+              <!--============== Service Area ==============-->
 
               <div class="form-group" ng-hide="ctrl.isRst">
                 <label for="serviceArea">Service Area</label>
                 <input type="url" name="serviceArea" id="serviceArea" class="form-control" placeholder="Enter Service Area" ng-model="ctrl.postData.contactInfo.serviceArea" />
               </div> <!-- /form-group service area -->
 
-               
+
+              <!--=====================================================-->
               <!--============== Restaurant Only Section ==============-->
+              <!--=====================================================-->
 
               <div ng-show="ctrl.isRst">
 
@@ -194,7 +218,6 @@
                   <div ng-repeat="(key, value) in ctrl.pickupTime">
                     <input type="checkbox" checklist-value="meal" ng-model="ctrl.postData.foodData.pickupTime[key]" /> {{ key }}
                   </div> <!-- /list pickupTime -->
-
                 </div> <!-- /form-group pickupTime -->
 
               </div> <!-- /availability -->
