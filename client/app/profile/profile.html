@@ -19,15 +19,18 @@
   <div class="row profile-body">
 
     <div ng-show="ctrl.type == 'rst'" class="col-md-3 sidebar">
-      <p><strong>Phone</strong> {{ ctrl.data.contactInfo.phoneNumber }}</p>
-      <p><strong>Website</strong> {{ ctrl.data.websiteUrl }}</p>
-      <p><strong>Additional Info</strong> {{ ctrl.data.additional.aboutUs }}</p>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+
+      <p><legend>Phone</legend> {{ ctrl.data.contactInfo.phoneNumber }}</p>
+      <p><legend>Website</legend> {{ ctrl.data.websiteUrl }}</p>
+      <p><legend>Additional Info</legend> {{ ctrl.data.additional.aboutUs }}</p>
     </div> <!-- /rst sidebar -->
 
     <div ng-show="ctrl.type == 'fbk'" class="col-md-3 sidebar">
-      <p><strong>Mission Statement</strong> {{ ctrl.data.additional.aboutUs }}</p>
-      <p><strong>Website</strong> {{ ctrl.data.websiteUrl }} </p>
-      <p><strong>Additional Info</strong> {{ ctrl.data.additional }} </p>
+      <p><legend>Mission Statement</legend> {{ ctrl.data.additional.aboutUs }}</p>
+      <p><legend>Website</legend> {{ ctrl.data.websiteUrl }} </p>
+      <p><legend>Additional Info</legend> {{ ctrl.data.additional.mission }} </p>
+      <a href="#/dash/{{ ctrl.data.username }}" type="button" class="btn btn-link">Go To Your Dashboard</a>
     </div> <!-- /fbk sidebar -->
 
    
@@ -62,13 +65,13 @@
       <div class="col-md-6">
         <legend>Pickup Time</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.pickupTime" >
-              <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.pickupTime[key]" ng-change="ctrl.test();"> {{ key }}
+              <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.pickupTime[key]"/> {{ key }}
             </label>
       </div>
 
     <!-- Submit button to Update Profile -->
 
-    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile();">Update Profile</button><span ng-show="ctrl.updated">Profile Updated!</span>
+    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile();">Update Profile</button><span ng-show="ctrl.updated == 'updated'">Profile Updated!</span>
             
     </div> <!-- /main-content -->
 
