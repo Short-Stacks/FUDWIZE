@@ -2,5 +2,7 @@
   <div class="container">
       <button ng-if="!loggedIn()" ng-click="login()" class="btn btn-primary navbar-btn navbar-right">Log In</button>
       <button ng-if="loggedIn()" ng-click="logout()" class="btn btn-primary navbar-btn navbar-right">Log Out</button>
+      <button ng-if="!atProfileView() && loggedIn()" ng-click="goToProfile()" class="btn btn-default navbar-btn navbar-right">Profile Home</button>
+      <button ng-if="!atDashView() && loggedIn() && isFoodbank()" ng-click="goToDashboard()" class="btn btn-default navbar-btn navbar-right">Dashboard</button>
   </div> <!-- /container for nav-->
 </nav>
