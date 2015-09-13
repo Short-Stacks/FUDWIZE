@@ -16,48 +16,48 @@ var createTestUsers = function(hashPassword) {
     }
   });
 
-  User.remove({username: 'mehfils'}, function(err) {
+  User.remove({username: 'mehfil'}, function(err) {
     if (err) {
-      console.log("Unable to delete mehfils");
+      console.log("Unable to delete mehfil");
     } 
     else {
-      console.log("mehfils removed");
+      console.log("mehfil removed");
     }
   });
 
-  User.remove({username: 'steffs'}, function(err) {
+  User.remove({username: 'tacoshop'}, function(err) {
     if (err) {
-      console.log("Unable to delete steffs");
+      console.log("Unable to delete tacoshop");
     } 
     else {
-      console.log("steffs removed");
+      console.log("tacoshop removed");
     }
   });
 
-  User.remove({username: 'sfFoodBank'}, function(err) {
+  User.remove({username: 'sffbk'}, function(err) {
     if (err) {
-      console.log("Unable to delete sfFoodBank");
+      console.log("Unable to delete sffbk");
     } 
     else {
-      console.log("sfFoodBank removed");
+      console.log("sffbk removed");
     }
   });
 
-  User.remove({username: 'oaklandFoodBank'}, function(err) {
+  User.remove({username: 'alamedafbk'}, function(err) {
     if (err) {
-      console.log("Unable to delete oaklandFoodBank");
+      console.log("Unable to delete alamedafbk");
     } 
     else {
-      console.log("oaklandFoodBank removed");
+      console.log("alamedafbk removed");
     }
   });
 
-  User.remove({username: 'sausalitoFoodBank'}, function(err) {
+  User.remove({username: 'napafbk'}, function(err) {
     if (err) {
-      console.log("Unable to delete sausalitoFoodBank");
+      console.log("Unable to delete napafbk");
     } 
     else {
-      console.log("sausalitoFoodBank removed");
+      console.log("napafbk removed");
     }
   });
 
@@ -232,9 +232,9 @@ var createTestUsers = function(hashPassword) {
     tacoshop.save();
   });
 
-  hashPassword('sffoodbank', function(hashPassword) {
+  hashPassword('sffbk', function(hashPassword) {
     var sfFoodBank = new User({
-      username: 'sffoodbank',
+      username: 'sffbk',
       password: hashPassword,
       type: 'fbk',
       contactInfo: {
@@ -279,9 +279,9 @@ var createTestUsers = function(hashPassword) {
     alamedaCountyFoodBank.save();
   });
 
-  hashPassword('communityActionNapaValley', function(hashPassword) {
+  hashPassword('napafbk', function(hashPassword) {
     var communityActionNapaValley = new User({
-      username: 'communityActionNapaValley',
+      username: 'napafbk',
       password: hashPassword,
       type: 'fbk',
       contactInfo: {
