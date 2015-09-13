@@ -9,9 +9,9 @@ angular.module('myApp', [
   'ngRoute'
 ])
 
-.constant('MY_CONSTANTS', {
-  "SERVER": "http://127.0.0.1:3000"
-})
+//.constant('MY_CONSTANTS', {
+  //"SERVER": "http://127.0.0.1:3000"
+//})
 
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
   $routeProvider
