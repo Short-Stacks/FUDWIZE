@@ -41,15 +41,15 @@
     <div ng-show="ctrl.type == 'rst'" class="col-md-9 main-content"> 
       <div class="col-md-6">
         <legend>Type of Meals You Can Donate</legend>
-            <label ng-repeat="(key, value) in ctrl.data.foodData.mealType" >
-              <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.mealType[key]"/> {{ key }}
-            </label>
+          <label ng-repeat="(key, value) in ctrl.data.foodData.mealType" >
+              <input type="checkbox" ng-model="ctrl.data.foodData.mealType[key]"/> {{ key }}
+          </label>
         </div>
         
       <div class="col-md-6">     
         <legend>Type of Food</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.foodType" >
-              <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.foodType[key]"/> {{ key }}
+              <input type="checkbox" ng-model="ctrl.data.foodData.foodType[key]"/> {{ key }}
             </label>
       </div>
 
@@ -58,22 +58,38 @@
       <div class="col-md-6">
         <legend>Day(s) Available For Food Pickup</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.pickupDay" >
-              <input class="checkbox-info" type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.pickupDay[key]"/> {{ key }}
+              <input type="checkbox" ng-model="ctrl.data.foodData.pickupDay[key]"/> {{ key }}
             </label>
       </div>
 
       <div class="col-md-6">
         <legend>Pickup Time</legend>
             <label ng-repeat="(key, value) in ctrl.data.foodData.pickupTime" >
-              <input type="checkbox" checklist-value="meal" ng-model="ctrl.data.foodData.pickupTime[key]"/> {{ key }}
+              <input type="checkbox" ng-model="ctrl.data.foodData.pickupTime[key]"/> {{ key }}
             </label>
       </div>
 
     <!-- Submit button to Update Profile -->
 
-    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile(); updated = true">Update Profile</button><span ng-show="updated">Profile Updated!</span>
+    <button ng-hide="updated" class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile(); updated = true;">Update Profile</button>
+    <button ng-show="updated" class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit">Profile Updated!</button>
             
     </div> <!-- /main-content -->
+
+
+    <!-- Displays foodbank's connections in main body of profile -->
+
+    <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
+      <h3>Connections</h3>
+      <div ng-repeat="connection in ctrl.connections">
+        <legend>{{ connection.contactInfo.name }}</legend>
+          <p><strong>Phone: </strong>{{ connection.contactInfo.phoneNumber }}</p>
+          <p><strong>Email: </strong>{{ connection.contactInfo.email }}</p>
+          <p><strong>Website URL: </strong>{{ connection.websiteUrl }}</p>
+          
+          <p ng-repeat="foodData in connection.foodData" ng-show="{{ foodData }}">{{ foodData }}</p>
+      </div>
+    </div>
 
   </div> <!-- /row profile-body -->
 

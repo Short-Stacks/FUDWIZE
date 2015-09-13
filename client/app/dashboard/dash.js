@@ -47,9 +47,10 @@ angular.module('myApp.dashboard', [])
       google.maps.event.addDomListener(window, 'load', setTimeout(initMap,1000));
     });
     //making a post request to the server (IN PROGRESS)
-      vm.makeConnection = function(rstName, index) {
+      vm.makeConnection = function(rstUsername, index) {
         //this won't work til postNewConnection got defined in services.js
-        AjaxService.postNewConnection(vm.username, rstName)
+        var postData = { rstUsername : rstUsername };
+        AjaxService.postNewConnection(vm.username, postData)
           .then(function(data){
             console.log('sucessfully made connection');
             // the connection button will appear in green color if connectionMade is true

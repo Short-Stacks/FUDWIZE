@@ -4,20 +4,27 @@ angular.module('myApp.profile', [])
     var vm = this;
     vm.type = $routeParams.type;
     vm.username = $routeParams.username;
-
-    vm.updated = null;
+    vm.connections;
 
     AjaxService.getProfileData(vm.type, vm.username)
       .then(function(data){
         console.log(data);
         vm.data = data;
-      });
+      })
+      .then(function() {
+        if (vm.type == 'fbk') {
+          //make AJAX request for username's in foodbank's connections array
+          AjaxService.getConnectionsData(vm.type, vm.username)
+              .then(function(data) {
+                vm.connections = data.data;
+              })
+          }; 
+        });
 
     vm.updateProfile = function() {
       console.log(vm.data);
       AjaxService.updateProfileData(vm.data, vm.type, vm.username)
         .then(function() {
-          vm.updated = true;
           // $route.reload();
         });
     };
