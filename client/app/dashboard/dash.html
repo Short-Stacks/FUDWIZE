@@ -1,12 +1,13 @@
 <nav-bar></nav-bar>
 <div id="dashboard" ng-controller='DashboardCtrl as ctrl'>
-<h3>Dashboard</h3>
-  <p>Hello, {{ctrl.username}}</p>
   <div id="map"></div> <!--map-->
   <form id="restaurantInfo">
-    <p><strong>List of Restaurant Vendor:</strong></p>
-    <input type="text" placeholder="Filter" ng-model="ctrl.searchInput">
-    <p></p>
+    <div id="heading">
+      <h3>Dashboard</h3>
+      <p><strong>List of Restaurant Vendor:</strong></p>
+      <input type="text" placeholder="Filter" ng-model="ctrl.searchInput">
+      <p></p>
+    </div>
     <ul class="list-group nav" ng-repeat="restaurant in ctrl.rst | filter: ctrl.searchInput track by $index">
       <li class="list-group-item nav" > 
       Restaurant Name: {{ restaurant.contactInfo.name }}
