@@ -117,11 +117,13 @@ app.post('/login', function(req, res, next) {
             });
           } else {
             console.log('password doesnt match');
-            res.status(404).send();
+            res.status(401).send();
           }
-
-
         });
+      }
+      else{
+        console.log('user doesnt exist');
+        res.status(401).send();
       }
     });
 });
@@ -132,7 +134,7 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
 
   if (req.user.type !== type || req.user.username !== username) {
     res.status(403).send();
-  } 
+  }
   else {
     User.findOne({username: username}, getFields, function(err, user) {
       if (err) {
@@ -215,7 +217,7 @@ app.get('/dash/:username', checkToken, function(req, res, next) {
 app.post('/dash/:username/connections', function(req, res, next) {
   var username = req.params.username;
   var newConnection = req.body.rstUsername;
-  
+
   User.findOne({ username: username }, function(err, user) {
     if (err) {
       console.log(err);

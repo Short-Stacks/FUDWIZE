@@ -22,9 +22,6 @@ angular.module('myApp.services', [])
       method: 'POST',
       url: '/login',
       data: JSON.stringify(data)
-    })
-    .then(function (resp) {
-      return resp.data;
     });
   };
 
