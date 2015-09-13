@@ -1,10 +1,10 @@
 angular.module('myApp.dashboard', [])
 
-.controller('DashboardCtrl', ['$routeParams','$window', 'AjaxService','$location', function($routeParams,$window, AjaxService, $location) {
+.controller('DashboardCtrl', ['$routeParams','AjaxService', function($routeParams, AjaxService) {
   var vm = this;
   vm.username = $routeParams.username;
   vm.connectionMade = false;
-
+  vm.loadingMap = "loading map...";
 
 
   AjaxService.getDashboardData(vm.username)
@@ -43,7 +43,8 @@ angular.module('myApp.dashboard', [])
         vm.rst[i].pickupDay = pickupDay;
       }
       vm.restaurantsLatLongs = generateLatLongs(vm.address);
-      google.maps.event.addDomListener(window, 'load', initMap);
+      
+      google.maps.event.addDomListener(window, 'load', setTimeout(initMap,1000));
     });
     //making a post request to the server (IN PROGRESS)
       vm.makeConnection = function(rstName, index) {
@@ -87,11 +88,8 @@ angular.module('myApp.dashboard', [])
       })
     }
     return latLongs;
-  }
-
-// var restaurantsLatLongs = generateLatLongs(restaurantsAddresses);      
+  }   
   function initMap() {
-
     var infowindow = null; 
   
     var map = new google.maps.Map(document.getElementById('map'), {
