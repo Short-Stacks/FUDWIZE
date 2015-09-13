@@ -9,9 +9,9 @@ angular.module('myApp', [
   'ngRoute'
 ])
 
-.constant('MY_CONSTANTS', {
-  "SERVER": "http://127.0.0.1:3000"
-})
+//.constant('MY_CONSTANTS', {
+  //"SERVER": "http://127.0.0.1:3000"
+//})
 
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
   $routeProvider
@@ -92,27 +92,22 @@ angular.module('myApp', [
 
     //this is the next route (e.g. '/signup')
     var path = next.$$route.originalPath;
-    
+
     //if this object exists, check that the token still persists, and route them to their profile
     //a user will only be able to view his or her profile, and nobody else's
-    if (authObject) {
-      if (next.$$route && authObject.token) {
-
-        if (path === '/profile/:type/:username') {
-          $location.path('/profile/' + authObject.type + '/' + authObject.username);
-        }
-        else if (path === '/dash/:username') {
-          $location.path('/dash/' + authObject.username);
-        }
+    if (authObject && next.$$route && authObject.token) {
+      if (path === '/dash/:username') {
+        $location.path('/dash/' + authObject.username);
+      }
+      else{
+        $location.path('/profile/' + authObject.type + '/' + authObject.username);
       }
     }
     //if the object doesn't exist, and they are not veiwing the homepage or signup page, route them to login
     else {
-
       if (path !== '/signup/:type' && path !== '/login' && path !== '' && path !== '/') {
         $location.path('/login');
-      };
-    };
+      }
+    }
   });
 }]);
-

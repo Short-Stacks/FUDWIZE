@@ -19,9 +19,19 @@ var getFields = {
   'foodData': 1
 };
 
+var database = process.env.MONGOLAB_URI || 'mongodb://localhost/fudwize';
+
+mongoose.connect(database, function (error) {
+    if (error) {
+      console.error(error);
+    }
+    else {
+      console.log('mongo connected');
+    }
+});
 
 // mongoose.connect('mongodb://user:pass@localhost/api');
-mongoose.connect('mongodb://localhost/fudwize');
+//mongoose.connect('mongodb://localhost/fudwize');
 var SALT_WORK_FACTOR = 10;
 
 app.use(cors());
