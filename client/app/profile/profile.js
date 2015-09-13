@@ -4,8 +4,7 @@ angular.module('myApp.profile', [])
     var vm = this;
     vm.type = $routeParams.type;
     vm.username = $routeParams.username;
-
-    vm.connectionData = [];
+    vm.connections;
 
     AjaxService.getProfileData(vm.type, vm.username)
       .then(function(data){
@@ -14,19 +13,13 @@ angular.module('myApp.profile', [])
       })
       .then(function() {
         if (vm.type == 'fbk') {
-          //make AJAX request for each username in user's connections array
-          //push each of these results in the connectionData array
-          for (var i = 0; i < vm.data.connections.length; i++) {
-            AjaxService.getConnectionData(connections[i])
+          //make AJAX request for username's in foodbank's connections array
+          AjaxService.getConnectionsData(vm.type, vm.username)
               .then(function(data) {
-                vm.connectionData.push(data);
+                vm.connections = data.data;
               })
-            console.log(vm.connectionData);
           }; 
-        };
-      })
-
-
+        });
 
     vm.updateProfile = function() {
       console.log(vm.data);

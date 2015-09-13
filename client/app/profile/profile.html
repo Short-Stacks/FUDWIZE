@@ -79,7 +79,13 @@
     <!-- Displays foodbank's connections in main body of profile -->
 
     <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
-      <div ng-repeat="connection in ctrl.connections">{{ connection }}</div>
+      <h3>Connections</h3>
+      <div ng-repeat="connection in ctrl.connections">
+        <legend>{{ connection.username }}</legend>
+          <p>{{ connection.contactInfo }}</p>
+          <p>{{ connection.websiteUrl }}</p>
+          <p>{{ connection.foodData }}</p>
+      </div>
     </div>
 
   </div> <!-- /row profile-body -->

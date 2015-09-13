@@ -66,11 +66,11 @@ angular.module('myApp.services', [])
     })
   };
 
-  obj.postNewConnection = function(fbkUsername, rstUsername) {
+  obj.postNewConnection = function(fbkUsername, postData) {
     return $http({
       method: 'POST',
-      url: 'dash/' + username + '/connections',
-      data: JSON.stringify(data)
+      url: 'dash/' + fbkUsername + '/connections',
+      data: JSON.stringify(postData)
     })
   }
 

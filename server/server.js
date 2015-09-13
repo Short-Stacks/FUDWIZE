@@ -146,22 +146,28 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
 
 app.get('/profile/:type/:username/connections', function(req, res, next) {
   var username = req.params.username;
-  var connection = req.body;
-  var responseData = {};
 
-  User.findOne({ username: connection }, function(err, user) {
+
+  User.findOne({ username: username }, function(err, user) {
     if (err) {
       console.log(err);
     }
     else {
-      //tailor which data of the connection to send to the user
-      //we don't want to send passwords!
-      responseData[username] = user.username;
-      responseData[contactInfo] = user.contactInfo;
-      responseData[websiteUrl] = user.websiteUrl;
-      responseData[additional] = user.additional;
-      responseData[foodData] = user.foodData;
-      res.status(200).send(responseData);
+      var connections = user.connections;
+      var responseData = [];
+      for (var i = 0; i < connections.length; i++) {
+        User.findOne({ username: connections[i] }, getFields, function(err, user) {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            responseData.push(user);
+            if (responseData.length == connections.length) {
+              res.status(200).send(responseData);
+            }
+          }
+        })
+      }
     }
   })
 });
@@ -208,7 +214,7 @@ app.get('/dash/:username', checkToken, function(req, res, next) {
 
 app.post('/dash/:username/connections', function(req, res, next) {
   var username = req.params.username;
-  var newConnection = req.body;
+  var newConnection = req.body.rstUsername;
   
   User.findOne({ username: username }, function(err, user) {
     if (err) {
@@ -217,6 +223,9 @@ app.post('/dash/:username/connections', function(req, res, next) {
     else {
       //will add the new connection's username to this user's connections array in storage
       user.connections.push(newConnection);
+      user.markModified(user.connections);
+      user.save();
+      console.log(user.connections);
     }
   })
 });
