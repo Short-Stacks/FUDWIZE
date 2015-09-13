@@ -68,10 +68,10 @@ var createTestUsers = function(hashPassword) {
       type: 'rst',
       contactInfo: {
         name: 'Chipotle Mexican Grill',
-        phoneNumber: '6505442950',
+        phoneNumber: '4152780461',
         email: 'chipotle@chipotle.com',
-        streetName: '251 E 3rd Ave',
-        cityStateZip: 'San Mateo, CA 94402'
+        streetName: '525 Market Street',
+        cityStateZip: 'San Francisco, CA 94105'
       },
       websiteUrl: 'www.chipotle.com',
       additional: {
