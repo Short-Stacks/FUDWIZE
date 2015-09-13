@@ -57,6 +57,21 @@ angular.module('myApp.services', [])
     })
   };
 
+  obj.getConnectionsData = function(type, username) {
+    return $http({
+      method: 'GET',
+      url: 'profile/' + type + '/' + username + '/connections'
+    })
+  };
+
+  obj.postNewConnection = function(fbkUsername, rstUsername) {
+    return $http({
+      method: 'POST',
+      url: 'dash/' + username + '/connections',
+      data: JSON.stringify(data)
+    })
+  }
+
   return obj;
 
 }])

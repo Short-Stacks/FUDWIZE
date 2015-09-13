@@ -122,7 +122,8 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
 
   if (req.user.type !== type || req.user.username !== username) {
     res.status(403).send();
-  } else {
+  } 
+  else {
     User.findOne({username: username}, getFields, function(err, user) {
       if (err) {
         return next(err);
@@ -131,6 +132,28 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
     });
   }
 
+});
+
+app.get('/profile/:type/:username/connections', function(req, res, next) {
+  var username = req.params.username;
+  var connection = req.body;
+  var responseData = {};
+
+  User.findOne({ username: connection }, function(err, user) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      //tailor which data of the connection to send to the user
+      //we don't want to send passwords!
+      responseData[username] = user.username;
+      responseData[contactInfo] = user.contactInfo;
+      responseData[websiteUrl] = user.websiteUrl;
+      responseData[additional] = user.additional;
+      responseData[foodData] = user.foodData;
+      res.status(200).send(responseData);
+    }
+  })
 });
 
 app.post('/profile/:type/:username', function(req, res, next) {
@@ -171,6 +194,21 @@ app.get('/dash/:username', checkToken, function(req, res, next) {
       });
     });
   }
+});
+
+app.post('/dash/:username/connections', function(req, res, next) {
+  var username = req.params.username;
+  var newConnection = req.body;
+  
+  User.findOne({ username: username }, function(err, user) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      //will add the new connection's username to this user's connections array in storage
+      user.connections.push(newConnection);
+    }
+  })
 });
 
 var port = process.env.PORT || 3000;

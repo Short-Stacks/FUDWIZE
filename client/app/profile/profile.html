@@ -71,9 +71,16 @@
 
     <!-- Submit button to Update Profile -->
 
-    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile(); updated = true">Update Profile</button><span ng-show="updated">Profile Updated!</span>
+    <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile(); updated = true;">Update Profile</button><span ng-show="updated">Profile Updated!</span>
             
     </div> <!-- /main-content -->
+
+
+    <!-- Displays foodbank's connections in main body of profile -->
+
+    <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
+      <div ng-repeat="connection in ctrl.connections">{{ connection }}</div>
+    </div>
 
   </div> <!-- /row profile-body -->
 
