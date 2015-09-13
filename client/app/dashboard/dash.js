@@ -49,12 +49,12 @@ angular.module('myApp.dashboard', [])
     //making a post request to the server (IN PROGRESS)
       vm.makeConnection = function(rstUsername, index) {
         //this won't work til postNewConnection got defined in services.js
+        vm.rst[index].connectionMade = true;
         var postData = { rstUsername : rstUsername };
         AjaxService.postNewConnection(vm.username, postData)
           .then(function(data){
             console.log('sucessfully made connection');
             // the connection button will appear in green color if connectionMade is true
-            vm.rst[index].connectionMade = true;
           });
       };
 //---------------------------------
