@@ -1,15 +1,19 @@
 angular.module('myApp.dashboard', [])
 
-.controller('DashboardCtrl', ['$routeParams', 'AjaxService', function($routeParams, AjaxService) {
+.controller('DashboardCtrl', ['$routeParams','$window', 'AjaxService','$location', function($routeParams,$window, AjaxService, $location) {
   var vm = this;
   vm.username = $routeParams.username;
+  vm.connectionMade = false;
+
+
+
   AjaxService.getDashboardData(vm.username)
     .then(function(data) {
       vm.rst = data.rst;
       var foodbankAdd = [data.fbk.contactInfo.streetName + ", "+ data.fbk.contactInfo.cityStateZip];
       vm.fbkAddressLatLong = generateLatLongs(foodbankAdd);
-      console.log('foodbank',  vm.fbkAddressLatLong);
-      console.log('vm.rst', vm.rst);
+
+      console.log('data', data);
       // on each vm.rst object element, it contains foodData object
       // under foodData, it contains all foodType, mealType..etc, for example:
       // foodData: { foodType:{canned Goods: true, bakedGoods: false..etc}}
@@ -26,26 +30,42 @@ angular.module('myApp.dashboard', [])
         var pickupDay = objectForloop(rstFoodData.pickupDay);
         vm.address = address(rstContactInfo.name,rstContactInfo.streetName, rstContactInfo.cityStateZip);
 
+        // checking if the foodbank has the rst's connection
+        if(data.fbk.connections.indexOf(vm.rst[i].username) > -1){
+          vm.rst[i].connectionMade = true;
+        }
+        else{
+          vm.rst[i].connectionMade = false;
+        }
         vm.rst[i].foodType = foodType;
         vm.rst[i].mealType = mealType;
         vm.rst[i].pickupTime = pickupTime;
         vm.rst[i].pickupDay = pickupDay;
       }
       vm.restaurantsLatLongs = generateLatLongs(vm.address);
-      console.log('vm.restaurantsLatLongs', vm.restaurantsLatLongs);  
       google.maps.event.addDomListener(window, 'load', initMap);
     });
+    //making a post request to the server (IN PROGRESS)
+      vm.makeConnection = function(rstName, index) {
+        //this won't work til postNewConnection got defined in services.js
+        AjaxService.postNewConnection(vm.username, rstName)
+          .then(function(data){
+            console.log('sucessfully made connection');
+            // the connection button will appear in green color if connectionMade is true
+            vm.rst[index].connectionMade = true;
+          });
+      };
 //---------------------------------
   vm.rstInfo = []; //[{name: innout, address: 201 maker st}]
   var restaurantsAddresses = [];
-  var address = function(name, street, city) {
+  function address(name, street, city) {
     if(street !== undefined || city !== undefined){
       restaurantsAddresses.push(street + ", " + city);
       vm.rstInfo.push(name);
     }
     return restaurantsAddresses;
   }
-  var objectForloop = function(obj) {
+  function objectForloop(obj) {
     var array = [];
     for( var key in obj ) {
       if( obj[key] ){
@@ -63,12 +83,9 @@ angular.module('myApp.dashboard', [])
       var geocoder = new google.maps.Geocoder();
       geocoder.geocode({'address': addressArray[i]}, function (results){
         latLongs.push({lat: results[0].geometry.location.G, lng: results[0].geometry.location.K});
-        console.log(latLongs);
+
       })
     }
-
-    console.log('addressArray', addressArray);
-    console.log('latlong', latLongs)
     return latLongs;
   }
 
@@ -88,8 +105,6 @@ angular.module('myApp.dashboard', [])
       '<p><strong>Address: </strong>' + vm.address[i] +
       '</div>'+
       '</div>';
-
-      console.log('vm.address[i] is ', vm.address[i]);
 
 
       infowindow = new google.maps.InfoWindow({

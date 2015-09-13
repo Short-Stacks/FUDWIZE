@@ -10,7 +10,7 @@ body {
   box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.75);
   border-radius: 3px;
 }
-#nav{
+.nav{
   border:1px solid black;
   width: 300px;
   height: 200px;
