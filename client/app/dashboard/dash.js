@@ -44,7 +44,6 @@ angular.module('myApp.dashboard', [])
       }
       vm.restaurantsLatLongs = generateLatLongs(vm.address);
       
-      console.log('restaurantsLatLongs', vm.restaurantsLatLongs.length);  
       google.maps.event.addDomListener(window, 'load', setTimeout(initMap,1000));
     });
     //making a post request to the server (IN PROGRESS)
@@ -91,16 +90,12 @@ angular.module('myApp.dashboard', [])
     return latLongs;
   }   
   function initMap() {
-    console.log('date', new Date());
     var infowindow = null; 
   
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 11,
       center: vm.restaurantsLatLongs[0]
     });
-
-    console.log('a ', vm.restaurantsLatLongs.length);
-
 
     for (var i = 0; i< vm.restaurantsLatLongs.length; i++){
 
