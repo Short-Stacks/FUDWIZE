@@ -89,9 +89,7 @@ angular.module('myApp.dashboard', [])
       })
     }
     return latLongs;
-  }
-
-// var restaurantsLatLongs = generateLatLongs(restaurantsAddresses);      
+  }   
   function initMap() {
     console.log('date', new Date());
     var infowindow = null; 
