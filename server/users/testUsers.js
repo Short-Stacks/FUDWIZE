@@ -71,7 +71,7 @@ var createTestUsers = function(hashPassword) {
         phoneNumber: '6505442950',
         email: 'chipotle@chipotle.com',
         streetName: '251 E 3rd Ave',
-        cityStreetZip: 'San Mateo, CA 94402'
+        cityStateZip: 'San Mateo, CA 94402'
       },
       websiteUrl: 'www.chipotle.com',
       additional: {
@@ -128,7 +128,7 @@ var createTestUsers = function(hashPassword) {
         phoneNumber: '4158969000',
         email: 'info@mehfilindiancuisine.us',
         streetName: '28 2nd Street',
-        cityStreetZip: 'San Francisco, CA 94105'
+        cityStateZip: 'San Francisco, CA 94105'
       },
       websiteUrl: 'www.mehfilindiancuisine.us',
       additional: {
@@ -185,7 +185,7 @@ var createTestUsers = function(hashPassword) {
         phoneNumber: '4155668700',
         email: 'www.tacoshopsf.com',
         streetName: '1824 Irving Street',
-        cityStreetZip: 'San Francisco, CA 94122'
+        cityStateZip: 'San Francisco, CA 94122'
       },
       websiteUrl: 'www.tacoshopsf.com',
       additional: {
@@ -242,7 +242,7 @@ var createTestUsers = function(hashPassword) {
         phoneNumber: '4152821900',
         email: 'sfFoodBank@sfFoodBank.org',
         streetName: '900 Pennsylvania Avenue',
-        cityStreetZip: 'San Francisco, CA 94107',
+        cityStateZip: 'San Francisco, CA 94107',
         serviceArea: 'San Francisco and Marin County'
       },
       websiteUrl: 'www.sfFoodBank.org',
@@ -266,7 +266,7 @@ var createTestUsers = function(hashPassword) {
         phoneNumber: '5106353663',
         email: 'info@accfb.org',
         streetName: '7900 Edgewater Drive',
-        cityStreetZip: 'Oakland, CA 94621'
+        cityStateZip: 'Oakland, CA 94621'
       },
       websiteUrl: 'www.accfb.org',
       additional: {
@@ -289,7 +289,7 @@ var createTestUsers = function(hashPassword) {
         phoneNumber: '7072536100',
         email: 'canv@can-v.org',
         streetName: '2310 Laurel Street #1',
-        cityStreetZip: 'Napa, CA 94559'
+        cityStateZip: 'Napa, CA 94559'
       },
       websiteUrl: 'www.canv.org',
       additional: {
