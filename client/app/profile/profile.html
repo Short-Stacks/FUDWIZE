@@ -82,10 +82,12 @@
     <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
       <h3>Connections</h3>
       <div ng-repeat="connection in ctrl.connections">
-        <legend>{{ connection.username }}</legend>
-          <p>{{ connection.contactInfo }}</p>
-          <p>{{ connection.websiteUrl }}</p>
-          <p>{{ connection.foodData }}</p>
+        <legend>{{ connection.contactInfo.name }}</legend>
+          <p><strong>Phone: </strong>{{ connection.contactInfo.phoneNumber }}</p>
+          <p><strong>Email: </strong>{{ connection.contactInfo.email }}</p>
+          <p><strong>Website URL: </strong>{{ connection.websiteUrl }}</p>
+          
+          <p ng-repeat="foodData in connection.foodData" ng-show="{{ foodData }}">{{ foodData }}</p>
       </div>
     </div>
 
