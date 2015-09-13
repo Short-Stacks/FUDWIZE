@@ -59,3 +59,6 @@ body>div:first-of-type {
   color: red;
 }
 
+.incorrect-login {
+  color: red;
+}

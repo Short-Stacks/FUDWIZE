@@ -53,6 +53,7 @@
 
 
             <button class="btn btn-primary btn-block submit" type="submit" id="submit" value="Submit" ng-hide="create">Log In</button>
+            <span ng-if="ctrl.incorrectLogin" class="incorrect-login"><span class="glyphicon glyphicon-alert incorrect-login" aria-hidden="true"></span> Username or Password is not correct</span>
 
             <!--============== Create Account ==============-->
 
