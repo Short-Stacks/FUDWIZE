@@ -20,7 +20,7 @@ h1 {
 
 input {
   width: 12px;
-  height:12px;
+  height: 12px;
 }
 
 .update-prompt {
@@ -30,14 +30,14 @@ input {
 }
 
 .update {
-  margin-top:42%;
-  margin-left:28%;
+  margin-top: 42%;
+  margin-left: 28%;
 }
 
 legend {
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 .checkboxes {
-  margin:5px;
+  margin: 5px;
 }

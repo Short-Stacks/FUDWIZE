@@ -67,7 +67,7 @@ angular.module('myApp.signup', [])
   
   //calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
   
-  vm.submit = function (){
+  vm.submit = function() {
     console.log(vm.postData);
     AjaxService.postSignupData(vm.postData, typeParam)
       .success(function(data, status, headers, config){

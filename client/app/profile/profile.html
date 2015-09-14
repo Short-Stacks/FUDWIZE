@@ -34,7 +34,6 @@
     </div> <!-- /fbk sidebar -->
 
 
-
     <!-- Display restaurant's food donation data as checkboxes that can be changed when the user
     clicks on the Submit Changes button -->
     
@@ -52,8 +51,6 @@
           <checkbox class="btn-success" ng-model="ctrl.data.foodData.foodType[key]"/> {{ key }} </checkbox>
         </div>
       </div>
-
-      <br>
 
       <div class="col-md-6">
         <legend>Day(s) Available For Food Pickup</legend>
@@ -84,7 +81,7 @@
     <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
       <h3>Connections</h3>
       <div ng-repeat="connection in ctrl.connections">
-        <legend>{{ connection.contactInfo.name }}</legend>
+        <legend>{{ connection.contactInfo.name }} <img src="{{ ctrl.data.}}"</legend>
         <p><strong>Phone: </strong>{{ connection.contactInfo.phoneNumber }}</p>
         <p><strong>Email: </strong>{{ connection.contactInfo.email }}</p>
         <p><strong>Website URL: </strong>{{ connection.websiteUrl }}</p>
