@@ -30,3 +30,30 @@ input {
   font-weight: bold;
   color: green;
 }
+
+.available {
+  color: green;
+}
+
+.unavailable {
+  color: red;
+}
+
+.main-content legend {
+  margin: 15px 0;
+}
+
+.connection-box {
+  margin-bottom: 15px;
+  padding: 10px 10px 15px 10px;
+  border: 1px solid #BBBBBB;
+  border-radius: 5px;
+}
+.data-label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.row2 {
+  margin-top: 15px;
+}
