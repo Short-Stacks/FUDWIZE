@@ -22,6 +22,9 @@ var UserSchema = new mongoose.Schema ({
   websiteUrl: {
     type: String
   },
+  imageUrl: {
+    type: String
+  },
   additional: {
     type: {}
   },
