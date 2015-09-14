@@ -1,13 +1,29 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
 var app = express();
 var path = require('path');
 var User = require('./users/userModel.js');
-var jwt = require('jwt-simple');
-
+var Auth = require('./auth/middleware.js');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+
+//starts up our mongo environment on either heroku or locathost
+var database = process.env.MONGOLAB_URI || 'mongodb://localhost/fudwize';
+mongoose.connect(database, function(error) {
+  if (error) {
+    console.error(error);
+  }
+  else {
+    console.log('mongo connected');
+  }
+});
+
+//use cors json bodyparser and serve client files
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../client')));
+
+//only fields specified with "1"  will be retrieved from the mongoDB and sent to client
 var getFields = {
   '_id': 0,
   'username': 1,
@@ -20,40 +36,14 @@ var getFields = {
   'imageUrl': 1
 };
 
-var database = process.env.MONGOLAB_URI || 'mongodb://localhost/fudwize';
-
-mongoose.connect(database, function (error) {
-    if (error) {
-      console.error(error);
-    }
-    else {
-      console.log('mongo connected');
-    }
-});
-
-// mongoose.connect('mongodb://user:pass@localhost/api');
-//mongoose.connect('mongodb://localhost/fudwize');
-var SALT_WORK_FACTOR = 10;
-
-app.use(cors());
-app.use(bodyParser.json());
-
-app.use(express.static(path.join(__dirname, '../client')));
 
 
-//a post request to post new use info to db
+//handles a new user signup, type param can be either 'rst' or 'fbk'
 app.post('/signup/:type', function(req, res, next) {
-  //getting the type of the user, either rest or foodbank
-  var type = req.params.type;
   var data = req.body;
   var username = data.username;
-  var password = data.password;
-  var contactInfo = data.contactInfo;
-  var websiteUrl = data.websiteUrl;
-  var additional = data.additional;
-  var foodData = data.foodData;
-  var imageUrl = data.imageUrl;
 
+  //if the username already exists, respond 401
   User.findOne({
     username: username
   })
@@ -61,12 +51,23 @@ app.post('/signup/:type', function(req, res, next) {
       if (user) {
         console.log('user already exists');
         res.status(401).send();
-      } else {
-        hashPassword(password, function(hashPassword) {
+      }
+      else {
+        //otherwise, encrypt password and save the listed information to database
+        var type = req.params.type;
+        var password = data.password;
+        var contactInfo = data.contactInfo;
+        var websiteUrl = data.websiteUrl;
+        var additional = data.additional;
+        var foodData = data.foodData;
+        var imageUrl = data.imageUrl;
 
+        Auth.hashPassword(password, function(hashedPassword) {
+
+          //create new user in mongoose ORM
           var newUser = new User({
             username: username,
-            password: hashPassword,
+            password: hashedPassword,
             type: type,
             contactInfo: contactInfo,
             websiteUrl: websiteUrl,
@@ -75,24 +76,17 @@ app.post('/signup/:type', function(req, res, next) {
             connections: [],
             imageUrl: imageUrl
           });
-          // newUser.password = newUser.hashPassword(password);
+          //save user to mongoDB
           newUser.save(function(err) {
             if (err) {
               console.log(err);
             }
           })
             .then(function(user) {
-              // create token to send back for auth
-              var token = jwt.encode(user, 'secret');
-              res.status(201);
-              res.json({
-                type: type,
-                username: username,
-                token: token
-              });
+              // create token to send back for future auth
+              Auth.sendToken(req, res, user);
             });
         });
-
       }
     });
 });
@@ -100,47 +94,49 @@ app.post('/signup/:type', function(req, res, next) {
 
 //post request to verify the user info
 app.post('/login', function(req, res, next) {
-
-  var password = req.body.password;
   var username = req.body.username;
 
+  //check to see if user exists
   User.findOne({
     username: username
   })
     .then(function(user) {
       if (user) {
-        verifyPassword(password, user.password, function(bool) {
+        var password = req.body.password;
+
+        //check to see if input password matches decrypted password in database
+        Auth.verifyPassword(password, user.password, function(bool) {
           if (bool) {
             console.log('password matches');
-            var token = jwt.encode(user, 'secret');
-            res.status(201);
-            res.json({
-              type: user.type,
-              username: user.username,
-              token: token
-            });
-          } else {
+            Auth.sendToken(req, res, user);
+          }
+          else {
             console.log('password doesnt match');
             res.status(401).send();
           }
         });
       }
-      else{
+      else {
         console.log('user doesnt exist');
         res.status(401).send();
       }
     });
 });
 
-app.get('/profile/:type/:username', checkToken, function(req, res, next) {
+//handles get requests to profile path with type and username routeparams
+app.get('/profile/:type/:username', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var type = req.params.type;
 
+  //if params do not match information on token, respond 403
   if (req.user.type !== type || req.user.username !== username) {
     res.status(403).send();
   }
   else {
-    User.findOne({username: username}, getFields, function(err, user) {
+    //extract only specified 'getFields' from database and send to client
+    User.findOne({
+      username: username
+    }, getFields, function(err, user) {
       if (err) {
         return next(err);
       }
@@ -150,25 +146,37 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
 
 });
 
-app.get('/profile/:type/:username/connections', function(req, res, next) {
+/*
+this get request will be sent by foodbanks only in order to retrieve 'rst' information
+and list them under the "connections" section of their profile
+*/
+app.get('/profile/:type/:username/connections', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
 
 
-  User.findOne({ username: username }, function(err, user) {
+  User.findOne({
+    username: username
+  }, function(err, user) {
     if (err) {
-      console.log(err);
+      console.log('user doesnt exist');
+      res.status(401).send();
     }
     else {
       var connections = user.connections;
       var responseData = [];
+      //loop through all the users connections and get each 'rst' data
       for (var i = 0; i < connections.length; i++) {
-        User.findOne({ username: connections[i] }, getFields, function(err, user) {
+        User.findOne({
+          username: connections[i]
+        }, getFields, function(err, user) {
           if (err) {
             console.log(err);
           }
           else {
+            //push 'rst' data to responseData array
             responseData.push(user);
-            if (responseData.length == connections.length) {
+            //once all connections have been added, send response to client
+            if (responseData.length === connections.length) {
               res.status(200).send(responseData);
             }
           }
@@ -178,12 +186,15 @@ app.get('/profile/:type/:username/connections', function(req, res, next) {
   });
 });
 
-app.post('/profile/:type/:username', function(req, res, next) {
+//handles user profile updates
+app.post('/profile/:type/:username', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var updateData = req.body;
 
   //find the user and update the appropriate fields
-  User.findOne({ username: username }, function(err, user) {
+  User.findOne({
+    username: username
+  }, function(err, user) {
     user.foodData = updateData.foodData;
     user.connections = updateData.connections;
 
@@ -191,25 +202,37 @@ app.post('/profile/:type/:username', function(req, res, next) {
     //as modified so that Mongoose knows to save the contents of these items
     user.markModified(updateData);
     user.save();
+    res.status(201).send();
   });
 });
 
-
-app.get('/dash/:username', checkToken, function(req, res, next) {
+//handles dashboard requests for 'fbk' only
+app.get('/dash/:username', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var response_obj = {};
+
+  //if usernames dont match or user is a 'rst', respond 403
   if (req.user.type !== 'fbk' || req.user.username !== username) {
     res.status(403).send();
-  } else {
-    User.find({type: 'rst'}, getFields, function(err, users) {
+  }
+  else {
+    //get all 'rst' users and add them to the response_obj
+    User.find({
+      type: 'rst'
+    }, getFields, function(err, users) {
       if (err) {
-       console.log(err);
+        console.log('no restaurants exist in db');
+        res.status(401).send();
       }
       response_obj.rst = users;
 
-      User.findOne({username: username}, getFields, function(err, user) {
+      //get the current 'fbk' users info and add them to the response_obj, then send response
+      User.findOne({
+        username: username
+      }, getFields, function(err, user) {
         if (err) {
-          console.log(err);
+          console.log('user doesnt exist');
+          res.status(401).send();
         }
         response_obj.fbk = user;
         res.status(200).send(response_obj);
@@ -218,13 +241,17 @@ app.get('/dash/:username', checkToken, function(req, res, next) {
   }
 });
 
-app.post('/dash/:username/connections', function(req, res, next) {
+//handles new connections made between a 'fbk' and restaurants
+app.post('/dash/:username/connections', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var newConnection = req.body.rstUsername;
 
-  User.findOne({ username: username }, function(err, user) {
+  User.findOne({
+    username: username
+  }, function(err, user) {
     if (err) {
-      console.log(err);
+      console.log('user doesnt exist');
+      res.status(401).send();
     }
     else {
       //will add the new connection's username to this user's connections array in storage
@@ -233,7 +260,7 @@ app.post('/dash/:username/connections', function(req, res, next) {
       //because it is an array/object, must mark as modified as save so that Mongoose recognizes the change
       user.markModified(user.connections);
       user.save();
-      console.log(user.connections);
+      res.status(201).send();
     }
   });
 });
@@ -244,50 +271,3 @@ var server = app.listen(port, function() {
 });
 
 module.exports = app;
-
-function verifyPassword(attemptedPassword, savedPassword, cb) {
-  var result;
-  bcrypt.compare(attemptedPassword, savedPassword, function(err, res) {
-    cb(res);
-  });
-}
-
-function hashPassword(userPassword, cb) {
-  var salt;
-  var hash;
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-    if (err) {
-      return next(err);
-    }
-    //encrypt the user's inputted password with the generated salt mixed in to make it nice and savory
-    bcrypt.hash(userPassword, salt, null, function(err, hash) {
-      return cb(hash);
-    });
-  });
-}
-
-function checkToken(req, res, next) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-  var user;
-  var tokenObj = JSON.parse(token);
-
-  if (!tokenObj.token) {
-    return res.status(403).send({
-      success: 'false',
-      message: 'no token provided'
-    }); // send forbidden if a token is not provided
-  }
-
-  try {
-    // decode token and attach user to the request
-    // for use inside our controllers
-    user = jwt.decode(tokenObj.token, 'secret');
-    req.user = user;
-    next();
-  } catch (error) {
-    res.status(403).send({
-      success: 'false',
-      message: 'invalid token'
-    });
-  }
-}
