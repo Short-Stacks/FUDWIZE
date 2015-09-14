@@ -44,7 +44,7 @@ angular.module('myApp.dashboard', [])
       }
       vm.restaurantsLatLongs = generateLatLongs(vm.address);
       
-      google.maps.event.addDomListener(window, 'load', setTimeout(initMap,1000));
+      google.maps.event.addDomListener(window, 'load', setTimeout(vm.initMap,1000));
     });
     //making a post request to the server (IN PROGRESS)
       vm.makeConnection = function(rstUsername, index) {
@@ -79,10 +79,10 @@ angular.module('myApp.dashboard', [])
     return array.join("");
   }
 
+  var geocoder = new google.maps.Geocoder();
   function generateLatLongs (addressArray){
     var latLongs = [];
     for (var i = 0; i < addressArray.length; i++){
-      var geocoder = new google.maps.Geocoder();
       geocoder.geocode({'address': addressArray[i]}, function (results){
         latLongs.push({lat: results[0].geometry.location.G, lng: results[0].geometry.location.K});
 
@@ -90,7 +90,7 @@ angular.module('myApp.dashboard', [])
     }
     return latLongs;
   }   
-  function initMap() {
+  vm.initMap = function(event, street, cityStateZip) {
     var infowindow = null; 
   
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -98,34 +98,76 @@ angular.module('myApp.dashboard', [])
       center: vm.restaurantsLatLongs[0]
     });
 
-    for (var i = 0; i< vm.restaurantsLatLongs.length; i++){
+    if(street === undefined || cityStateZip === undefined){
 
-      var contentString = '<div id="content">'+ '<strong>Name: </strong>'+ vm.rstInfo[i] +
-      '<p><strong>Address: </strong>' + vm.address[i] +
-      '</div>'+
-      '</div>';
+      for (var i = 0; i< vm.restaurantsLatLongs.length; i++){
+
+        var contentString = '<div id="content">'+ '<strong>Name: </strong>'+ vm.rstInfo[i] +
+        '<p><strong>Address: </strong>' + vm.address[i] +
+        '</div>'+
+        '</div>';
 
 
-      infowindow = new google.maps.InfoWindow({
-        content: contentString,
-        maxWidth: 200
-      });
+        infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 200
+        });
 
-      var marker = new google.maps.Marker({
-        position: vm.restaurantsLatLongs[i],
-        map: map
-      });
+        var marker = new google.maps.Marker({
+          position: vm.restaurantsLatLongs[i],
+          map: map
+        });
 
-      google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
-        return function() {
-          infowindow.setContent(contentString);
-          infowindow.open(map, marker);
+        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
+          return function() {
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+          }
+        })(marker, contentString, infowindow));
+      }
+    }
+    else{
+        var address = street + cityStateZip;
+        geocoder.geocode({ 'address': address }, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+          });
+        } 
+        else {
+          alert('Geocode was not successful for the following reason: ' + status);
         }
-      })(marker, contentString, infowindow));
+      });
+      event.preventDefault();
     }
   }
-}]);
 
+  // prevent default when click the address
+  // vm.setFilters = function (event, street, cityStateZip) {
+  //   console.log(street,cityStateZip);
+  //   var map = document.getElementById('map');
+  //   var address = street + " "+ cityStateZip;
+  //   console.log(map);
+  //   event.preventDefault();
+  //   var geocoder = new google.maps.Geocoder();
+  //   geocoder.geocode({'address': address}, function(results, status) {
+  //     if (status === google.maps.GeocoderStatus.OK) {
+  //     resultsMap.setCenter(results[0].geometry.location);
+  //     var marker = new google.maps.Marker({
+  //       map: resultsMap,
+  //       position: results[0].geometry.location
+  //     });
+  //     event.preventDefault();
+  //   } 
+  //   else {
+  //     alert('Geocode was not successful for the following reason: ' + status);
+  //     event.preventDefault();
+  //   }
+  // });
+  // };
+}]);
 
 
 
