@@ -11,9 +11,6 @@ angular.module('myApp.services', [])
       method: 'POST',
       url: '/signup/' + param,
       data: JSON.stringify(data)
-    })
-    .then(function (resp) {
-      return resp.data;
     });
   };
 
