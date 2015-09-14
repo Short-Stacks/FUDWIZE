@@ -48,6 +48,7 @@ span .navbar-text {
   height:100%;
   display: table-cell;
   vertical-align: middle;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .intro-boxes {
