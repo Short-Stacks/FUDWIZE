@@ -44,7 +44,8 @@ exports.checkToken = function(req, res, next) {
     tokenUsername = jwt.decode(tokenObj.token, 'secret');
     req.user = tokenUsername;
     next();
-  } catch (error) {
+  }
+  catch (error) {
     res.status(403).send({
       success: 'false',
       message: 'invalid token'

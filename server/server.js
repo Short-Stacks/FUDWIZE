@@ -12,7 +12,8 @@ var database = process.env.MONGOLAB_URI || 'mongodb://localhost/fudwize';
 mongoose.connect(database, function(error) {
   if (error) {
     console.error(error);
-  } else {
+  }
+  else {
     console.log('mongo connected');
   }
 });
@@ -49,7 +50,8 @@ app.post('/signup/:type', function(req, res, next) {
       if (user) {
         console.log('user already exists');
         res.status(401).send();
-      } else {
+      }
+      else {
         //otherwise, encrypt password and save the listed information to database
         var type = req.params.type;
         var password = data.password;
@@ -104,12 +106,14 @@ app.post('/login', function(req, res, next) {
           if (bool) {
             console.log('password matches');
             Auth.sendToken(req, res, user);
-          } else {
+          }
+          else {
             console.log('password doesnt match');
             res.status(401).send();
           }
         });
-      } else {
+      }
+      else {
         console.log('user doesnt exist');
         res.status(401).send();
       }
@@ -124,7 +128,8 @@ app.get('/profile/:type/:username', Auth.checkToken, function(req, res, next) {
   //if params do not match information on token, respond 403
   if (req.user.type !== type || req.user.username !== username) {
     res.status(403).send();
-  } else {
+  }
+  else {
     //extract only specified 'getFields' from database and send to client
     User.findOne({
       username: username
@@ -152,7 +157,8 @@ app.get('/profile/:type/:username/connections', Auth.checkToken, function(req, r
     if (err) {
       console.log('user doesnt exist');
       res.status(401).send();
-    } else {
+    }
+    else {
       var connections = user.connections;
       var responseData = [];
       //loop through all the users connections and get each 'rst' data
@@ -162,7 +168,8 @@ app.get('/profile/:type/:username/connections', Auth.checkToken, function(req, r
         }, getFields, function(err, user) {
           if (err) {
             console.log(err);
-          } else {
+          }
+          else {
             //push 'rst' data to responseData array
             responseData.push(user);
             //once all connections have been added, send response to client
@@ -204,7 +211,8 @@ app.get('/dash/:username', Auth.checkToken, function(req, res, next) {
   //if usernames dont match or user is a 'rst', respond 403
   if (req.user.type !== 'fbk' || req.user.username !== username) {
     res.status(403).send();
-  } else {
+  }
+  else {
     //get all 'rst' users and add them to the response_obj
     User.find({
       type: 'rst'
@@ -241,7 +249,8 @@ app.post('/dash/:username/connections', Auth.checkToken, function(req, res, next
     if (err) {
       console.log('user doesnt exist');
       res.status(401).send();
-    } else {
+    }
+    else {
       //will add the new connection's username to this user's connections array in storage
       user.connections.push(newConnection);
       user.markModified(user.connections);
