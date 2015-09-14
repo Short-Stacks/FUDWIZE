@@ -46,15 +46,14 @@ angular.module('myApp.dashboard', [])
       
       google.maps.event.addDomListener(window, 'load', setTimeout(vm.initMap,1000));
     });
-    //making a post request to the server (IN PROGRESS)
+    //making a post request to the server and also turn the connectionMade key to be true
       vm.makeConnection = function(rstUsername, index) {
-        //this won't work til postNewConnection got defined in services.js
+            // the connection button will appear in green color
         vm.rst[index].connectionMade = true;
         var postData = { rstUsername : rstUsername };
         AjaxService.postNewConnection(vm.username, postData)
           .then(function(data){
             console.log('sucessfully made connection');
-            // the connection button will appear in green color if connectionMade is true
           });
       };
 //---------------------------------
@@ -90,7 +89,7 @@ angular.module('myApp.dashboard', [])
     }
     return latLongs;
   }   
-  vm.initMap = function(event, street, cityStateZip) {
+  vm.initMap = function(event, street, cityStateZip, name) {
     var infowindow = null; 
   
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -98,7 +97,7 @@ angular.module('myApp.dashboard', [])
       center: vm.restaurantsLatLongs[0]
     });
 
-    if(street === undefined || cityStateZip === undefined){
+    if(event === undefined){
 
       for (var i = 0; i< vm.restaurantsLatLongs.length; i++){
 
@@ -127,7 +126,15 @@ angular.module('myApp.dashboard', [])
       }
     }
     else{
-        var address = street + cityStateZip;
+        var address = street + " " + cityStateZip;
+         var contentString = '<div id="content">'+ '<strong>Name: </strong>'+ name +
+        '<p><strong>Address: </strong>' + address +
+        '</div>'+
+        '</div>';
+        infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 200
+        });
         geocoder.geocode({ 'address': address }, function(results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
           map.setCenter(results[0].geometry.location);
@@ -135,7 +142,13 @@ angular.module('myApp.dashboard', [])
             map: map,
             position: results[0].geometry.location
           });
-        } 
+            google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
+              return function() {
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+              }
+            })(marker, contentString, infowindow));
+          } 
         else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -143,30 +156,6 @@ angular.module('myApp.dashboard', [])
       event.preventDefault();
     }
   }
-
-  // prevent default when click the address
-  // vm.setFilters = function (event, street, cityStateZip) {
-  //   console.log(street,cityStateZip);
-  //   var map = document.getElementById('map');
-  //   var address = street + " "+ cityStateZip;
-  //   console.log(map);
-  //   event.preventDefault();
-  //   var geocoder = new google.maps.Geocoder();
-  //   geocoder.geocode({'address': address}, function(results, status) {
-  //     if (status === google.maps.GeocoderStatus.OK) {
-  //     resultsMap.setCenter(results[0].geometry.location);
-  //     var marker = new google.maps.Marker({
-  //       map: resultsMap,
-  //       position: results[0].geometry.location
-  //     });
-  //     event.preventDefault();
-  //   } 
-  //   else {
-  //     alert('Geocode was not successful for the following reason: ' + status);
-  //     event.preventDefault();
-  //   }
-  // });
-  // };
 }]);
 
 
