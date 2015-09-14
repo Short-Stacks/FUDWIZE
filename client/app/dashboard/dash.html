@@ -1,29 +1,59 @@
 <nav-bar></nav-bar>
 <div id="dashboard" ng-controller='DashboardCtrl as ctrl'>
-  <div id="map"><center><h2>{{ctrl.loadingMap}}</h2></center></div> <!--map-->
+  <!--============== Map ==============-->
+
+  <div id="map"><center><h2>{{ctrl.loadingMap}}</h2></center></div>
+
+  <!--============== Dashboard title ==============-->
+
   <form id="restaurantInfo">
     <div id="heading">
       <h3>Dashboard</h3>
       <p><strong>List of Restaurant Vendor:</strong></p>
+      <!-- search bar -->
       <input type="text" placeholder="Filter" ng-model="ctrl.searchInput">
       <p></p>
     </div>
+
+  <!--============== Vendor Lists ==============-->
+  <!--ng-repeat to iterate through the restaurant get request data-->
+
     <ul class="list-group nav" ng-repeat="restaurant in ctrl.rst | filter: ctrl.searchInput track by $index">
+
       <li class="list-group-item nav" > 
+
       Restaurant Name: {{ restaurant.contactInfo.name }}
+
       <p>About Us: {{ restaurant.additional.aboutUs }}</p>
-      <p>Address: <a class="button" href="#" id="setFilterButton" ng-click="ctrl.initMap($event,restaurant.contactInfo.streetName, restaurant.contactInfo.cityStateZip, restaurant.contactInfo.name)">{{ restaurant.contactInfo.streetName }}&nbsp;{{ restaurant.contactInfo.cityStateZip }}</a></p>
+
+      <p>Address:
+        <!--clickable address so user can find the specific location on google map-->
+        <a class="button" href="#" id="setFilterButton" ng-click="ctrl.initMap($event,restaurant.contactInfo.streetName, restaurant.contactInfo.cityStateZip, restaurant.contactInfo.name)">
+          {{ restaurant.contactInfo.streetName }}&nbsp;{{ restaurant.contactInfo.cityStateZip }}
+        </a>
+      </p>
+
       <p>Url: {{ restaurant.websiteUrl }}</p>
+
       <p>Contact person: {{ restaurant.contactInfo.name }}</p>
+
       <p>Email: {{ restaurant.contactInfo.email }}</p>
+
       <p>Phone: {{ restaurant.contactInfo.phoneNumber }}</p>
+      <!-- if user input below not required info, it will show on dasboard-->
       <p ng-show="restaurant.foodType.length !== 0">Food Type: {{ restaurant.foodType }}</p>
+
       <p ng-show="restaurant.mealType.length !== 0">Meal Type: {{ restaurant.mealType }} </p>
       <p ng-show="restaurant.pickupDay.length !== 0">Pickup Day: {{ restaurant.pickupDay }} </p>
       <p ng-show="restaurant.pickupTime.length !== 0">Pickup Time: {{ restaurant.pickupTime }} </p>
+      <!--if user made connection with this restaurant, it shows green button-->
       <p ng-show="restaurant.connectionMade"><button class="btn btn-success btn-md submit" type="submit" value="Submit">Added Connection!</button></p>
+      <!--if user didn't make connection with this restaurant, it shows blue button-->
+      <!--if user clicks the button, it will call the makerConnection function-->
       <p ng-show="!restaurant.connectionMade"><button ng-click="ctrl.makeConnection(restaurant.username, $index)" class="btn btn-primary btn-md submit" type="submit" value="Submit">Make Connection</button></p>
      </li>
+
+
     </ul>
   </form>
 </div>

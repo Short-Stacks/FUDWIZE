@@ -137,11 +137,11 @@ angular.module('myApp.dashboard', [])
         });
         geocoder.geocode({ 'address': address }, function(results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-          });
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
             google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
               return function() {
                 infowindow.setContent(contentString);
@@ -149,9 +149,10 @@ angular.module('myApp.dashboard', [])
               }
             })(marker, contentString, infowindow));
           } 
-        else {
-          alert('Geocode was not successful for the following reason: ' + status);
-        }
+          else {
+            alert('Geocode was not successful for the following reason: ' + status);
+            event.preventDefault();
+          }
       });
       event.preventDefault();
     }
