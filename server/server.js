@@ -1,11 +1,9 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
 var app = express();
 var path = require('path');
 var User = require('./users/userModel.js');
-var jwt = require('jwt-simple');
-
+var Auth = require('./auth/middleware.js');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var getFields = {
@@ -30,8 +28,6 @@ mongoose.connect(database, function (error) {
     }
 });
 
-// mongoose.connect('mongodb://user:pass@localhost/api');
-//mongoose.connect('mongodb://localhost/fudwize');
 var SALT_WORK_FACTOR = 10;
 
 app.use(cors());
@@ -60,11 +56,11 @@ app.post('/signup/:type', function(req, res, next) {
         console.log('user already exists');
         res.status(401).send();
       } else {
-        hashPassword(password, function(hashPassword) {
+        Auth.hashPassword(password, function(hashedPassword) {
 
           var newUser = new User({
             username: username,
-            password: hashPassword,
+            password: hashedPassword,
             type: type,
             contactInfo: contactInfo,
             websiteUrl: websiteUrl,
@@ -80,13 +76,7 @@ app.post('/signup/:type', function(req, res, next) {
           })
             .then(function(user) {
               // create token to send back for auth
-              var token = jwt.encode(user, 'secret');
-              res.status(201);
-              res.json({
-                type: type,
-                username: username,
-                token: token
-              });
+              Auth.sendToken(req, res, user);
             });
         });
 
@@ -106,17 +96,12 @@ app.post('/login', function(req, res, next) {
   })
     .then(function(user) {
       if (user) {
-        verifyPassword(password, user.password, function(bool) {
+        Auth.verifyPassword(password, user.password, function(bool) {
           if (bool) {
             console.log('password matches');
-            var token = jwt.encode(user, 'secret');
-            res.status(201);
-            res.json({
-              type: user.type,
-              username: user.username,
-              token: token
-            });
-          } else {
+            Auth.sendToken(req, res, user);
+          }
+          else {
             console.log('password doesnt match');
             res.status(401).send();
           }
@@ -129,7 +114,7 @@ app.post('/login', function(req, res, next) {
     });
 });
 
-app.get('/profile/:type/:username', checkToken, function(req, res, next) {
+app.get('/profile/:type/:username', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var type = req.params.type;
 
@@ -147,7 +132,7 @@ app.get('/profile/:type/:username', checkToken, function(req, res, next) {
 
 });
 
-app.get('/profile/:type/:username/connections', function(req, res, next) {
+app.get('/profile/:type/:username/connections', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
 
 
@@ -175,7 +160,7 @@ app.get('/profile/:type/:username/connections', function(req, res, next) {
   });
 });
 
-app.post('/profile/:type/:username', function(req, res, next) {
+app.post('/profile/:type/:username', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var updateData = req.body;
 
@@ -192,7 +177,7 @@ app.post('/profile/:type/:username', function(req, res, next) {
 });
 
 
-app.get('/dash/:username', checkToken, function(req, res, next) {
+app.get('/dash/:username', Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var response_obj = {};
   if (req.user.type !== 'fbk' || req.user.username !== username) {
@@ -215,7 +200,7 @@ app.get('/dash/:username', checkToken, function(req, res, next) {
   }
 });
 
-app.post('/dash/:username/connections', function(req, res, next) {
+app.post('/dash/:username/connections',Auth.checkToken, function(req, res, next) {
   var username = req.params.username;
   var newConnection = req.body.rstUsername;
 
@@ -228,7 +213,6 @@ app.post('/dash/:username/connections', function(req, res, next) {
       user.connections.push(newConnection);
       user.markModified(user.connections);
       user.save();
-      console.log(user.connections);
     }
   });
 });
@@ -240,49 +224,3 @@ var server = app.listen(port, function() {
 
 module.exports = app;
 
-function verifyPassword(attemptedPassword, savedPassword, cb) {
-  var result;
-  bcrypt.compare(attemptedPassword, savedPassword, function(err, res) {
-    cb(res);
-  });
-}
-
-function hashPassword(userPassword, cb) {
-  var salt;
-  var hash;
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
-    if (err) {
-      return next(err);
-    }
-    //encrypt the user's inputted password with the generated salt mixed in to make it nice and savory
-    bcrypt.hash(userPassword, salt, null, function(err, hash) {
-      return cb(hash);
-    });
-  });
-}
-
-function checkToken(req, res, next) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
-  var user;
-  var tokenObj = JSON.parse(token);
-
-  if (!tokenObj.token) {
-    return res.status(403).send({
-      success: 'false',
-      message: 'no token provided'
-    }); // send forbidden if a token is not provided
-  }
-
-  try {
-    // decode token and attach user to the request
-    // for use inside our controllers
-    user = jwt.decode(tokenObj.token, 'secret');
-    req.user = user;
-    next();
-  } catch (error) {
-    res.status(403).send({
-      success: 'false',
-      message: 'invalid token'
-    });
-  }
-}
