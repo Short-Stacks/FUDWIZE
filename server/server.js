@@ -58,6 +58,7 @@ app.post('/signup/:type', function(req, res, next) {
     .then(function(user) {
       if (user) {
         console.log('user already exists');
+        res.status(401).send();
       } else {
         hashPassword(password, function(hashPassword) {
 
@@ -168,10 +169,10 @@ app.get('/profile/:type/:username/connections', function(req, res, next) {
               res.status(200).send(responseData);
             }
           }
-        })
+        });
       }
     }
-  })
+  });
 });
 
 app.post('/profile/:type/:username', function(req, res, next) {
@@ -187,7 +188,7 @@ app.post('/profile/:type/:username', function(req, res, next) {
     //as modified so that Mongoose knows to save the contents of these items
     user.markModified(updateData);
     user.save();
-  })
+  });
 });
 
 
@@ -229,7 +230,7 @@ app.post('/dash/:username/connections', function(req, res, next) {
       user.save();
       console.log(user.connections);
     }
-  })
+  });
 });
 
 var port = process.env.PORT || 3000;

@@ -6,10 +6,12 @@ angular.module('myApp.signup', [])
   doing this allows us to bind something to our view while nested inside a controller function like submitForm
   */
   var vm = this;
+  vm.userAlreadyExists = false;
+  vm.next = false;
   /*
   typeParam will be either "rst" or "fbk" based on our .config setup in app.js
   we must make sure <a> "href=" in signup.html directs us to either #/signup/rst or #/signup/fbk
-  */ 
+  */
   var typeParam = $routeParams.type;
 
   if (typeParam === 'rst') {
@@ -70,21 +72,21 @@ angular.module('myApp.signup', [])
   vm.submit = function (){
     console.log(vm.postData);
     AjaxService.postSignupData(vm.postData, typeParam)
-      .then(function(data){
+      .success(function(data, status, headers, config){
         console.log('signup success', data);
         $window.localStorage.setItem('com.fudWize', JSON.stringify(data));
         $location.path('/profile/' + data.type + '/' + data.username);
 
         //if the post request is successful, evaluate this code
         //usually we bind something to our view (via vm) in this situation
+      })
+      .error(function(data, status, headers, config){
+        console.log('signup error', status);
+        vm.userAlreadyExists = true;
+        vm.next = false;
 
-
+        //if the post request fails, evaluate this code
       });
-      // .error(function(data, status, headers, config){
-      //   console.log('signup error', status);
-
-      //   //if the post request fails, evaluate this code
-      // });
   };
 
   /*

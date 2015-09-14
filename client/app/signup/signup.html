@@ -39,7 +39,7 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
-          <form name="signupForm" ng-submit="ctrl.submit()" novalidate>
+          <form name="signupForm" novalidate>
 
 
             <!--===============================================================-->
@@ -51,7 +51,7 @@
             <!--===                                                         ===-->
             <!--===============================================================-->
 
-            <div class="signup-section-one" ng-hide="next">
+            <div class="signup-section-one" ng-hide="ctrl.next">
 
 
               <!--============== Username ==============-->
@@ -62,6 +62,7 @@
                 <input type='text' name="username" id="username" class="form-control" placeholder="Enter Username" ng-model="ctrl.postData.username" required />
                 <div class="error" ng-show="signupForm.$submitted || signupForm.username.$touched">
                   <span ng-show="signupForm.username.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                  <span ng-show="ctrl.userAlreadyExists"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Username Already Exists</span>
                 </div> <!-- /show error -->
               </div> <!-- /form-group username -->
 
@@ -174,7 +175,7 @@
               <!--==============   show section two   ==============-->
               <!--==================================================-->
 
-              <input class="btn btn-primary btn-block next" value="Next" ng-click="next=true" />
+              <input class="btn btn-primary btn-block next" value="Next" ng-click="ctrl.next=true" />
 
 
             </div> <!-- /section one -->
@@ -192,7 +193,7 @@
             <!--===============================================================-->
 
 
-            <div class="signup-section-two" ng-show="next">
+            <div class="signup-section-two" ng-show="ctrl.next">
 
 
               <!--===================================================-->
@@ -298,7 +299,7 @@
             <!--============= Submit & Save form ============-->
             <!--=============================================-->
 
-            <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-show="next">Submit</button>
+            <button class="btn btn-primary btn-md submit" type="button" ng-click="ctrl.submit()" id="submit" value="Submit" ng-show="ctrl.next">Submit</button>
 
           </form>
 
