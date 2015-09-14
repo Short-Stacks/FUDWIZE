@@ -13,7 +13,7 @@ angular.module('myApp.dashboard', [])
   // function that pushes formatted restaurants' names into rstInfo array and 
   // pushes formatted restaurants' addresses into restaurantsAddresses array
   function address(name, street, city) {
-    if(street !== undefined || city !== undefined) {
+    if (street !== undefined || city !== undefined) {
       restaurantsAddresses.push(street + ", " + city);
       vm.rstInfo.push(name);
     }
@@ -71,7 +71,7 @@ angular.module('myApp.dashboard', [])
     });
 
     // when the map first initialized and instantiated
-    if(event === undefined){
+    if (event === undefined) {
 
       for (var i = 0; i< vm.restaurantsLatLongs.length; i++) {
 
@@ -149,7 +149,7 @@ angular.module('myApp.dashboard', [])
 
       console.log('data', data);
       
-      for( var i = 0; i < vm.rst.length; i++ ) {
+      for (var i = 0; i < vm.rst.length; i++) {
         // on each vm.rst object element, it contains foodData object
         // under foodData, it contains all foodType, mealType..etc, for example:
         // foodData: { foodType:{canned Goods: true, bakedGoods: false..etc}}
@@ -165,7 +165,7 @@ angular.module('myApp.dashboard', [])
         // vm.address = restaurant streetName + " " cityStateZip
         vm.address = address(rstContactInfo.name,rstContactInfo.streetName, rstContactInfo.cityStateZip);
 
-        if(data.fbk.connections.indexOf(vm.rst[i].username) > -1) {
+        if (data.fbk.connections.indexOf(vm.rst[i].username) > -1) {
           vm.rst[i].connectionMade = true;
         }
         else {
