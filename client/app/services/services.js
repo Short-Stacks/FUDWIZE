@@ -1,7 +1,7 @@
 angular.module('myApp.services', [])
 
 .factory('AjaxService', ['$http', function($http){
-  
+
   //creating an object and attaching methods to it makes it easier to export (by returning object)
   var obj = {};
 
@@ -77,3 +77,4 @@ angular.module('myApp.services', [])
   return obj;
 
 }]);
+

@@ -20,7 +20,7 @@ angular.module('myApp.profile', [
       .then(function(data) {
         vm.connections = data.data;
       });
-    };
+    }
   });
 
   vm.updateProfile = function() {
@@ -37,6 +37,7 @@ angular.module('myApp.profile', [
   //this function still doesn't work though ...
   vm.goToLink = function(url) {
     $window.location.href = url;
-  }
+  };
 
 }]);
+

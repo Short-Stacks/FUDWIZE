@@ -4,4 +4,5 @@ angular.module('myApp.index', [])
   var vm = this;
 
 
-}])
+}]);
+

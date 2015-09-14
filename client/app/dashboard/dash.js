@@ -10,7 +10,7 @@ angular.module('myApp.dashboard', [])
   var geocoder = new google.maps.Geocoder();
 
   /*------------------------------HELPER FUNCTIONS---------------------------------*/
-  // function that pushes formatted restaurants' names into rstInfo array and 
+  // function that pushes formatted restaurants' names into rstInfo array and
   // pushes formatted restaurants' addresses into restaurantsAddresses array
   function address(name, street, city) {
     if (street !== undefined || city !== undefined) {
@@ -36,7 +36,7 @@ angular.module('myApp.dashboard', [])
     foodData.pop();
     return foodData.join("");
   }
-  
+
   // generateLatLongs takes an array of string addresses and converts it into an array of latitudes and longitudes
   function generateLatLongs (addressArray) {
     var latLongs = [];
@@ -63,8 +63,8 @@ angular.module('myApp.dashboard', [])
   // initMap initializes the googlemap with markers and infowindows
   // initMap also handles refreshing googlemap when specific address is selected
   vm.initMap = function(event, street, cityStateZip, name) {
-    var infowindow = null; 
-  
+    var infowindow = null;
+
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 11,
       center: vm.restaurantsLatLongs[0]
@@ -98,46 +98,46 @@ angular.module('myApp.dashboard', [])
           return function() {
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
-          }
+          };
         })(marker, contentString, infowindow));
       }
     }
     // when user clicks on a specific address on dashboard
     else {
-        var address = street + " " + cityStateZip;
-         var contentString = '<div id="content">'+ '<strong>Name: </strong>'+ name +
+      var address = street + " " + cityStateZip;
+      var contentString = '<div id="content">'+ '<strong>Name: </strong>'+ name +
         '<p><strong>Address: </strong>' + address +
         '</div>'+
         '</div>';
-        infowindow = new google.maps.InfoWindow({
-          content: contentString,
-          maxWidth: 200
-        });
-        // locate the restaurant location on google map
-        geocoder.geocode({ 'address': address }, function(results, status) {
-          // check if address is valid
-          if (status === google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location
-            });
-            google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
-              return function() {
-                infowindow.setContent(contentString);
-                infowindow.open(map, marker);
-              }
-            })(marker, contentString, infowindow));
-          } 
-          else {
-            alert('Geocode was not successful for the following reason: ' + status);
-            // prevent from refreshing
-            event.preventDefault();
-          }
+      infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        maxWidth: 200
+      });
+      // locate the restaurant location on google map
+      geocoder.geocode({ 'address': address }, function(results, status) {
+        // check if address is valid
+        if (status === google.maps.GeocoderStatus.OK) {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+          });
+          google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
+            return function() {
+              infowindow.setContent(contentString);
+              infowindow.open(map, marker);
+            };
+          })(marker, contentString, infowindow));
+        }
+        else {
+          alert('Geocode was not successful for the following reason: ' + status);
+          // prevent from refreshing
+          event.preventDefault();
+        }
       });
       event.preventDefault();
     }
-  }   
+  };
   /*------------------------------HELPER FUNCTIONS END---------------------------------*/
 
 
@@ -145,16 +145,16 @@ angular.module('myApp.dashboard', [])
   AjaxService.getDashboardData(vm.username)
     .then(function(data) {
       vm.rst = data.rst; // restaurant data
-      vm.fbkAddressLatLong = generateLatLongs([data.fbk.contactInfo.streetName + ", "+ data.fbk.contactInfo.cityStateZip]); 
+      vm.fbkAddressLatLong = generateLatLongs([data.fbk.contactInfo.streetName + ", "+ data.fbk.contactInfo.cityStateZip]);
 
       console.log('data', data);
-      
+
       for (var i = 0; i < vm.rst.length; i++) {
         // on each vm.rst object element, it contains foodData object
         // under foodData, it contains all foodType, mealType..etc, for example:
         // foodData: { foodType:{canned Goods: true, bakedGoods: false..etc}}
-        // Using mutiples ng-repeat to print out all the info on the html, it will cause some 
-        // issues for the filter 
+        // Using mutiples ng-repeat to print out all the info on the html, it will cause some
+        // issues for the filter
         // therefore, I declare the property under foodData directly under the vm.rst object
         var rstFoodData = vm.rst[i].foodData;
         var rstContactInfo = vm.rst[i].contactInfo;
@@ -179,11 +179,12 @@ angular.module('myApp.dashboard', [])
       }
       // vm.restaurantsLatLongs = restaurant address longitude and latitude
       vm.restaurantsLatLongs = generateLatLongs(vm.address);
-      
+
       // loading the google map, using setTimeout for map loading due to aysnc behavior
       // the aysnc data get loaded first before loading the map
       google.maps.event.addDomListener(window, 'load', setTimeout(vm.initMap,1000));
     });
-    
+
 
 }]);
+

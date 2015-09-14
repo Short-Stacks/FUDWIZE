@@ -71,3 +71,4 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
     }
   };
 }]);
+
