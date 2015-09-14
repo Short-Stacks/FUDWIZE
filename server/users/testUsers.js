@@ -7,10 +7,28 @@ var createTestUsers = function(hashPassword) {
 
   // Remove any prior instances of testUsers
 
+  User.remove({username: 'johnnyrockets'}, function(err) {
+    if (err) {
+      console.log("Unable to delete johnnyrockets");
+    }
+    else {
+      console.log("johnnyrockets removed");
+    }
+  });
+
+  User.remove({username: 'turtletower'}, function(err) {
+    if (err) {
+      console.log("Unable to delete turtletower");
+    }
+    else {
+      console.log("turtletower removed");
+    }
+  });
+
   User.remove({username: 'chipotle'}, function(err) {
     if (err) {
       console.log("Unable to delete chipotle");
-    } 
+    }
     else {
       console.log("chipotle removed");
     }
@@ -19,7 +37,7 @@ var createTestUsers = function(hashPassword) {
   User.remove({username: 'mehfil'}, function(err) {
     if (err) {
       console.log("Unable to delete mehfil");
-    } 
+    }
     else {
       console.log("mehfil removed");
     }
@@ -28,7 +46,7 @@ var createTestUsers = function(hashPassword) {
   User.remove({username: 'tacoshop'}, function(err) {
     if (err) {
       console.log("Unable to delete tacoshop");
-    } 
+    }
     else {
       console.log("tacoshop removed");
     }
@@ -37,7 +55,7 @@ var createTestUsers = function(hashPassword) {
   User.remove({username: 'sffbk'}, function(err) {
     if (err) {
       console.log("Unable to delete sffbk");
-    } 
+    }
     else {
       console.log("sffbk removed");
     }
@@ -46,7 +64,7 @@ var createTestUsers = function(hashPassword) {
   User.remove({username: 'alamedafbk'}, function(err) {
     if (err) {
       console.log("Unable to delete alamedafbk");
-    } 
+    }
     else {
       console.log("alamedafbk removed");
     }
@@ -55,10 +73,124 @@ var createTestUsers = function(hashPassword) {
   User.remove({username: 'napafbk'}, function(err) {
     if (err) {
       console.log("Unable to delete napafbk");
-    } 
+    }
     else {
       console.log("napafbk removed");
     }
+  });
+
+  hashPassword('johnnyrockets', function(hashPassword) {
+    var johnnyrockets = new User({
+      username: 'johnnyrockets',
+      password: hashPassword,
+      type: 'rst',
+      contactInfo: {
+        name: 'Johnny Rockets',
+        phoneNumber: '4156939120',
+        email: '',
+        streetName: '81 Jefferson Street',
+        cityStateZip: 'San Francisco, CA 94133'
+      },
+      websiteUrl: 'www.johnnyrockets.com',
+      additional: {
+        aboutUs: "Ronn Teitelbaum, an award-winning men's fashion retailer, launched the first Johnny Rockets on June 6, 1986, on Melrose Avenue, in Los Angeles, California. He founded the concept on the belief that everyone deserves a place where they can escape from today’s complicated world and experience the uncomplicated goodness of classic Americana. The name originated by combining the timeless Johnny Appleseed story with the classic Oldsmobile Rocket 88. Together, they embody the concept of classic Americana and the promise of the future"
+      },
+      connections: [],
+      foodData: {
+
+        mealType : {
+          'Breakfast': false,
+          'Lunch': false,
+          'Dinner': true,
+          'Dessert': true,
+        },
+
+        foodType : {
+          'Baked Goods': true,
+          'Produce': false,
+          'Canned Goods': true,
+          'Meats': true,
+          'Dairy': false,
+        },
+
+        pickupDay : {
+          'Monday': false,
+          'Tuesday': true,
+          'Wednesday': false,
+          'Thursday': true,
+          'Friday': false,
+          'Saturday': true,
+          'Sunday': false,
+        },
+
+        pickupTime : {
+          'Early Morning (6AM-9AM)': true,
+          'Late Morning (9AM-12PM)': false,
+          'Early Afternoon (12PM-3PM)': false,
+          'Late Afternoon (3PM-6PM)': true,
+          'Evening (6PM-9PM)': true,
+        }
+
+      },
+    });
+    johnnyrockets.save();
+  });
+
+  hashPassword('turtletower', function(hashPassword) {
+    var turtletower = new User({
+      username: 'turtletower',
+      password: hashPassword,
+      type: 'rst',
+      contactInfo: {
+        name: 'Turtle Tower SF',
+        phoneNumber: '4159049888',
+        email: '',
+        streetName: '501 6th Street',
+        cityStateZip: 'San Francisco, CA 94103'
+      },
+      websiteUrl: 'turtletowersf.com',
+      additional: {
+        aboutUs: "From Turtle Tower in Hanoi ... to Turtle Tower Restaurant in San Francisco ..."
+      },
+      connections: [],
+      foodData: {
+
+        mealType : {
+          'Breakfast': true,
+          'Lunch': false,
+          'Dinner': true,
+          'Dessert': false,
+        },
+
+        foodType : {
+          'Baked Goods': true,
+          'Produce': false,
+          'Canned Goods': true,
+          'Meats': true,
+          'Dairy': false,
+        },
+
+        pickupDay : {
+          'Monday': false,
+          'Tuesday': true,
+          'Wednesday': false,
+          'Thursday': true,
+          'Friday': false,
+          'Saturday': true,
+          'Sunday': false,
+        },
+
+        pickupTime : {
+          'Early Morning (6AM-9AM)': false,
+          'Late Morning (9AM-12PM)': false,
+          'Early Afternoon (12PM-3PM)': false,
+          'Late Afternoon (3PM-6PM)': true,
+          'Evening (6PM-9PM)': true,
+        }
+
+      },
+    });
+    turtletower.save();
   });
 
   hashPassword('chipotle', function(hashPassword) {
