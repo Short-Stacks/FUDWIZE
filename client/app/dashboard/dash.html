@@ -2,7 +2,7 @@
 <div id="dashboard" ng-controller='DashboardCtrl as ctrl'>
   <!--============== Map ==============-->
 
-  <div id="map"><center><h2>{{ctrl.loadingMap}}</h2></center></div>
+  <div id="map"><center><h2>{{ ctrl.loadingMap }}</h2></center></div>
 
   <!--============== Dashboard title ==============-->
 
@@ -52,8 +52,6 @@
       <!--if user clicks the button, it will call the makerConnection function-->
       <p ng-show="!restaurant.connectionMade"><button ng-click="ctrl.makeConnection(restaurant.username, $index)" class="btn btn-primary btn-md submit" type="submit" value="Submit">Make Connection</button></p>
      </li>
-
-
     </ul>
   </form>
 </div>
