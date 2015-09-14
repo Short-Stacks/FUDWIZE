@@ -3,6 +3,7 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
     restrict: 'E',
     templateUrl: 'app/navbar/navbar.html',
     link: function(scope, elem, attrs){
+      console.log($location.$$path);
       scope.logout = function(){
         $window.localStorage.removeItem('com.fudWize');
         $location.path('/');
@@ -41,6 +42,17 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
           return true;
         }
         return false;
+      };
+
+      scope.atHomeView = function(){
+        if($location.$$path === '/'){
+          return true;
+        }
+        return false;
+      };
+
+      scope.goToHome = function(){
+        $location.path('/');
       };
 
       scope.loggedIn = function(){
