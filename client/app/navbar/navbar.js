@@ -3,29 +3,12 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
     restrict: 'E',
     templateUrl: 'app/navbar/navbar.html',
     link: function(scope, elem, attrs){
-      console.log($location.$$path);
-      scope.logout = function(){
-        $window.localStorage.removeItem('com.fudWize');
-        $location.path('/');
-      };
 
       scope.isFoodbank = function(){
         if($routeParams.type === 'fbk'){
           return true;
         }
         return false;
-      };
-
-      scope.login = function(){
-        $location.path('/login');
-      };
-
-      scope.goToDashboard = function(){
-        $location.path('/dash/' + $routeParams.username );
-      };
-
-      scope.goToProfile = function(){
-        $location.path('/profile/' + $routeParams.type + '/' + $routeParams.username);
       };
 
       scope.atProfileView = function(){
@@ -50,6 +33,24 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
         }
         return false;
       };
+
+      scope.goToLogin = function(){
+        $location.path('/login');
+      };
+
+      scope.goToLogout = function(){
+        $window.localStorage.removeItem('com.fudWize');
+        $location.path('/');
+      };
+
+      scope.goToDashboard = function(){
+        $location.path('/dash/' + $routeParams.username );
+      };
+
+      scope.goToProfile = function(){
+        $location.path('/profile/' + $routeParams.type + '/' + $routeParams.username);
+      };
+
 
       scope.goToHome = function(){
         $location.path('/');
