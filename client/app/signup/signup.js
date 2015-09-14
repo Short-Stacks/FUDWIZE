@@ -1,5 +1,6 @@
 angular.module('myApp.signup', [])
 
+
 .controller('SignupCtrl', ['$scope', '$routeParams', '$window', '$location', 'AjaxService', function($scope, $routeParams, $window, $location, AjaxService){
   /*
   angular best practice is to save the controller "this" context as "vm" (short for viewmodel)
@@ -53,7 +54,6 @@ angular.module('myApp.signup', [])
   //data submited from the html signup form will go in this object
   // postData object will contain these properties (only rst's will have foodData):
 
-
   vm.postData = {
     foodData: {
       mealType: vm.mealType,
@@ -64,46 +64,24 @@ angular.module('myApp.signup', [])
   };
 
 
-  /*
-  calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
-  */
-
-
+  
+  //calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
+  
   vm.submit = function (){
     console.log(vm.postData);
     AjaxService.postSignupData(vm.postData, typeParam)
       .success(function(data, status, headers, config){
+        /* on success, data will be an object with username, type, and token
+        this object is placed in the user's browser's localStorage to verify session
+        on logout, this object will be removed from localStorage */
         console.log('signup success', data);
         $window.localStorage.setItem('com.fudWize', JSON.stringify(data));
         $location.path('/profile/' + data.type + '/' + data.username);
-
-        //if the post request is successful, evaluate this code
-        //usually we bind something to our view (via vm) in this situation
       })
       .error(function(data, status, headers, config){
         console.log('signup error', status);
         vm.userAlreadyExists = true;
         vm.next = false;
-
-        //if the post request fails, evaluate this code
       });
   };
-
-  /*
-  This is the corresponding express pseudo code that matches this POST request
-
-  app.post('/signup/:type', function (req, res) {
-    var type = req.params.type;
-    var data = req.data;
-
-    save data to  mongoDB async with type="type"
-
-    reference angular shortly to figure out how to send token back
-    res.json({token: token});
-  });
-
-
-  */
-
-
 }]);

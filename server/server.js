@@ -16,7 +16,8 @@ var getFields = {
   'websiteUrl': 1,
   'additional': 1,
   'connections': 1,
-  'foodData': 1
+  'foodData': 1,
+  'imageUrl': 1
 };
 
 var database = process.env.MONGOLAB_URI || 'mongodb://localhost/fudwize';
@@ -51,6 +52,7 @@ app.post('/signup/:type', function(req, res, next) {
   var websiteUrl = data.websiteUrl;
   var additional = data.additional;
   var foodData = data.foodData;
+  var imageUrl = data.imageUrl;
 
   User.findOne({
     username: username
@@ -70,7 +72,8 @@ app.post('/signup/:type', function(req, res, next) {
             websiteUrl: websiteUrl,
             additional: additional,
             foodData: foodData,
-            connections: []
+            connections: [],
+            imageUrl: imageUrl
           });
           // newUser.password = newUser.hashPassword(password);
           newUser.save(function(err) {
@@ -226,6 +229,8 @@ app.post('/dash/:username/connections', function(req, res, next) {
     else {
       //will add the new connection's username to this user's connections array in storage
       user.connections.push(newConnection);
+
+      //because it is an array/object, must mark as modified as save so that Mongoose recognizes the change
       user.markModified(user.connections);
       user.save();
       console.log(user.connections);

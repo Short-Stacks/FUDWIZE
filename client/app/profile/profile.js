@@ -1,6 +1,6 @@
 angular.module('myApp.profile', [])
 
-.controller('ProfileCtrl', ['$routeParams', '$timeout', 'AjaxService', function($routeParams, $timeout, AjaxService) {
+.controller('ProfileCtrl', ['$routeParams', '$window', '$timeout', 'AjaxService', function($routeParams, $window, $timeout, AjaxService) {
   var vm = this;
   vm.type = $routeParams.type;
   vm.username = $routeParams.username;
@@ -33,5 +33,9 @@ angular.module('myApp.profile', [])
       vm.updateConfirmation = "";
     }, 2000);
   };
+
+  vm.goToLink = function(url) {
+    $window.location.href = url;
+  }
 
 }]);
