@@ -82,14 +82,91 @@
     <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
       <h3>Connections</h3>
       <div ng-repeat="connection in ctrl.connections">
-        <legend>{{ connection.contactInfo.name }}</legend>
-        <p><strong>Phone: </strong>{{ connection.contactInfo.phoneNumber }}</p>
-        <p><strong>Email: </strong>{{ connection.contactInfo.email }}</p>
-        <p><strong>Website URL: </strong>{{ connection.websiteUrl }}</p>
+        <div class="connection-box">
+          <legend>{{ connection.contactInfo.name }}</legend>
+          <p><strong>Phone: </strong>{{ connection.contactInfo.phoneNumber }}</p>
+          <p><strong>Email: </strong>{{ connection.contactInfo.email }}</p>
+          <p><strong>Website URL: </strong>{{ connection.websiteUrl }}</p>
 
-        <p ng-repeat="foodData in connection.foodData" ng-show="{{ foodData }}">{{ foodData }}</p>
-      </div>
-    </div>
+          <!-- Row 1 -->
+          <div class="row">
+
+            <!-- Row 1 Column 1 -->
+            <div class="col-md-6">
+              <div class="data-label">Type of Meals Available</div>
+              <div ng-repeat="(key, value) in connection.foodData.mealType">
+                <div class="row meal-type">
+                  <div class="col-xs-5">
+                    {{ key }}
+                  </div> <!-- /meal-type key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /meal-type value -->
+                </div> <!-- /row meal-type -->
+              </div> <!-- /ng-repeat meal-type -->
+            </div> <!-- /row 1 column 1  -->
+
+
+            <!-- Row 1 Column 2 -->
+            <div class="col-md-6">
+              <div class="data-label">Type of Food Available</div>
+              <div ng-repeat="(key, value) in connection.foodData.foodType">
+                <div class="row food-type">
+                  <div class="col-xs-5">
+                    {{ key }}
+                  </div> <!-- /food-type key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /food-type value -->
+                </div> <!-- /row food-type -->
+              </div> <!-- /ng-repeat food-type -->
+            </div> <!-- /row 1 column 2 -->
+          </div> <!-- /row 1 column 2 -->
+
+          <!-- Row 2 -->
+          <div class="row row2">
+
+            <!-- Row 2 Column 1 -->
+            <div class="col-md-6">
+              <div class="data-label">Preferred Pickup Day</div>
+              <div ng-repeat="(key, value) in connection.foodData.pickupDay">
+
+                <div class="row pickup-day">
+                  <div class="col-xs-5">
+                    {{ key }}
+                  </div> <!-- /pickup-day key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /pickup-day value -->
+                </div> <!-- /row pickup-day -->
+              </div> <!-- /ng-repeat pickup-day -->
+            </div> <!-- /row2 column1 -->
+
+            <!-- Row 2 Column 2 -->
+            <div class="col-md-6">
+              <div class="data-label">Preferred Pickup Time</div>
+              <div ng-repeat="(key, value) in connection.foodData.pickupTime">
+
+                <div class="row pickup-time">
+                  <div class="col-xs-8">
+                    {{ key }}
+                  </div> <!-- /pickup-time key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /pickup-time value -->
+                </div> <!-- /row pickup-time -->
+              </div> <!-- /ng-repeat pickup-time -->
+            </div> <!-- /row2 column2 -->
+
+          </div> <!-- /row2 -->
+
+        </div> <!-- /connection-box -->
+      </div> <!-- /ng-repeat connection -->
+    </div> <!-- /ng-show restaurant data -->
 
   </div> <!-- /row profile-body -->
 
