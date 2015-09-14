@@ -81,7 +81,7 @@
     <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
       <h3>Connections</h3>
       <div ng-repeat="connection in ctrl.connections">
-        <legend>{{ connection.contactInfo.name }} <img src="{{ ctrl.data.}}"</legend>
+        <legend><img src="{{ connection.imageUrl }}" height="40px" width="40px"> {{ connection.contactInfo.name }} </legend>
         <p><strong>Phone: </strong>{{ connection.contactInfo.phoneNumber }}</p>
         <p><strong>Email: </strong>{{ connection.contactInfo.email }}</p>
         <p><strong>Website URL: </strong>{{ connection.websiteUrl }}</p>
