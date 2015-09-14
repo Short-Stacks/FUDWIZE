@@ -7,6 +7,7 @@ angular.module('myApp.signup', [])
   */
   var vm = this;
   vm.userAlreadyExists = false;
+  vm.next = false;
   /*
   typeParam will be either "rst" or "fbk" based on our .config setup in app.js
   we must make sure <a> "href=" in signup.html directs us to either #/signup/rst or #/signup/fbk
@@ -82,6 +83,7 @@ angular.module('myApp.signup', [])
       .error(function(data, status, headers, config){
         console.log('signup error', status);
         vm.userAlreadyExists = true;
+        vm.next = false;
 
         //if the post request fails, evaluate this code
       });
