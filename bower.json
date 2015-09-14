@@ -15,10 +15,9 @@
   ],
   "dependencies": {
     "angular": "~1.4.5",
+    "angular-bootstrap-checkbox": "~0.3.1",
     "angular-css": "~1.0.7",
     "angular-route": "~1.4.5",
-    "awesome-bootstrap-checkbox": "~0.3.5",
-    "bootstrap": "~3.3.5",
-    "font-awesome": "~4.4.0"
+    "bootstrap": "~3.3.5"
   }
 }

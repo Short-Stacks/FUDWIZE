@@ -30,6 +30,9 @@ var UserSchema = new mongoose.Schema ({
   },
   foodData: {
     type: {}
+  },
+  imageUrl: {
+    type: String
   }
   // salt: {
   //   type: String
