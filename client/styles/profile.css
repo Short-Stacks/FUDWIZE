@@ -8,11 +8,11 @@ h1 {
 }
 
 .profilepic {
+  padding-top: 10px;
+  padding-bottom: 10px;
   overflow: hidden;
   border-radius: 14%;
   width: 189px;
-  padding-top: 10px;
-  padding-bottom: 10px;
 }
 
 .profile-body {
@@ -20,7 +20,8 @@ h1 {
 }
 
 input {
+  margin-right:10px;
   width: 15px;
   height:15px;
-  margin-right:10px;
 }
+
