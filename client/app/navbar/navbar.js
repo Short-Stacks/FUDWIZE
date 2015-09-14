@@ -3,7 +3,12 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
     restrict: 'E',
     templateUrl: 'app/navbar/navbar.html',
     link: function(scope, elem, attrs){
+      /*
+      The below methods are used to modify the navbar routes available to a
+      specific user based on their privilege and current url path
+      */
 
+      //return true if user is a 'fbk'
       scope.isFoodbank = function(){
         if($routeParams.type === 'fbk'){
           return true;
@@ -11,6 +16,7 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
         return false;
       };
 
+      //**"at" methods return true if the user is currently at that view
       scope.atProfileView = function(){
         var path = $location.$$path.slice(1);
         if(path.match(/^profile/) !== null){
@@ -34,6 +40,7 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
         return false;
       };
 
+      //**"goTo" methods are ran on button click, directing us to a different path
       scope.goToLogin = function(){
         $location.path('/login');
       };
@@ -56,11 +63,11 @@ angular.module("myApp").directive("navBar", ['$window', '$location', '$routePara
         $location.path('/');
       };
 
+      //returns true if user is logged in to either profile or dash view
       scope.loggedIn = function(){
        return scope.atProfileView() || scope.atDashView();
       };
 
     }
   };
-
 }]);
