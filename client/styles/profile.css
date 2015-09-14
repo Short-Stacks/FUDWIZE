@@ -21,7 +21,6 @@ h1 {
 input {
   width: 12px;
   height:12px;
-  background-color: blue;
 }
 
 .update-prompt {
@@ -31,9 +30,14 @@ input {
 }
 
 .update {
-  margin:36%;
+  margin-top:42%;
+  margin-left:28%;
 }
 
 legend {
   margin-top:20px;
+}
+
+.checkboxes {
+  margin:5px;
 }
