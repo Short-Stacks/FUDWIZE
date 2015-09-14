@@ -1,4 +1,4 @@
-html, body, 
+html, body,
 body>div:first-of-type {
   width: 100%;
   height: 100%;
@@ -12,4 +12,8 @@ body {
 
 body>div:first-of-type {
   padding-top: 70px;
+}
+
+.navbar button  {
+  margin-left: 5px;
 }
