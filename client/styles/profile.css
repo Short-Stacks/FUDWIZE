@@ -25,3 +25,8 @@ input {
   height:15px;
 }
 
+.update-prompt {
+  margin-left: 10px;
+  font-weight: bold;
+  color: green;
+}
