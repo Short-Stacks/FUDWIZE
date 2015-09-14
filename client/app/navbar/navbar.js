@@ -1,4 +1,4 @@
-angular.module("myApp").directive("navBar", ['$window', '$location', function($window, $location){
+angular.module("myApp").directive("navBar", ['$window', '$location', '$routeParams', function($window, $location, $routeParams){
   return {
     restrict: 'E',
     templateUrl: 'app/navbar/navbar.html',
@@ -8,17 +8,45 @@ angular.module("myApp").directive("navBar", ['$window', '$location', function($w
         $location.path('/');
       };
 
-      scope.login = function(){
-        $location.path('/login');
-      };
-
-      scope.loggedIn = function(){
-        var path = $location.$$path.slice(1);
-        if(path.match(/^profile/) !== null || path.match(/^dash/) !== null){
+      scope.isFoodbank = function(){
+        if($routeParams.type === 'fbk'){
           return true;
         }
         return false;
       };
+
+      scope.login = function(){
+        $location.path('/login');
+      };
+
+      scope.goToDashboard = function(){
+        $location.path('/dash/' + $routeParams.username );
+      };
+
+      scope.goToProfile = function(){
+        $location.path('/profile/' + $routeParams.type + '/' + $routeParams.username);
+      };
+
+      scope.atProfileView = function(){
+        var path = $location.$$path.slice(1);
+        if(path.match(/^profile/) !== null){
+          return true;
+        }
+        return false;
+      };
+
+      scope.atDashView = function(){
+        var path = $location.$$path.slice(1);
+        if(path.match(/^dash/) !== null){
+          return true;
+        }
+        return false;
+      };
+
+      scope.loggedIn = function(){
+       return scope.atProfileView() || scope.atDashView();
+      };
+
     }
   };
 
