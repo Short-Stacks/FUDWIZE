@@ -38,10 +38,10 @@ angular.module('myApp.dashboard', [])
   }
 
   // generateLatLongs takes an array of string addresses and converts it into an array of latitudes and longitudes
-  function generateLatLongs (addressArray) {
+  function generateLatLongs(addressArray) {
     var latLongs = [];
     for (var i = 0; i < addressArray.length; i++) {
-      geocoder.geocode({ 'address': addressArray[i]}, function (results) {
+      geocoder.geocode({ 'address': addressArray[i]}, function(results) {
         latLongs.push({ lat: results[0].geometry.location.G, lng: results[0].geometry.location.K });
       });
     }
@@ -55,7 +55,7 @@ angular.module('myApp.dashboard', [])
     var postData = { rstUsername : rstUsername };
     // post request: connection with foodbank and restaurant
     AjaxService.postNewConnection(vm.username, postData)
-      .then(function(data){
+      .then(function(data) {
         console.log('sucessfully made connection');
       });
   };
@@ -82,7 +82,7 @@ angular.module('myApp.dashboard', [])
         '</div>';
 
         // pass the contentString to the google map inforwindow
-        infowindow = new google.maps.InfoWindow( {
+        infowindow = new google.maps.InfoWindow({
           content: contentString,
           maxWidth: 200
         });
@@ -147,8 +147,6 @@ angular.module('myApp.dashboard', [])
       vm.rst = data.rst; // restaurant data
       vm.fbkAddressLatLong = generateLatLongs([data.fbk.contactInfo.streetName + ", "+ data.fbk.contactInfo.cityStateZip]);
 
-      console.log('data', data);
-
       for (var i = 0; i < vm.rst.length; i++) {
         // on each vm.rst object element, it contains foodData object
         // under foodData, it contains all foodType, mealType..etc, for example:
@@ -184,7 +182,6 @@ angular.module('myApp.dashboard', [])
       // the aysnc data get loaded first before loading the map
       google.maps.event.addDomListener(window, 'load', setTimeout(vm.initMap,1000));
     });
-
 
 }]);
 

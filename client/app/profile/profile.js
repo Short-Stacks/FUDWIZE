@@ -6,11 +6,9 @@ angular.module('myApp.profile', [
   var vm = this;
   vm.type = $routeParams.type;
   vm.username = $routeParams.username;
-  vm.connections;
 
   AjaxService.getProfileData(vm.type, vm.username)
   .then(function(data){
-    console.log(data);
     vm.data = data;
   })
   .then(function() {
@@ -24,7 +22,6 @@ angular.module('myApp.profile', [
   });
 
   vm.updateProfile = function() {
-    console.log(vm.data);
     AjaxService.updateProfileData(vm.data, vm.type, vm.username);
 
     vm.updateConfirmation = "Profile Updated!";

@@ -165,22 +165,27 @@ app.get('/profile/:type/:username/connections', Auth.checkToken, function(req, r
       var connections = user.connections;
       var responseData = [];
       //loop through all the users connections and get each 'rst' data
-      for (var i = 0; i < connections.length; i++) {
-        User.findOne({
-          username: connections[i]
-        }, getFields, function(err, user) {
-          if (err) {
-            console.log(err);
-          }
-          else {
-            //push 'rst' data to responseData array
-            responseData.push(user);
-            //once all connections have been added, send response to client
-            if (responseData.length === connections.length) {
-              res.status(200).send(responseData);
+      if (connections.length < 1) {
+        res.status(200).send();
+      }
+      else {
+        for (var i = 0; i < connections.length; i++) {
+          User.findOne({
+            username: connections[i]
+          }, getFields, function(err, user) {
+            if (err) {
+              console.log(err);
             }
-          }
-        });
+            else {
+              //push 'rst' data to responseData array
+              responseData.push(user);
+              //once all connections have been added, send response to client
+              if (responseData.length === connections.length) {
+                res.status(200).send(responseData);
+              }
+            }
+          });
+        }
       }
     }
   });
