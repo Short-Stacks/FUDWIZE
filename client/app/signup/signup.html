@@ -110,6 +110,9 @@
                 <div class="error" ng-show="signupForm.$submitted || signupForm.cityStateZip.$touched">
                   <span ng-show="signupForm.cityStateZip.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
                 </div> <!-- /show error -->
+                <div class="error" ng-show="signupForm.$submitted || signupForm.cityStateZip.$touched">
+                  <span ng-show="ctrl.invalidAddress"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Invalid Address</span>
+                </div> 
               </div> <!-- /form-group city state zip -->
 
 
@@ -167,7 +170,7 @@
               <!--==============   show section two   ==============-->
               <!--==================================================-->
 
-              <input class="btn btn-primary btn-block next" value="Next" ng-click="ctrl.next=true" />
+              <input class="btn btn-primary btn-block next" value="Next" ng-click="ctrl.validAddress(ctrl.postData.contactInfo.streetName, ctrl.postData.contactInfo.cityStateZip)" />
 
 
             </div> <!-- /section one -->

@@ -1,6 +1,5 @@
 angular.module('myApp.signup', [])
 
-
 .controller('SignupCtrl', ['$scope', '$routeParams', '$window', '$location', 'AjaxService', function($scope, $routeParams, $window, $location, AjaxService){
   /*
   angular best practice is to save the controller "this" context as "vm" (short for viewmodel)
@@ -9,6 +8,7 @@ angular.module('myApp.signup', [])
   var vm = this;
   vm.userAlreadyExists = false;
   vm.next = false;
+  vm.invalidAddress = false;
   /*
   typeParam will be either "rst" or "fbk" based on our .config setup in app.js
   we must make sure <a> "href=" in signup.html directs us to either #/signup/rst or #/signup/fbk
@@ -63,12 +63,9 @@ angular.module('myApp.signup', [])
     }
   };
 
-
-
   //calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
 
   vm.submit = function() {
-    console.log(vm.postData);
     AjaxService.postSignupData(vm.postData, typeParam)
       .success(function(data, status, headers, config){
         /* on success, data will be an object with username, type, and token
@@ -84,5 +81,24 @@ angular.module('myApp.signup', [])
         vm.next = false;
       });
   };
+ 
+ //checking if the input address is valid
+  vm.validAddress = function(street, cityStateZip) {
+    var geocoder = new google.maps.Geocoder();
+    var address = street + " " + cityStateZip;
+    geocoder.geocode({ 'address': address }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        vm.next = true;
+        vm.invalidAddress = false;
+        $scope.$apply();
+      }
+      else {
+        vm.next = false;
+        vm.invalidAddress = true;    
+        $scope.$apply();
+      }
+    });
+  }
+
 }]);
 
