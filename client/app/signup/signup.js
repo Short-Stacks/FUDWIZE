@@ -8,6 +8,7 @@ angular.module('myApp.signup', [])
   var vm = this;
   vm.userAlreadyExists = false;
   vm.next = false;
+  vm.invalidAddress = false;
   /*
   typeParam will be either "rst" or "fbk" based on our .config setup in app.js
   we must make sure <a> "href=" in signup.html directs us to either #/signup/rst or #/signup/fbk
@@ -88,7 +89,24 @@ angular.module('myApp.signup', [])
         //if the post request fails, evaluate this code
       });
   };
-
+ 
+ //checking if the input address is valid
+  vm.validAddress = function(street, cityStateZip) {
+    var geocoder = new google.maps.Geocoder();
+    var address = street + " " + cityStateZip;
+    geocoder.geocode({ 'address': address }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        vm.next = true;
+        console.log('hello', vm.next);
+        $scope.$apply();
+      }
+      else {
+        vm.next = false;
+        vm.invalidAddress = true;    
+        $scope.$apply();
+      }
+    });
+  }
   /*
   This is the corresponding express pseudo code that matches this POST request
 
