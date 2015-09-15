@@ -1,6 +1,5 @@
 angular.module('myApp.signup', [])
 
-
 .controller('SignupCtrl', ['$scope', '$routeParams', '$window', '$location', 'AjaxService', function($scope, $routeParams, $window, $location, AjaxService){
   /*
   angular best practice is to save the controller "this" context as "vm" (short for viewmodel)
@@ -64,12 +63,9 @@ angular.module('myApp.signup', [])
     }
   };
 
-
-
   //calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
 
   vm.submit = function() {
-    console.log(vm.postData);
     AjaxService.postSignupData(vm.postData, typeParam)
       .success(function(data, status, headers, config){
         /* on success, data will be an object with username, type, and token
@@ -103,21 +99,6 @@ angular.module('myApp.signup', [])
       }
     });
   }
-  /*
-  This is the corresponding express pseudo code that matches this POST request
-
-  app.post('/signup/:type', function (req, res) {
-    var type = req.params.type;
-    var data = req.data;
-
-    save data to  mongoDB async with type="type"
-
-    reference angular shortly to figure out how to send token back
-    res.json({token: token});
-  });
-
-
-  */
 
 }]);
 
