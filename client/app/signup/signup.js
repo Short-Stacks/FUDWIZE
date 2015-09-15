@@ -89,7 +89,7 @@ angular.module('myApp.signup', [])
     geocoder.geocode({ 'address': address }, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         vm.next = true;
-        console.log('hello', vm.next);
+        vm.invalidAddress = false;
         $scope.$apply();
       }
       else {
