@@ -22,30 +22,30 @@
 
       <li class="list-group-item nav" > 
 
-      <p>Restaurant Name: {{ restaurant.contactInfo.name }}</p>
+      <p><strong>Restaurant Name:</strong> {{ restaurant.contactInfo.name }}</p>
 
-      <p>About Us: {{ restaurant.additional.aboutUs }}</p>
+      <p><strong>About Us:</strong> {{ restaurant.additional.aboutUs }}</p>
 
-      <p>Address:
+      <p><strong>Address:</strong>
         <!--clickable address so user can find the specific location on google map-->
         <a class="button" href="#" id="setFilterButton" ng-click="ctrl.initMap($event,restaurant.contactInfo.streetName, restaurant.contactInfo.cityStateZip, restaurant.contactInfo.name)">
           {{ restaurant.contactInfo.streetName }}&nbsp;{{ restaurant.contactInfo.cityStateZip }}
         </a>
       </p>
 
-      <p>Url: {{ restaurant.websiteUrl }}</p>
+      <p><strong>Url:</strong> {{ restaurant.websiteUrl }}</p>
 
-      <p>Contact person: {{ restaurant.contactInfo.name }}</p>
+      <p><strong>Contact person:</strong> {{ restaurant.contactInfo.name }}</p>
 
-      <p>Email: {{ restaurant.contactInfo.email }}</p>
+      <p><strong>Email:</strong> {{ restaurant.contactInfo.email }}</p>
 
-      <p>Phone: {{ restaurant.contactInfo.phoneNumber }}</p>
+      <p><strong>Phone:</strong> {{ restaurant.contactInfo.phoneNumber }}</p>
       <!-- if user input below not required info, it will show on dasboard-->
-      <p ng-show="restaurant.foodType.length !== 0">Food Type: {{ restaurant.foodType }}</p>
+      <p ng-show="restaurant.foodType.length !== 0"><strong>Food Type:</strong> {{ restaurant.foodType }}</p>
 
-      <p ng-show="restaurant.mealType.length !== 0">Meal Type: {{ restaurant.mealType }} </p>
-      <p ng-show="restaurant.pickupDay.length !== 0">Pickup Day: {{ restaurant.pickupDay }} </p>
-      <p ng-show="restaurant.pickupTime.length !== 0">Pickup Time: {{ restaurant.pickupTime }} </p>
+      <p ng-show="restaurant.mealType.length !== 0"><strong>Meal Type:</strong> {{ restaurant.mealType }} </p>
+      <p ng-show="restaurant.pickupDay.length !== 0"><strong>Pickup Day:</strong> {{ restaurant.pickupDay }} </p>
+      <p ng-show="restaurant.pickupTime.length !== 0"><strong>Pickup Time:</strong> {{ restaurant.pickupTime }} </p>
       <!--if user made connection with this restaurant, it shows green button-->
       <p ng-show="restaurant.connectionMade"><button class="btn btn-success btn-md submit" type="submit" value="Submit">Added Connection!</button></p>
       <!--if user didn't make connection with this restaurant, it shows blue button-->
