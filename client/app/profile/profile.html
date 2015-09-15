@@ -5,12 +5,13 @@
   <div class="row profile-header">
 
     <div class="col-md-3 text-center icon">
-      <img src="http://placehold.it/200x200" alt="Placeholder" class="profilepic">
+      <img ng-src="{{ ctrl.data.imageUrl }}" width="220px" height="220px" alt="http://placehold.it/200x200" class="profilepic">
     </div> <!-- /icon -->
 
     <div class="col-md-9 main-contact">
       <h1>{{ ctrl.data.contactInfo.name }}</h1>
-      <p>{{ ctrl.data.contactInfo.address }}</p>
+      <p>{{ ctrl.data.contactInfo.streetName }}</p>
+      <p>{{ ctrl.data.contactInfo.cityStateZip }}</p>
     </div> <!-- /main-contact -->
 
   </div> <!-- /row profile-header -->
@@ -18,19 +19,154 @@
   <div class="row profile-body">
 
     <div ng-show="ctrl.type == 'rst'" class="col-md-3 sidebar">
-      <p><strong>Website</strong> {{ ctrl.data.websiteUrl }}</p>
-      <p><strong>Additional Info</strong> {{ ctrl.data.additional }}</p>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+
+      <p><legend>Phone</legend> {{ ctrl.data.contactInfo.phoneNumber }}</p>
+      <!--Website link not currently functional-->
+      <p><legend>Website</legend><a ng-click="ctrl.goToLink(ctrl.data.websiteUrl)">{{ ctrl.data.websiteUrl }}</a></p>
+      <p><legend>Additional Info</legend> {{ ctrl.data.additional.aboutUs }}</p>
     </div> <!-- /rst sidebar -->
 
     <div ng-show="ctrl.type == 'fbk'" class="col-md-3 sidebar">
-      <p><strong>Mission Statement</strong> {{ ctrl.data.additional.aboutUs }}</p>
-      <p><strong>Website</strong> {{ ctrl.data.websiteUrl }} </p>
-      <p><strong>Additional Info</strong> {{ ctrl.data.additional }} </p>
+      <p><legend>Mission Statement</legend> {{ ctrl.data.additional.aboutUs }}</p>
+      <p><legend>Website</legend><a ng-click="ctrl.goToLink(ctrl.data.websiteUrl)">{{ ctrl.data.websiteUrl }}</a></p>
+      <p><legend>Additional Info</legend> {{ ctrl.data.additional.mission }} </p>
     </div> <!-- /fbk sidebar -->
 
-    <div class="col-md-9 main-content">
-      <p><strong>Can Donate</strong> {{ ctrl.data.foodData }}</p>
+
+    <!-- Display restaurant's food donation data as checkboxes that can be changed when the user
+    clicks on the Submit Changes button -->
+    
+    <div ng-show="ctrl.type == 'rst'" class="col-md-9 main-content">
+      <div class="col-md-6">
+        <legend>Type of Meals You Can Donate</legend>
+        <div class="checkboxes" ng-repeat="(key, value) in ctrl.data.foodData.mealType" >
+          <checkbox class="btn-primary" ng-model="ctrl.data.foodData.mealType[key]"/> {{ key }} </checkbox>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <legend>Type of Food</legend>
+        <div class="checkboxes" ng-repeat="(key, value) in ctrl.data.foodData.foodType" >
+          <checkbox class="btn-success" ng-model="ctrl.data.foodData.foodType[key]"/> {{ key }} </checkbox>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <legend>Day(s) Available For Food Pickup</legend>
+        <div class="checkboxes" ng-repeat="(key, value) in ctrl.data.foodData.pickupDay" >
+          <checkbox class="btn-warning" ng-model="ctrl.data.foodData.pickupDay[key]"/> {{ key }} </checkbox>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <legend>Pickup Time</legend>
+        <div class="checkboxes" ng-repeat="(key, value) in ctrl.data.foodData.pickupTime" >
+          <checkbox class="btn-danger" ng-model="ctrl.data.foodData.pickupTime[key]"/> {{ key }} </checkbox>
+        </div>
+      </div>
+
     </div> <!-- /main-content -->
+
+    <!-- Submit button to Update Profile -->
+    
+    <div class="update" ng-show="ctrl.type == 'rst'">
+      <button ng-hide="updated" class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-click="ctrl.updateProfile()">Update Profile</button>
+      <span class="update-prompt">{{ ctrl.updateConfirmation }}</span>
+    </div>
+
+
+    <!-- Displays foodbank's connections in main body of profile -->
+
+    <div ng-show="ctrl.type == 'fbk'" class="col-md-9 main-content">
+      <h3>Connections</h3>
+      <div ng-repeat="connection in ctrl.connections">
+
+        <div class="connection-box">
+          <legend><img ng-src="{{ connection.imageUrl }}" height="40px" width="40px"> {{ connection.contactInfo.name }}</legend>
+          <p><strong>Phone: </strong>{{ connection.contactInfo.phoneNumber }}</p>
+          <p><strong>Email: </strong>{{ connection.contactInfo.email }}</p>
+          <p><strong>Website URL: </strong>{{ connection.websiteUrl }}</p>
+
+          <!-- Row 1 -->
+          <div class="row">
+
+            <!-- Row 1 Column 1 -->
+            <div class="col-md-6">
+              <div class="data-label">Type of Meals Available</div>
+              <div ng-repeat="(key, value) in connection.foodData.mealType">
+                <div class="row meal-type">
+                  <div class="col-xs-5">
+                    {{ key }}
+                  </div> <!-- /meal-type key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /meal-type value -->
+                </div> <!-- /row meal-type -->
+              </div> <!-- /ng-repeat meal-type -->
+            </div> <!-- /row 1 column 1  -->
+
+
+            <!-- Row 1 Column 2 -->
+            <div class="col-md-6">
+              <div class="data-label">Type of Food Available</div>
+              <div ng-repeat="(key, value) in connection.foodData.foodType">
+                <div class="row food-type">
+                  <div class="col-xs-5">
+                    {{ key }}
+                  </div> <!-- /food-type key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /food-type value -->
+                </div> <!-- /row food-type -->
+              </div> <!-- /ng-repeat food-type -->
+            </div> <!-- /row 1 column 2 -->
+          </div> <!-- /row 1 column 2 -->
+
+          <!-- Row 2 -->
+          <div class="row row2">
+
+            <!-- Row 2 Column 1 -->
+            <div class="col-md-6">
+              <div class="data-label">Preferred Pickup Day</div>
+              <div ng-repeat="(key, value) in connection.foodData.pickupDay">
+
+                <div class="row pickup-day">
+                  <div class="col-xs-5">
+                    {{ key }}
+                  </div> <!-- /pickup-day key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /pickup-day value -->
+                </div> <!-- /row pickup-day -->
+              </div> <!-- /ng-repeat pickup-day -->
+            </div> <!-- /row2 column1 -->
+
+            <!-- Row 2 Column 2 -->
+            <div class="col-md-6">
+              <div class="data-label">Preferred Pickup Time</div>
+              <div ng-repeat="(key, value) in connection.foodData.pickupTime">
+
+                <div class="row pickup-time">
+                  <div class="col-xs-8">
+                    {{ key }}
+                  </div> <!-- /pickup-time key -->
+                  <div class="col-xs-1 text-left">
+                    <span class="glyphicon glyphicon-ok available" aria-hidden="true" ng-show="value"></span>
+                    <span class="glyphicon glyphicon-remove unavailable" aria-hidden="true" ng-show="!value"></span>
+                  </div> <!-- /pickup-time value -->
+                </div> <!-- /row pickup-time -->
+              </div> <!-- /ng-repeat pickup-time -->
+            </div> <!-- /row2 column2 -->
+
+          </div> <!-- /row2 -->
+
+        </div> <!-- /connection-box -->
+      </div> <!-- /ng-repeat connection -->
+    </div> <!-- /ng-show restaurant data -->
 
   </div> <!-- /row profile-body -->
 

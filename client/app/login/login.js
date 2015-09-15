@@ -4,22 +4,21 @@ angular.module('myApp.login', [])
   var vm = this;
 
   vm.postData = {};
+  vm.incorrectLogin = false;
 
   vm.submitLoginForm = function() {
-    console.log(vm.postData);
     AjaxService.postLoginData(vm.postData)
-      .then(function(data){
-        console.log('login success', data);
+      .success(function(data, status, headers, config){
         $window.localStorage.setItem('com.fudWize', JSON.stringify(data));
         $location.path('/profile/' + data.type + '/' + data.username);
         //if the post request is successful, evaluate this code
         //usually we bind something to our view (via vm) in this situation
- 
       })
-      // .error(function(data, status, headers, config){
-      //   console.log('signup error', status);
-        //if the post request fails, evaluate this code
-      // });
-  }
-
+      .error(function(data, status, headers, config){
+        if(status === 401){
+          vm.incorrectLogin = true;
+        }
+      });
+  };
 }]);
+

@@ -8,13 +8,64 @@ h1 {
 }
 
 .profilepic {
-  overflow: hidden;
-  border-radius: 14%;
-  width: 189px;
   padding-top: 10px;
   padding-bottom: 10px;
+  overflow: hidden;
+  border-radius: 14%;
 }
 
 .profile-body {
   margin-top: 20px;
+}
+
+input {
+  width: 12px;
+  height: 12px;
+}
+
+.update-prompt {
+  margin-left: 10px;
+  font-weight: bold;
+  color: green;
+}
+
+
+.update {
+  margin-top: 42%;
+  margin-left: 28%;
+}
+
+legend {
+  margin-top: 20px;
+}
+
+.checkboxes {
+  margin: 5px;
+}
+
+.available {
+  color: green;
+}
+
+.unavailable {
+  color: red;
+}
+
+.main-content legend {
+  margin: 15px 0;
+}
+
+.connection-box {
+  margin-bottom: 15px;
+  padding: 10px 10px 15px 10px;
+  border: 1px solid #BBBBBB;
+  border-radius: 5px;
+}
+.data-label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.row2 {
+  margin-top: 15px;
 }

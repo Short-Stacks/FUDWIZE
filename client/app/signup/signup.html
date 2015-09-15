@@ -1,21 +1,7 @@
-
-<!--===============================================================-->
-<!--========================== IMPORTANT ==========================-->
-<!--===============================================================-->
-<!--===                                                         ===-->
-<!--===          Currently there is a bug in the form           ===-->
-<!--===                                                         ===-->
-<!--=== Pressing the Enter key in Section One submits the form  ===-->
-<!--===     It does not go to the Section Two of the form       ===-->
-<!--===                                                         ===-->
-<!--===  Angular's default behavior for Enter is to submit form ===-->
-<!--===                                                         ===-->
-<!--===============================================================-->
-
-
 <!-- all data from the form will be saved in the postData object in the controller -->
 
 <div class="signup container" ng-controller="SignupCtrl as ctrl">
+  <nav-bar></nav-bar>
 
   <!-- Wrap the entire form in a box with rounded borders -->
 
@@ -39,7 +25,7 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 
-          <form name="signupForm" ng-submit="ctrl.submit()" novalidate>
+          <form name="signupForm" novalidate>
 
 
             <!--===============================================================-->
@@ -51,7 +37,7 @@
             <!--===                                                         ===-->
             <!--===============================================================-->
 
-            <div class="signup-section-one" ng-hide="next">
+            <div class="signup-section-one" ng-hide="ctrl.next">
 
 
               <!--============== Username ==============-->
@@ -62,6 +48,7 @@
                 <input type='text' name="username" id="username" class="form-control" placeholder="Enter Username" ng-model="ctrl.postData.username" required />
                 <div class="error" ng-show="signupForm.$submitted || signupForm.username.$touched">
                   <span ng-show="signupForm.username.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
+                  <span ng-show="ctrl.userAlreadyExists"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Username Already Exists</span>
                 </div> <!-- /show error -->
               </div> <!-- /form-group username -->
 
@@ -71,7 +58,7 @@
 
               <div class="form-group">
                 <label for="password">Password</label><span class="required-field">*</span>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Rassword" ng-model="ctrl.postData.password" required />
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" ng-model="ctrl.postData.password" required />
                 <div class="error" ng-show="signupForm.$submitted || signupForm.password.$touched">
                   <span ng-show="signupForm.password.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
                 </div> <!-- /show error -->
@@ -123,6 +110,9 @@
                 <div class="error" ng-show="signupForm.$submitted || signupForm.cityStateZip.$touched">
                   <span ng-show="signupForm.cityStateZip.$error.required"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Field Required</span>
                 </div> <!-- /show error -->
+                <div class="error" ng-show="signupForm.$submitted || signupForm.cityStateZip.$touched">
+                  <span ng-show="ctrl.invalidAddress"><span class="glyphicon glyphicon-alert" aria-hidden="true"></span> Invalid Address</span>
+                </div> 
               </div> <!-- /form-group city state zip -->
 
 
@@ -157,10 +147,16 @@
 
 
               <div class="form-group">
-                <label for="websiteurl">Website</label>
-                <input type="url" name="websiteurl" id="websiteurl" class="form-control" placeholder="Enter Website Url" ng-model="ctrl.postData.contactInfo.websiteurl" required />
+                <label for="websiteUrl">Website</label>
+                <input type="text" name="websiteurl" id="websiteurl" class="form-control" placeholder="Enter Website Url" ng-model="ctrl.postData.websiteUrl" required />
               </div> <!-- /form-group websiteurl -->
 
+              <!--============== Profile Image URL ======-->
+
+              <div class="form-group">
+                <label for="imageUrl">Profile Image Url</label>
+                <input type="text" name="imageUrl" id="imageUrl" class="form-control" placeholder="Enter Image Url" ng-model="ctrl.postData.imageUrl"/>
+              </div>
 
               <!--==================================================-->
               <!--=================== Next Button ==================-->
@@ -174,7 +170,7 @@
               <!--==============   show section two   ==============-->
               <!--==================================================-->
 
-              <input class="btn btn-primary btn-block next" value="Next" ng-click="next=true" />
+              <input class="btn btn-primary btn-block next" value="Next" ng-click="ctrl.validAddress(ctrl.postData.contactInfo.streetName, ctrl.postData.contactInfo.cityStateZip)" />
 
 
             </div> <!-- /section one -->
@@ -192,7 +188,7 @@
             <!--===============================================================-->
 
 
-            <div class="signup-section-two" ng-show="next">
+            <div class="signup-section-two" ng-show="ctrl.next">
 
 
               <!--===================================================-->
@@ -298,7 +294,7 @@
             <!--============= Submit & Save form ============-->
             <!--=============================================-->
 
-            <button class="btn btn-primary btn-md submit" type="submit" id="submit" value="Submit" ng-show="next">Submit</button>
+            <button class="btn btn-primary btn-md submit" type="button" ng-click="ctrl.submit()" id="submit" value="Submit" ng-show="ctrl.next">Submit</button>
 
           </form>
 

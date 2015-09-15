@@ -30,6 +30,9 @@ var UserSchema = new mongoose.Schema ({
   },
   foodData: {
     type: {}
+  },
+  imageUrl: {
+    type: String
   }
   // salt: {
   //   type: String
@@ -39,3 +42,4 @@ var UserSchema = new mongoose.Schema ({
 
 
 module.exports = mongoose.model('User', UserSchema);
+

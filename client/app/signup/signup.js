@@ -6,10 +6,13 @@ angular.module('myApp.signup', [])
   doing this allows us to bind something to our view while nested inside a controller function like submitForm
   */
   var vm = this;
+  vm.userAlreadyExists = false;
+  vm.next = false;
+  vm.invalidAddress = false;
   /*
   typeParam will be either "rst" or "fbk" based on our .config setup in app.js
   we must make sure <a> "href=" in signup.html directs us to either #/signup/rst or #/signup/fbk
-  */ 
+  */
   var typeParam = $routeParams.type;
 
   if (typeParam === 'rst') {
@@ -51,7 +54,6 @@ angular.module('myApp.signup', [])
   //data submited from the html signup form will go in this object
   // postData object will contain these properties (only rst's will have foodData):
 
-
   vm.postData = {
     foodData: {
       mealType: vm.mealType,
@@ -61,47 +63,42 @@ angular.module('myApp.signup', [])
     }
   };
 
+  //calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
 
-  /*
-  calling submitForm invokes "postSignupData(postData, typeParam)" method in AjaxService, passing in form data and param type
-  */
-
-
-  vm.submit = function (){
-    console.log(vm.postData);
+  vm.submit = function() {
     AjaxService.postSignupData(vm.postData, typeParam)
-      .then(function(data){
+      .success(function(data, status, headers, config){
+        /* on success, data will be an object with username, type, and token
+        this object is placed in the user's browser's localStorage to verify session
+        on logout, this object will be removed from localStorage */
         console.log('signup success', data);
         $window.localStorage.setItem('com.fudWize', JSON.stringify(data));
         $location.path('/profile/' + data.type + '/' + data.username);
-
-        //if the post request is successful, evaluate this code
-        //usually we bind something to our view (via vm) in this situation
-
-
+      })
+      .error(function(data, status, headers, config){
+        console.log('signup error', status);
+        vm.userAlreadyExists = true;
+        vm.next = false;
       });
-      // .error(function(data, status, headers, config){
-      //   console.log('signup error', status);
-
-      //   //if the post request fails, evaluate this code
-      // });
   };
-
-  /*
-  This is the corresponding express pseudo code that matches this POST request
-
-  app.post('/signup/:type', function (req, res) {
-    var type = req.params.type;
-    var data = req.data;
-
-    save data to  mongoDB async with type="type"
-
-    reference angular shortly to figure out how to send token back
-    res.json({token: token});
-  });
-
-
-  */
-
+ 
+ //checking if the input address is valid
+  vm.validAddress = function(street, cityStateZip) {
+    var geocoder = new google.maps.Geocoder();
+    var address = street + " " + cityStateZip;
+    geocoder.geocode({ 'address': address }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        vm.next = true;
+        vm.invalidAddress = false;
+        $scope.$apply();
+      }
+      else {
+        vm.next = false;
+        vm.invalidAddress = true;    
+        $scope.$apply();
+      }
+    });
+  }
 
 }]);
+
