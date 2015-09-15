@@ -1,6 +1,8 @@
-angular.module('myApp.profile', [])
+angular.module('myApp.profile', [
+  'ui.checkbox'
+  ])
 
-.controller('ProfileCtrl', ['$routeParams', '$timeout', 'AjaxService', function($routeParams, $timeout, AjaxService) {
+.controller('ProfileCtrl', ['$routeParams', '$window', '$timeout', 'AjaxService', function($routeParams, $window, $timeout, AjaxService) {
   var vm = this;
   vm.type = $routeParams.type;
   vm.username = $routeParams.username;
@@ -13,7 +15,7 @@ angular.module('myApp.profile', [])
   })
   .then(function() {
     if (vm.type == 'fbk') {
-      //make AJAX request for username's in foodbank's connections array
+      //make AJAX request for the data of the usernames in the foodbank's connections array
       AjaxService.getConnectionsData(vm.type, vm.username)
       .then(function(data) {
         vm.connections = data.data;
@@ -23,10 +25,7 @@ angular.module('myApp.profile', [])
 
   vm.updateProfile = function() {
     console.log(vm.data);
-    AjaxService.updateProfileData(vm.data, vm.type, vm.username)
-    .then(function() {
-      // $route.reload();
-    });
+    AjaxService.updateProfileData(vm.data, vm.type, vm.username);
 
     vm.updateConfirmation = "Profile Updated!";
     $timeout(function() {
@@ -34,4 +33,11 @@ angular.module('myApp.profile', [])
     }, 2000);
   };
 
+  //Angular does not strictly allow links to outside URL's, so a function call must be made
+  //this function still doesn't work though ...
+  vm.goToLink = function(url) {
+    $window.location.href = url;
+  };
+
 }]);
+

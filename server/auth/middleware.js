@@ -67,3 +67,4 @@ exports.sendToken = function(req, res, user) {
     token: token
   });
 };
+
