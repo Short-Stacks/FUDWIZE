@@ -6,7 +6,6 @@ angular.module('myApp.profile', [
   var vm = this;
   vm.type = $routeParams.type;
   vm.username = $routeParams.username;
-  vm.connections;
 
   AjaxService.getProfileData(vm.type, vm.username)
   .then(function(data){
